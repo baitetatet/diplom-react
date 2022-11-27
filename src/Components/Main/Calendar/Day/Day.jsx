@@ -6,7 +6,7 @@ export const Day = ({ TIME, selectedDate }) => {
 
   const { database } = useContext(Database)
   const currentDate = [selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear()].join('.')
-  console.log(database)
+
   return (
     <section className="day-table" data-date={currentDate}>
       <div className="day-table__inner">
@@ -32,11 +32,11 @@ export const Day = ({ TIME, selectedDate }) => {
                           <Task
                             content={taskOfThisTime.content}
                             type={taskOfThisTime.type}
+                            key={time.id + taskOfThisTime.id}
                           />
                         )
                         )
                       }
-                      console.log('contentDiv: ', contentDiv)
                       return contentDiv
                     })
                   }

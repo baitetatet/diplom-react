@@ -17,7 +17,7 @@ export function useCurrentWeek(dayOfWeek, date, MONTHS) {
   let currentMonth = convertMonth(MONTHS[endWeek.getMonth()])
 
   endWeek.setDate(startWeek.getDate() + 7)
-  console.log(endWeek)
+
   let currentWeek = startWeek.getMonth() === endWeek.getMonth() ?
     (startWeek.getDate() + ' - ' + [endWeek.getDate(), currentMonth, endWeek.getFullYear(), ' г.'].join(' '))
     : (startWeek.getDate() + ' ' + convertMonth(MONTHS[startWeek.getMonth()]) + ' - ' + endWeek.getDate() + ' ' + convertMonth(MONTHS[endWeek.getMonth()]) + ' ' + endWeek.getFullYear() + ' г.')

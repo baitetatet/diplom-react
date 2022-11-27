@@ -20,11 +20,13 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Совещание Lorem ipsum dolor sit.',
-              type: 'green'
+              type: 'green',
+              id: 1
             },
             {
               content: 'Проверка Lorem ipsum dolor sit.',
-              type: 'red'
+              type: 'red',
+              id: 2
             }
           ]
         },
@@ -34,7 +36,8 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A earum deleniti perspiciatis, alias voluptatum incidunt.',
-              type: 'green'
+              type: 'green',
+              id: 3
             }
           ]
         },
@@ -44,7 +47,8 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
-              type: 'green'
+              type: 'green',
+              id: 4
             }
           ]
         }
