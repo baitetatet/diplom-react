@@ -29,12 +29,13 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek }) => {
                 {
                   TIME.map(time =>
                     <li
-                      className="week-table__day__list-time__item"
+
+                      className={title.id === '0' ? "week-table__day__list-time__time" : "week-table__day__list-time__item"}
                       key={time.id}
                     >
                       {
                         title.id === '0' ?
-                          <span className="week-table__day__list-time__item_time">
+                          <span className="week-table__day__list-time__time_span">
                             {time.timeValue}
                           </span>
                           :

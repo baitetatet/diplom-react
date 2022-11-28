@@ -502,7 +502,8 @@ span.calendar__select_list_item_text {
     &__list-time {
       margin-top: 10px;
 
-      &__item {
+      &__item,
+      &__time {
         border-bottom: 2px solid #000;
         height: 30.5px;
         overflow: auto;
@@ -533,6 +534,9 @@ span.calendar__select_list_item_text {
         }
       }
 
+      &__time {
+        cursor: default;
+      }
     }
   }
 
@@ -540,13 +544,13 @@ span.calendar__select_list_item_text {
     background-color: $bg-color;
   }
 
-  &__day:first-child .week-table__day__list-time__item {
+  &__day .week-table__day__list-time__time {
     display: flex;
     align-items: flex-end;
     padding-left: 1px;
   }
 
-  &__day:not(:first-child) .week-table__day__list-time__item:first-child {
+  &__day .week-table__day__list-time__item:first-child {
     border-top: 2px solid $bg-color;
   }
 
@@ -618,6 +622,6 @@ span.calendar__select_list_item_text {
 // ---------------------------------------- TASK -----------------------------------------------------------------
 
 
-.day-table {}
+
 
 // -------------------------------------- TASK END ---------------------------------------------------------------
