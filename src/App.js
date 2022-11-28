@@ -59,7 +59,7 @@ export const App = () => {
     <>
       <div className="wrapper">
         <Database.Provider value={{ database, setDatabase }}>
-          <Header user={{ name: 'Ivan' }} />
+          <Header />
           < Main />
         </Database.Provider>
       </div>

@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react"
 import styles from './styles.module.css'
 import imgLogo from '../../images/logo.png'
+import { useContext } from "react"
+import { Database } from "../../DatabaseContext"
 
-export const Header = ({ user }) => {
+export const Header = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [date, setDate] = useState(new Date().toLocaleDateString())
+  const { database } = useContext(Database)
+  const userData = database.userData
+  const userName = [userData.rank.toLowerCase(), userData.name, userData.surname].join(' ')
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,7 +37,7 @@ export const Header = ({ user }) => {
             <div className={styles.date}>{date}</div>
           </div>
           <div className={styles.user}>
-            <p>{user?.name || 'Unknown'}</p>
+            <p>{userName}</p>
             <button className={styles.log_out}></button>
           </div>
         </div>
