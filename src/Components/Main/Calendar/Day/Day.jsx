@@ -31,6 +31,7 @@ export const Day = ({ TIME, selectedDate }) => {
                         contentDiv.push(task.taskOfThisTime.map(taskOfThisTime =>
                           <Task
                             content={taskOfThisTime.content}
+                            table={'day-table'}
                             type={taskOfThisTime.type}
                             key={time.id + taskOfThisTime.id}
                           />

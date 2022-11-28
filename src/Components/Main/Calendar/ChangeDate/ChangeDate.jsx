@@ -1,7 +1,7 @@
 import prevArrow from '../../../../images/prevArrow.png'
 import nextArrow from '../../../../images/nextArrow.png'
 
-export const ChangeDate = ({ title, date, handlerArrowClick }) => {
+export const ChangeDate = ({ title, handlerArrowClick }) => {
 
   return (
     <div className='changeDate'>
