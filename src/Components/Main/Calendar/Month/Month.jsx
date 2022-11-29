@@ -1,4 +1,4 @@
-export const Month = ({ WEEK_DAYS, year, MONTHS, currentMonth, getDay }) => {
+export const Month = ({ WEEK_DAYS, year, currentMonth, getDay }) => {
   const current = new Date(year, currentMonth)
   const next = new Date(year, currentMonth + 1)
   let dayMonth = 1 - (current.getDay() + 6) % 7
@@ -6,12 +6,11 @@ export const Month = ({ WEEK_DAYS, year, MONTHS, currentMonth, getDay }) => {
   const getDaysOfMonth = (next, current) => {
     return (next - current) / (1000 * 3600 * 24)
   }
-
   const prevMonthDays = getDaysOfMonth(current, new Date(year, currentMonth - 1))
   const currentMonthDays = getDaysOfMonth(next, current)
 
   const daysList = []
-  for (let day = dayMonth; day < 7 * Math.ceil(currentMonthDays / 7); day++) {
+  for (let day = dayMonth; day < 7 * Math.ceil(currentMonthDays / 7) + dayMonth; day++) {
     daysList.push(
       day > 0 && day <= currentMonthDays ?
         <div
@@ -25,15 +24,15 @@ export const Month = ({ WEEK_DAYS, year, MONTHS, currentMonth, getDay }) => {
           </span>
         </div>
         :
-        (day <= currentMonthDays ?
+        (day < currentMonthDays ?
           <div
             className="month-table__body__item"
             key={day}
-            data-date={(prevMonthDays - day) + '.' + (currentMonth + 1) + '.' + year}
-
+            data-date={(prevMonthDays + day) + '.' + (currentMonth + 1) + '.' + year}
+            onClick={(event) => getDay(event)}
           >
             <span className="month-table__body__item_span prev-month">
-              {prevMonthDays - day}
+              {prevMonthDays + day}
             </span>
           </div>
           :
@@ -41,6 +40,7 @@ export const Month = ({ WEEK_DAYS, year, MONTHS, currentMonth, getDay }) => {
             className="month-table__body__item"
             key={day}
             data-date={(day - currentMonthDays) + '.' + (currentMonth + 1) + '.' + year}
+            onClick={(event) => getDay(event)}
           >
             <span className="month-table__body__item_span prev-month">
               {day - currentMonthDays}
