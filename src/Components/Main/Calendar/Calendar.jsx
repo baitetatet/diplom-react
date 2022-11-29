@@ -130,6 +130,7 @@ export const Calendar = () => {
           MONTHS={MONTHS}
           currentMonth={selectedDate.getMonth()}
           getDay={getDay}
+          table={'month'}
         />
       case 'Год':
         return console.log('year')
