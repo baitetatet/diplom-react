@@ -2,9 +2,8 @@ import { useContext } from "react"
 import { Database } from "../../../../DatabaseContext"
 import { Task } from "../Task/Task"
 
-export const Week = ({ WEEK_DAYS, TIME, datesWeek }) => {
+export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
   const { database } = useContext(Database)
-  console.log(datesWeek)
   const WEEK_TITLE = [
     {
       id: '0',
@@ -25,11 +24,13 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek }) => {
               <h3 className="week-table__day_title">
                 {title.title}
               </h3>
-              <ul className="week-table__day__list-time">
+              <ul
+                className="week-table__day__list-time"
+                onClick={handlerClickOnDay}
+              >
                 {
                   TIME.map(time =>
                     <li
-
                       className={title.id === '0' ? "week-table__day__list-time__time" : "week-table__day__list-time__item"}
                       key={time.id}
                     >
@@ -50,6 +51,8 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek }) => {
                                       content={taskOfThisTime.content}
                                       table={'week-table__day'}
                                       type={taskOfThisTime.type}
+                                      date={datesWeek[title.id]}
+                                      time={time.timeValue}
                                       key={time.id + taskOfThisTime.id}
                                     />
                                   )
