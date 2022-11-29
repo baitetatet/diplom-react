@@ -1,4 +1,4 @@
-export const Month = ({ WEEK_DAYS, year, currentMonth, getDay }) => {
+export const Month = ({ WEEK_DAYS, year, currentMonth, getDay, table }) => {
   const current = new Date(year, currentMonth)
   const next = new Date(year, currentMonth + 1)
   let dayMonth = 1 - (current.getDay() + 6) % 7
@@ -14,48 +14,48 @@ export const Month = ({ WEEK_DAYS, year, currentMonth, getDay }) => {
     daysList.push(
       day > 0 && day <= currentMonthDays ?
         <div
-          className="month-table__body__item"
+          className={table + "-table__body__item"}
           key={day}
           data-date={day + '.' + currentMonth + '.' + year}
           onClick={(event) => getDay(event)}
         >
-          <span className="month-table__body__item_span">
+          <span className={table + "-table__body__item_span"}>
             {day}
           </span>
         </div>
         :
         (day < currentMonthDays ?
           <div
-            className="month-table__body__item"
+            className={table + "-table__body__item"}
             key={day}
             data-date={(prevMonthDays + day) + '.' + (currentMonth + 1) + '.' + year}
             onClick={(event) => getDay(event)}
           >
-            <span className="month-table__body__item_span prev-month">
+            <span className={table + "-table__body__item_span prev-month"}>
               {prevMonthDays + day}
             </span>
           </div>
           :
           <div
-            className="month-table__body__item"
+            className={table + "-table__body__item"}
             key={day}
             data-date={(day - currentMonthDays) + '.' + (currentMonth + 1) + '.' + year}
             onClick={(event) => getDay(event)}
           >
-            <span className="month-table__body__item_span prev-month">
+            <span className={table + "-table__body__item_span prev-month"}>
               {day - currentMonthDays}
             </span>
           </div>)
     )
   }
   return (
-    <section className="month-table">
-      <div className="month-table__inner">
-        <div className="month-table__header">
+    <section className={table + "-table"}>
+      <div className={table + "-table__inner"}>
+        <div className={table + "-table__header"}>
           {
             WEEK_DAYS.map(day =>
               <h3
-                className="month-table__header_title"
+                className={table + "-table__header_title"}
                 key={day.id}
               >
                 {day.title}
@@ -63,7 +63,7 @@ export const Month = ({ WEEK_DAYS, year, currentMonth, getDay }) => {
             )
           }
         </div>
-        <div className="month-table__body">
+        <div className={table + "-table__body"}>
           {daysList}
         </div>
       </div>
