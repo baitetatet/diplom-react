@@ -172,7 +172,11 @@ body {
   // grid-column-gap: 70px;
 }
 
+// -------------------------------------- VARIABLES ------------------------------------------------------------
+
 $bg-color: #474A50;
+$green-task: rgb(42, 169, 42);
+$red-task: rgb(238, 67, 67);
 
 //  -------------------------------------- NAV ------------------------------------------------------------
 
@@ -448,11 +452,11 @@ span.calendar__select_list_item_text {
         }
 
         &_task.red {
-          background-color: rgb(238, 67, 67);
+          background-color: $red-task;
         }
 
         &_task.green {
-          background-color: rgb(42, 169, 42);
+          background-color: $green-task;
         }
       }
 
@@ -495,37 +499,59 @@ span.calendar__select_list_item_text {
       cursor: default;
     }
 
-    &__time-list {
+    &__list-time {
       margin-top: 10px;
 
       &__item {
         border-bottom: 2px solid #000;
         height: 30.5px;
+        overflow: auto;
+        cursor: pointer;
 
-        &_content {
+        &__content {
           width: 135px;
+          display: flex;
+          flex-direction: column;
+          padding: 2px;
+          gap: 3px;
+
+          &_task {
+            padding: 3px;
+            flex: 1 0 auto;
+            width: 100%;
+            font-size: 13px;
+            border-radius: 5px;
+          }
+
+          &_task.red {
+            background-color: $red-task;
+          }
+
+          &_task.green {
+            background-color: $green-task;
+          }
         }
       }
 
     }
   }
 
-  &__day:nth-child(even) .week-table__day__time-list__item {
+  &__day:nth-child(even) .week-table__day__list-time__item {
     background-color: $bg-color;
   }
 
-  &__day:first-child .week-table__day__time-list__item {
+  &__day:first-child .week-table__day__list-time__item {
     display: flex;
     align-items: flex-end;
     padding-left: 1px;
   }
 
-  &__day:not(:first-child) .week-table__day__time-list__item:first-child {
+  &__day:not(:first-child) .week-table__day__list-time__item:first-child {
     border-top: 2px solid $bg-color;
   }
 
-  &__day:first-child .week-table__day__time-list__item,
-  &__day:last-child .week-table__day__time-list__item {
+  &__day:first-child .week-table__day__list-time__item,
+  &__day:last-child .week-table__day__list-time__item {
     border-right: 2px solid $bg-color;
   }
 

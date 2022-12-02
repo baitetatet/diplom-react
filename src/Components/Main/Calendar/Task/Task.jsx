@@ -1,8 +1,8 @@
-export const Task = ({ content, type }) => {
+export const Task = ({ content, table, type }) => {
 
   return (
     <div
-      className={'day-table__list-time__item__content_task ' + type}
+      className={table + '__list-time__item__content_task ' + type}
       key={content}
     >
       {content}

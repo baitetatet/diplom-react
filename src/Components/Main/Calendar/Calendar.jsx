@@ -1,12 +1,11 @@
 import { useState } from "react"
 import { SelectItem } from "./SelectItem/SelectItem"
 import { ChangeDate } from "../Calendar/ChangeDate/ChangeDate"
-import { useCurrentWeek } from "../../../hooks/useCurrentWeek"
+import { converterCurrentWeek } from "../../../hooks/converterCurrentWeek"
 import { Day } from "./Day/Day"
 import { Week } from "./Week/Week"
 import { Month } from "./Month/Month"
 import { MONTHS } from "../../../API/monthsAPI"
-
 
 const TIME = [
   { id: 'timeId_6', timeValue: '06:00' }, { id: 'timeId_7', timeValue: '07:00' }, { id: 'timeId_8', timeValue: '08:00' }, { id: 'timeId_9', timeValue: '09:00' },
@@ -16,37 +15,37 @@ const TIME = [
 ]
 const WEEK_DAYS = [
   {
-    id: 'mon',
+    id: '1',
     title: 'Понедельник',
     shortTitle: 'Пн'
   },
   {
-    id: 'tue',
+    id: '2',
     title: 'Вторник',
     shortTitle: 'Вт'
   },
   {
-    id: 'wed',
+    id: '3',
     title: 'Среда',
     shortTitle: 'Ср'
   },
   {
-    id: 'thu',
+    id: '4',
     title: 'Четверг',
     shortTitle: 'Чт'
   },
   {
-    id: 'fri',
+    id: '5',
     title: 'Пятница',
     shortTitle: 'Пт'
   },
   {
-    id: 'sat',
+    id: '6',
     title: 'Суббота',
     shortTitle: 'Сб'
   },
   {
-    id: 'sun',
+    id: '7',
     title: 'Воскресенье',
     shortTitle: 'Вс'
   }
@@ -74,7 +73,7 @@ const OPTION_VALUE = [
 export const Calendar = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [activeTable, setActiveTable] = useState('День')
+  const [activeTable, setActiveTable] = useState('Неделя')
 
   const currentDate = {
     'День': selectedDate.toLocaleString('ru', {
@@ -83,7 +82,10 @@ export const Calendar = () => {
       month: 'long',
       year: 'numeric'
     }),
-    'Неделя': useCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS),
+    'Неделя': function () {
+      const { currentWeek } = converterCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS)
+      return currentWeek
+    }(),
     'Месяц': selectedDate.toLocaleString('ru', {
       month: 'long',
       year: 'numeric'
@@ -113,6 +115,7 @@ export const Calendar = () => {
           TIME={TIME}
           WEEK_DAYS={WEEK_DAYS}
           getDay={getDay}
+          datesWeek={converterCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS).datesWeek}
         />
       case 'Месяц':
         return <Month
@@ -161,7 +164,6 @@ export const Calendar = () => {
       <div className="calendar__content">
         <ChangeDate
           title={currentDate[activeTable]}
-          date={selectedDate}
           handlerArrowClick={handlerArrowClick}
         />
         {changeTable()}
