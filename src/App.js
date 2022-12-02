@@ -49,6 +49,37 @@ export const App = () => {
               content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
               type: 'green',
               id: 4
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 7
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 6
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 5
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 8
+
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 8
+            },
+            {
+              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
+              type: 'green',
+              id: 8
             }
           ]
         }
