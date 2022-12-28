@@ -1,5 +1,5 @@
-import prevArrow from '../../../../images/prevArrow.png'
-import nextArrow from '../../../../images/nextArrow.png'
+import prevArrow from '../../../images/prevArrow.png'
+import nextArrow from '../../../images/nextArrow.png'
 
 export const ChangeDate = ({ title, handlerArrowClick }) => {
 

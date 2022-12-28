@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-import styles from './styles.module.css'
 import imgLogo from '../../images/logo.png'
 import { useContext } from "react"
 import { Database } from "../../DatabaseContext"
@@ -27,18 +26,18 @@ export const Header = () => {
 
   return (
     <>
-      <div className={styles.header}>
-        <div className={styles.header__inner}>
-          <div className={styles.logo} >
-            <img src={imgLogo} alt="logo" />
+      <div className="header">
+        <div className="header__inner">
+          <div className="logo" >
+            <img src={imgLogo} alt="logo__img" />
           </div>
-          <div className={styles.clock}>
+          <div className="header__clock">
             <div>{time}</div>
-            <div className={styles.date}>{date}</div>
+            <div className="header__date">{date}</div>
           </div>
-          <div className={styles.user}>
+          <div className="header__user">
             <p>{userName}</p>
-            <button className={styles.log_out}></button>
+            <button className="header__logout"></button>
           </div>
         </div>
       </div>

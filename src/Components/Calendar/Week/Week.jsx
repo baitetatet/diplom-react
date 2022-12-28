@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Database } from "../../../../DatabaseContext"
+import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
 
 export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
@@ -45,7 +45,7 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
                             {
                               database.tasks.map(task => {
                                 const contentDiv = []
-                                if (task.data === datesWeek[title.id] && task.startTime === time.timeValue) {
+                                if (task.date === datesWeek[title.id] && task.startTime === time.timeValue) {
                                   contentDiv.push(task.taskOfThisTime.map(taskOfThisTime =>
                                     <Task
                                       content={taskOfThisTime.content}

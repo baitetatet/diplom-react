@@ -85,6 +85,12 @@ video {
   border: 0;
 }
 
+a {
+  text-decoration-skip-ink: auto;
+  text-decoration: none;
+  color: inherit;
+}
+
 *,
 *::before,
 *::after {
@@ -173,6 +179,63 @@ $bg-color: #474A50;
 $green-task: rgb(42, 169, 42);
 $red-task: rgb(238, 67, 67);
 
+//  ------------------------------------- HEADER ----------------------------------------------------------
+
+.header {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  flex: 0 0 auto;
+}
+
+.header__inner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 20px;
+  background-color: white;
+  padding: 7.5px 35px;
+}
+
+.logo {
+  width: 53px;
+  height: 65px;
+}
+
+.header__clock {
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: default;
+}
+
+.header__date {
+  margin-top: 5px;
+}
+
+.header__user {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: default;
+}
+
+.header__logout {
+  padding: 0;
+  border: none;
+  width: 20px;
+  height: 18px;
+  cursor: pointer;
+  background-color: transparent;
+  background-image: url(./images/logOut.png);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+//  ----------------------------------- HEADER END --------------------------------------------------------
+
 //  -------------------------------------- NAV ------------------------------------------------------------
 
 .nav {
@@ -201,6 +264,7 @@ $red-task: rgb(238, 67, 67);
   transform: translateX(0%);
   transition: all linear .1s;
   border-bottom: 1px solid #000;
+  user-select: none;
 }
 
 .nav:hover .nav__item_icon {
@@ -265,7 +329,7 @@ $red-task: rgb(238, 67, 67);
 
 .changeDate {
   max-width: 310px;
-  margin: 30px auto;
+  margin: 20px auto 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -275,7 +339,6 @@ $red-task: rgb(238, 67, 67);
 .changeDate__text {
   display: inline-block;
   text-align: center;
-  //width: 120%;
   flex: 1 0 auto;
 }
 
@@ -735,7 +798,7 @@ $red-task: rgb(238, 67, 67);
     height: 100%;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
-    grid-template-rows: repeat(1fr);
+    grid-template-rows: repeat(6, 1fr);
     justify-items: stretch;
 
     &__item {
@@ -765,7 +828,7 @@ $red-task: rgb(238, 67, 67);
   }
 
   &__month {
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 
     &__title {
       font-size: 16px;
@@ -780,7 +843,7 @@ $red-task: rgb(238, 67, 67);
 
     &__header {
       &_title {
-        font-size: 16px;
+        font-size: 14px;
         font-weight: 400;
       }
 
@@ -796,6 +859,7 @@ $red-task: rgb(238, 67, 67);
       flex-wrap: wrap;
       column-gap: 7px;
       row-gap: 2px;
+      margin-top: 7px;
 
       &__item {
         border-radius: 50%;
@@ -826,3 +890,15 @@ $red-task: rgb(238, 67, 67);
 
 
 // -------------------------------------- TASK END ---------------------------------------------------------------
+
+// ---------------------------------------- NEW-TASK -----------------------------------------------------------------
+
+.new-task {
+  width: 91%;
+  max-width: 91%;
+  min-height: 100%;
+  background-color: white;
+  border-radius: 20px;
+}
+
+// -------------------------------------- NEW-TASK END -----------------------------------------------------------------

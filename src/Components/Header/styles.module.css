@@ -19,7 +19,7 @@
   height: 65px;
 }
 
-.clock {
+.header__clock {
   position: absolute;
   text-align: center;
   left: 50%;
@@ -27,18 +27,18 @@
   cursor: default;
 }
 
-.date {
+.header__date {
   margin-top: 5px;
 }
 
-.user {
+.header__user {
   display: flex;
   align-items: center;
   gap: 15px;
   cursor: default;
 }
 
-.log_out {
+.header__logout {
   padding: 0;
   border: none;
   width: 20px;

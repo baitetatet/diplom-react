@@ -8,9 +8,9 @@ export const Month = ({ WEEK_DAYS, year, currentMonth, getDay, table, month, chi
   }
   const prevMonthDays = getDaysOfMonth(current, new Date(year, currentMonth - 1))
   const currentMonthDays = getDaysOfMonth(next, current)
-
+  console.log(dayMonth)
   const daysList = []
-  for (let day = dayMonth; day < 7 * Math.ceil(currentMonthDays / 7) + dayMonth; day++) {
+  for (let day = dayMonth; day < 7 * 6 + dayMonth; day++) {
     daysList.push(
       day > 0 && day <= currentMonthDays ?
         <div

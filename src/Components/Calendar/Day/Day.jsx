@@ -1,5 +1,5 @@
 import { useContext } from "react"
-import { Database } from "../../../../DatabaseContext"
+import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
 
 export const Day = ({ TIME, selectedDate, handlerClickOnDay }) => {
@@ -30,7 +30,7 @@ export const Day = ({ TIME, selectedDate, handlerClickOnDay }) => {
 
                     database.tasks.map(task => {
                       const contentDiv = []
-                      if (task.data === currentDate && task.startTime === time.timeValue) {
+                      if (task.date === currentDate && task.startTime === time.timeValue) {
                         contentDiv.push(task.taskOfThisTime.map(taskOfThisTime =>
                           <Task
                             content={taskOfThisTime.content}

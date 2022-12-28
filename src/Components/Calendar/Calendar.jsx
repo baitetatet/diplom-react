@@ -1,13 +1,14 @@
 import { useState } from "react"
 import { SelectItem } from "./SelectItem/SelectItem"
-import { ChangeDate } from "../Calendar/ChangeDate/ChangeDate"
-import { converterCurrentWeek } from "../../../hooks/converterCurrentWeek"
+import { ChangeDate } from "./ChangeDate/ChangeDate"
+import { converterCurrentWeek } from "../../hooks/converterCurrentWeek"
 import { Day } from "./Day/Day"
 import { Week } from "./Week/Week"
 import { Month } from "./Month/Month"
-import { MONTHS } from "../../../API/monthsAPI"
+import { MONTHS } from "../../API/monthsAPI"
 import { PopUpTasks } from "./PopUpTasks/PopUpTasks"
 import { Year } from "./Year/Year"
+
 
 const TIME = [
   { id: 'timeId_6', timeValue: '06:00' }, { id: 'timeId_7', timeValue: '07:00' }, { id: 'timeId_8', timeValue: '08:00' }, { id: 'timeId_9', timeValue: '09:00' },
@@ -75,7 +76,7 @@ const OPTION_VALUE = [
 export const Calendar = () => {
 
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [activeTable, setActiveTable] = useState('Год')
+  const [activeTable, setActiveTable] = useState('День')
   const [popUpTasksActive, setPopUpTasksActive] = useState(false)
   const [popUpTasksContent, setPopUpTasksContent] = useState(null)
   const [popUpDate, setPopUpDate] = useState(null)
