@@ -147,21 +147,20 @@ export const Calendar = () => {
   }
 
   const handlerArrowClick = (event) => {
-    const eventElem = event.target.classList.value === 'changeDate__button' ? event.target : event.target.parentNode
-    const argument = eventElem.classList.value.includes('nextArrow') ? 1 : -1
+    const diff = event.target.classList.value.includes('nextArrow') ? 1 : -1
 
     switch (activeTable) {
       case 'День':
-        setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + argument))
+        setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + diff)))
         break
       case 'Неделя':
-        setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() + argument * 7))
+        setSelectedDate(new Date(selectedDate.setDate(selectedDate.getDate() + diff * 7)))
         break
       case 'Месяц':
-        setSelectedDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + argument, selectedDate.getDate()))
+        setSelectedDate(new Date(selectedDate.setMonth(selectedDate.getMonth() + diff)))
         break
       case 'Год':
-        setSelectedDate(new Date(selectedDate.getFullYear() + argument, selectedDate.getMonth(), selectedDate.getDate()))
+        setSelectedDate(new Date(selectedDate.setFullYear(selectedDate.getFullYear() + diff)))
         break
       default:
         break

@@ -41,7 +41,6 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
                           </span>
                           :
                           <div className="week-table__day__list-time__item__content">
-
                             {
                               database.tasks.map(task => {
                                 const contentDiv = []

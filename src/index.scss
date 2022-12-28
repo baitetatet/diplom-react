@@ -169,7 +169,7 @@ body {
   margin-bottom: 20px;
   flex: 1 0 auto;
   display: flex;
-  gap: 50px;
+  gap: 30px;
   justify-content: space-between;
 }
 
@@ -354,6 +354,7 @@ $red-task: rgb(238, 67, 67);
 .changeDate__button img {
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 .prevArrow {
@@ -685,6 +686,10 @@ $red-task: rgb(238, 67, 67);
     display: flex;
   }
 
+  &__day:first-child {
+    flex: 0 0 auto
+  }
+
   &__day {
     flex: 1 0 auto;
 
@@ -701,19 +706,22 @@ $red-task: rgb(238, 67, 67);
       &__time {
         border-bottom: 2px solid #000;
         height: 30.5px;
-        overflow: auto;
-
-        &::-webkit-scrollbar {
-          width: 3px;
-          background-color: transparent;
-        }
+        max-width: 220px;
 
         &__content {
+          margin-left: auto;
           width: 135px;
+          height: 100%;
           display: flex;
           flex-direction: column;
-          padding: 2px;
-          gap: 3px;
+          gap: 5px;
+          padding: 2px 0px 2px 3px;
+          overflow: auto;
+
+          &::-webkit-scrollbar {
+            width: 3px;
+            background-color: inherit;
+          }
 
           &_task {
             padding: 3px;
@@ -733,6 +741,7 @@ $red-task: rgb(238, 67, 67);
           }
         }
       }
+
 
       &__time {
         cursor: default;

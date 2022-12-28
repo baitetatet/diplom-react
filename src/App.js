@@ -13,15 +13,15 @@ export const App = () => {
         name: 'Иван',
         surname: 'Иванов',
         rank: 'Подполковник',
-        post: 'Начальник сулжбы РАВ'
+        post: 'Начальник службы РАВ'
       },
       tasks: [
         {
-          date: '26.11.2022',
+          date: '28.12.2022',
           startTime: '08:00',
           taskOfThisTime: [
             {
-              content: 'Совещание Lorem ipsum dolor sit.',
+              content: 'Совещание Lorem ipsum dolor sit amet.Lorem ipsum dolor sit.',
               confirm: false,
               type: 'green',
               id: 1
@@ -39,7 +39,7 @@ export const App = () => {
           startTime: '11:00',
           taskOfThisTime: [
             {
-              content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. A earum deleniti perspiciatis, alias voluptatum incidunt.',
+              content: 'Lorem Lorem, ipsum dolor.ipsum dolor sit amet consectetur adipisicing elit. A earum deleniti perspiciatis, alias voluptatum incidunt.',
               confirm: false,
               type: 'green',
               id: 3
@@ -47,11 +47,11 @@ export const App = () => {
           ]
         },
         {
-          date: '6.12.2022',
-          startTime: '09:00',
+          date: '27.12.2022',
+          startTime: '19:00',
           taskOfThisTime: [
             {
-              content: 'Проверка Lorem ipsum dolor sit amet consecteturadipisicing elit. Libero, labore!',
+              content: 'Проверка Lorem ipsum dolor sit amet Libero, labore!',
               confirm: false,
               type: 'green',
               id: 4
@@ -61,37 +61,6 @@ export const App = () => {
               confirm: false,
               type: 'green',
               id: 7
-            },
-            {
-              content: 'Проверка Lorem ipsm dolor sit amet consectetur adipisicing elit. Libero, labore!',
-              confirm: false,
-              type: 'green',
-              id: 6
-            },
-            {
-              content: 'Проверка Lorem ipum dolor sit amet consectetur adipisicing elit. Libero, labore!',
-              confirm: false,
-              type: 'green',
-              id: 5
-            },
-            {
-              content: 'Проверка Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero, labore!',
-              confirm: false,
-              type: 'green',
-              id: 8
-
-            },
-            {
-              content: 'Проверка Lorem ipsum dolo sit amet cosectetur adipisicing elit. Libero, labore!',
-              confirm: false,
-              type: 'green',
-              id: 8
-            },
-            {
-              content: 'Проверка Lorem psum dolor sit amet consectetur adipisicing elit. Libero, labore!',
-              confirm: false,
-              type: 'green',
-              id: 8
             }
           ]
         }

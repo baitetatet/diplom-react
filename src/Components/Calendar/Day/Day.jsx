@@ -27,7 +27,6 @@ export const Day = ({ TIME, selectedDate, handlerClickOnDay }) => {
                 </span>
                 <div className="day-table__list-time__item__content">
                   {
-
                     database.tasks.map(task => {
                       const contentDiv = []
                       if (task.date === currentDate && task.startTime === time.timeValue) {
