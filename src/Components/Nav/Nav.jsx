@@ -19,7 +19,7 @@ export const Nav = () => {
     {
       text: "Задачи на подтверждение",
       img: imgCheck,
-      path: '/confirmation-task'
+      path: '/confirmation-tasks'
     }
   ]
 

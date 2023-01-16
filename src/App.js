@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Database } from "./DatabaseContext"
 import { Layout } from "./Components/Layout";
 import { NewTask } from "./Components/NewTask/NewTask";
+import { ConfirmationTasks } from "./Components/ConfirmationTasks/ConfirmationTasks";
 
 
 export const App = () => {
@@ -75,6 +76,7 @@ export const App = () => {
             <Route path="/" element={<Layout />}>
               <Route index element={<Calendar />} />
               <Route path="new-task" element={<NewTask />} />
+              <Route path="confirmation-tasks" element={<ConfirmationTasks />} />
             </Route>
           </Routes>
         </Database.Provider>
