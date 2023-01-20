@@ -7,10 +7,11 @@ export const Day = ({ selectedDate, handlerClickOnDay }) => {
 
   const { database } = useContext(Database)
   const currentDate = [checkAndChangeDateFormat(selectedDate.getDate()), checkAndChangeDateFormat(selectedDate.getMonth() + 1), selectedDate.getFullYear()].join('.')
-  // console.log(selectedDate.getMonth() + 1)
+
   function checkAndChangeDateFormat(date) {
     return date < 10 ? '0' + date : date
   }
+
   return (
     <section className="day-table" data-date={currentDate}>
       <div className="day-table__inner">
