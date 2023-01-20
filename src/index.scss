@@ -513,7 +513,7 @@ $red-task: rgb(238, 67, 67);
     }
   }
 
-  &__select {
+  &__select-format {
     position: relative;
     display: inline-block;
     max-width: 115px;
@@ -555,10 +555,10 @@ $red-task: rgb(238, 67, 67);
 
     }
 
-    &__btn_active+.calendar__select__menu {
+    &__btn_active+.calendar__select-format__menu {
       opacity: 1;
       z-index: 2;
-      transition: .5s linear all;
+      transition: .2s linear all;
     }
 
     &__menu {
@@ -570,7 +570,7 @@ $red-task: rgb(238, 67, 67);
       border-radius: 20px;
       background-color: white;
       overflow: hidden;
-      transition: .5s linear all;
+      transition: .2s linear all;
     }
 
     &__list {
@@ -822,7 +822,7 @@ $red-task: rgb(238, 67, 67);
 
   }
 
-  .another-month {
+  .prev-month {
     opacity: 40%;
   }
 }
