@@ -1,9 +1,9 @@
 import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
 
-export const Month = ({ selectedDate, getDayTable, table }) => {
+export const Month = ({ selectedDate, month, getDayTable, table }) => {
 
   const currentYear = selectedDate.getFullYear()
-  const currentMonth = selectedDate.getMonth()
+  const currentMonth = month
   const dayMonth = 1 - (selectedDate.getDay() + 6) % 7
   const dateForBuldingTable = new Date(currentYear, currentMonth, dayMonth)
   const daysList = []

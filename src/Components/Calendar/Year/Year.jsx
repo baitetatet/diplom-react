@@ -1,7 +1,7 @@
 import { Month } from "../Month/Month"
 import { MONTHS } from "../../../API/monthsAPI"
 
-export const Year = ({ year, currentMonth, getDayTable, table }) => {
+export const Year = ({ selectedDate, getDayTable, table }) => {
 
   return (
     <section className="year-table">
@@ -16,8 +16,8 @@ export const Year = ({ year, currentMonth, getDayTable, table }) => {
                 {month}
               </h3>
               <Month
-                year={year}
-                currentMonth={numMonth}
+                selectedDate={selectedDate}
+                month={numMonth}
                 getDayTable={getDayTable}
                 table={table}
               >
