@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const SelectItem = ({ activeTable, setActiveTable }) => {
+export const SelectFormatTable = ({ activeTable, setActiveTable }) => {
   const [activeState, setActiveState] = useState(false)
 
   const OPTION_VALUES = [
@@ -23,13 +23,13 @@ export const SelectItem = ({ activeTable, setActiveTable }) => {
   ]
 
   return (
-    <div className='calendar__select'>
-      <button className={activeState ? 'calendar__select__btn_active' : 'calendar__select__btn'} onClick={() => { setActiveState(prev => !prev) }}>
-        <span className='calendar__select__btn_span'>{activeTable}</span>
+    <div className='calendar__select-format'>
+      <button className={activeState ? 'calendar__select-format__btn_active' : 'calendar__select-format__btn'} onClick={() => { setActiveState(prev => !prev) }}>
+        <span className='calendar__select-format__btn_span'>{activeTable}</span>
       </button>
-      <div className='calendar__select__menu'>
+      <div className='calendar__select-format__menu'>
         <ul
-          className='calendar__select__list'
+          className='calendar__select-format__list'
           onClick={event => {
             setActiveState(prev => !prev)
             setActiveTable(event.target.innerHTML)
@@ -39,11 +39,11 @@ export const SelectItem = ({ activeTable, setActiveTable }) => {
           {OPTION_VALUES.map(value =>
             <button
               key={value.key}
-              className='calendar__select__list__item'
+              className='calendar__select-format__list__item'
             >
               <span
                 data-value={value.text}
-                className='calendar__select__list__item_text'>{value.text}</span>
+                className='calendar__select-format__list__item_text'>{value.text}</span>
             </button>)}
         </ul>
       </div>
