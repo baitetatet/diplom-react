@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { SelectItem } from "./SelectItem/SelectItem"
+import { SelectFormatTable } from "./SelectFormatTable/SelectFormatTable"
 import { ChangeDate } from "./ChangeDate/ChangeDate"
 import { converterCurrentWeek } from "../../hooks/converterCurrentWeek"
 import { Day } from "./Day/Day"
@@ -28,10 +28,10 @@ export const Calendar = () => {
       const { currentWeek } = converterCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS)
       return currentWeek
     }(),
-    'Месяц': selectedDate.toLocaleString('ru', {
-      month: 'long',
-      year: 'numeric'
-    }),
+    'Месяц': (() => {
+      const monthTitle = selectedDate.toLocaleString('ru', { month: 'long', year: 'numeric' })
+      return monthTitle[0].toUpperCase() + monthTitle.substring(1)
+    })(),
     'Год': selectedDate.getFullYear() + ' г.'
   }
 
@@ -85,13 +85,13 @@ export const Calendar = () => {
       case 'Месяц':
         return <Month
           selectedDate={selectedDate}
-          year={selectedDate.getFullYear()}
+          month={selectedDate.getMonth()}
           getDayTable={getDayTable}
           table={'month'}
         />
       case 'Год':
         return <Year
-          year={selectedDate.getFullYear()}
+          selectedDate={selectedDate}
           getDayTable={getDayTable}
           table={'year'}
         />
@@ -101,8 +101,8 @@ export const Calendar = () => {
 
   return (
     <div className="calendar">
-      <SelectItem
-        className="calendar__select"
+      <SelectFormatTable
+        className="calendar__select-format"
         activeTable={activeTable}
         setActiveTable={setActiveTable}
       />
