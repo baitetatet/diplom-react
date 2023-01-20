@@ -1,6 +1,7 @@
 import { Month } from "../Month/Month"
 import { MONTHS } from "../../../API/monthsAPI"
-export const Year = ({ WEEK_DAYS, year, currentMonth, getDay, table }) => {
+
+export const Year = ({ year, currentMonth, getDayTable, table }) => {
 
   return (
     <section className="year-table">
@@ -16,9 +17,8 @@ export const Year = ({ WEEK_DAYS, year, currentMonth, getDay, table }) => {
               </h3>
               <Month
                 year={year}
-                WEEK_DAYS={WEEK_DAYS}
                 currentMonth={numMonth}
-                getDay={getDay}
+                getDayTable={getDayTable}
                 table={table}
               >
                 {month}

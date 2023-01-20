@@ -1,7 +1,26 @@
 import { useState } from 'react'
 
-export const SelectItem = ({ activeTable, setActiveTable, values }) => {
+export const SelectItem = ({ activeTable, setActiveTable }) => {
   const [activeState, setActiveState] = useState(false)
+
+  const OPTION_VALUES = [
+    {
+      key: 'day',
+      text: 'День'
+    },
+    {
+      key: 'week',
+      text: 'Неделя'
+    },
+    {
+      key: 'month',
+      text: 'Месяц'
+    },
+    {
+      key: 'year',
+      text: 'Год'
+    }
+  ]
 
   return (
     <div className='calendar__select'>
@@ -17,7 +36,7 @@ export const SelectItem = ({ activeTable, setActiveTable, values }) => {
           }}
           onMouseLeave={() => { if (activeState) { setActiveState(prev => !prev) } }}
         >
-          {values.map(value =>
+          {OPTION_VALUES.map(value =>
             <button
               key={value.key}
               className='calendar__select__list__item'

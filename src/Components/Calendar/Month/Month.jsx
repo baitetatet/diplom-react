@@ -1,57 +1,41 @@
-export const Month = ({ WEEK_DAYS, year, currentMonth, getDay, table, month, children }) => {
-  const current = new Date(year, currentMonth)
-  const next = new Date(year, currentMonth + 1)
-  let dayMonth = 1 - (current.getDay() + 6) % 7
+import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
 
-  const getDaysOfMonth = (next, current) => {
-    return (next - current) / (1000 * 3600 * 24)
-  }
-  const prevMonthDays = getDaysOfMonth(current, new Date(year, currentMonth - 1))
-  const currentMonthDays = getDaysOfMonth(next, current)
-  console.log(dayMonth)
+export const Month = ({ selectedDate, getDayTable, table }) => {
+
+  const currentYear = selectedDate.getFullYear()
+  const currentMonth = selectedDate.getMonth()
+  const dayMonth = 1 - (selectedDate.getDay() + 6) % 7
+  const dateForBuldingTable = new Date(currentYear, currentMonth, dayMonth)
   const daysList = []
-  for (let day = dayMonth; day < 7 * 6 + dayMonth; day++) {
+
+  function checkAndChangeDateFormat(date) {
+    return date < 10 ? '0' + date : date
+  }
+
+  for (let i = 0, cellTable = 7 * 6; i < cellTable; i++) {
+    dateForBuldingTable.setDate(dateForBuldingTable.getDate() + 1)
+    const dataDateDay = dateForBuldingTable.getDate()
+    const dataDateMonth = dateForBuldingTable.getMonth() + 1
+    const dataDateYear = dateForBuldingTable.getFullYear()
+
     daysList.push(
-      day > 0 && day <= currentMonthDays ?
-        <div
-          className="month-table__body__item"
-          key={day}
-          data-date={day + '.' + currentMonth + '.' + year}
-          onClick={(event) => getDay(event)}
-        >
-          <span className="month-table__body__item_span">
-            {day}
-          </span>
-        </div>
-        :
-        (day < currentMonthDays ?
-          <div
-            className="month-table__body__item"
-            key={day}
-            data-date={(prevMonthDays + day) + '.' + (currentMonth - 1) + '.' + year}
-            onClick={(event) => getDay(event)}
-          >
-            <span className="month-table__body__item_span prev-month">
-              {prevMonthDays + day}
-            </span>
-          </div>
-          :
-          <div
-            className="month-table__body__item"
-            key={day}
-            data-date={(day - currentMonthDays) + '.' + (currentMonth + 1) + '.' + year}
-            onClick={(event) => getDay(event)}
-          >
-            <span className="month-table__body__item_span prev-month">
-              {day - currentMonthDays}
-            </span>
-          </div>)
+      <div
+        className="month-table__body__item"
+        key={i}
+        data-date={[checkAndChangeDateFormat(dataDateDay), checkAndChangeDateFormat(dataDateMonth), dataDateYear].join('.')}
+        onClick={(event) => getDayTable(event)}
+      >
+        <span className={`month-table__body__item_span${currentMonth + 1 !== dataDateMonth ? ' another-month' : ''}`}>
+          {dataDateDay}
+        </span>
+      </div>
     )
   }
+
   return (
     <section
       className="month-table"
-      key={month}
+      key={currentMonth}
     >
       <div className="month-table__inner">
         <div className="month-table__header">

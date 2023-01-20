@@ -18,7 +18,7 @@ export const App = () => {
       },
       tasks: [
         {
-          date: '28.12.2022',
+          date: '19.01.2023',
           startTime: '08:00',
           taskOfThisTime: [
             {
@@ -36,7 +36,7 @@ export const App = () => {
           ]
         },
         {
-          date: '26.11.2022',
+          date: '19.01.2023',
           startTime: '11:00',
           taskOfThisTime: [
             {

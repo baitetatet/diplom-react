@@ -1,8 +1,10 @@
 import { useContext } from "react"
 import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
+import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
+import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
 
-export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
+export const Week = ({ datesWeek, handlerClickOnDay }) => {
   const { database } = useContext(Database)
   const WEEK_TITLE = [
     {
@@ -29,7 +31,7 @@ export const Week = ({ WEEK_DAYS, TIME, datesWeek, handlerClickOnDay }) => {
                 onClick={handlerClickOnDay}
               >
                 {
-                  TIME.map(time =>
+                  TIME_LAPSE.map(time =>
                     <li
                       className={title.id === '0' ? "week-table__day__list-time__time" : "week-table__day__list-time__item"}
                       key={time.id}

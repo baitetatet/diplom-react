@@ -1,12 +1,16 @@
 import { useContext } from "react"
 import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
+import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
 
-export const Day = ({ TIME, selectedDate, handlerClickOnDay }) => {
+export const Day = ({ selectedDate, handlerClickOnDay }) => {
 
   const { database } = useContext(Database)
-  const currentDate = [selectedDate.getDate(), selectedDate.getMonth() + 1, selectedDate.getFullYear()].join('.')
-
+  const currentDate = [checkAndChangeDateFormat(selectedDate.getDate()), checkAndChangeDateFormat(selectedDate.getMonth() + 1), selectedDate.getFullYear()].join('.')
+  // console.log(selectedDate.getMonth() + 1)
+  function checkAndChangeDateFormat(date) {
+    return date < 10 ? '0' + date : date
+  }
   return (
     <section className="day-table" data-date={currentDate}>
       <div className="day-table__inner">
@@ -15,7 +19,7 @@ export const Day = ({ TIME, selectedDate, handlerClickOnDay }) => {
           onClick={handlerClickOnDay}
         >
           {
-            TIME.map(time =>
+            TIME_LAPSE.map(time =>
               <li
                 className="day-table__list-time__item"
                 key={time.id}
