@@ -1,36 +1,43 @@
-export function converterCurrentWeek(dayOfWeek, date, MONTHS) {
+import { checkAndChangeDateFormat } from '../hooks/checkAndChangeDateFormat'
+import { MONTHS } from '../API/monthsAPI'
+
+export function converterCurrentWeek(selectedDate) {
   const convertMonth = (month) => {
     return month
       .toLowerCase()
       .replace(/т$/, 'та')
       .replace(/[ьй]$/, 'я')
   }
+  const dayOfWeek = (selectedDate.getDay() + 6) % 7
 
-  let before = 0
-  for (let i = 0; i < 7; i++) {
-    if (i < dayOfWeek) before++
+  const daysBeforeBeginningOfWeek = dayOfWeek => {
+    let days = 0
+    for (let i = 0; i < 7; i++) {
+      if (i < dayOfWeek) days++
+    }
+    return days
   }
 
-  let startWeek = new Date(date.getFullYear(), date.getMonth(), date.getDate() - before)
-  let endWeek = new Date(startWeek.getFullYear(), startWeek.getMonth(), startWeek.getDate() + 7)
-  let currentMonth = convertMonth(MONTHS[endWeek.getMonth()])
+  const startWeek = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() - daysBeforeBeginningOfWeek(dayOfWeek))
+  const endWeek = new Date(startWeek.getFullYear(), startWeek.getMonth(), startWeek.getDate() + 7)
 
   const fillWeekDaysDate = (startWeek) => {
     const dateWeekDays = ['']
-    let prepeirDate = startWeek.getTime()
+    const dateForPush = new Date(startWeek.getTime())
+
     for (let i = 0; i < 8; i++) {
-      const dateForPush = new Date(prepeirDate)
-      dateWeekDays.push([dateForPush.getDate(), dateForPush.getMonth() + 1, dateForPush.getFullYear()].join('.'))
-      prepeirDate += (24 * 60 * 60 * 1000)
+      dateWeekDays.push([checkAndChangeDateFormat(dateForPush.getDate()), checkAndChangeDateFormat(dateForPush.getMonth() + 1), dateForPush.getFullYear()].join('.'))
+      dateForPush.setDate(dateForPush.getDate() + 1)
     }
     return dateWeekDays
   }
-  const datesWeek = fillWeekDaysDate(startWeek)
 
-  let currentWeek = startWeek.getMonth() === endWeek.getMonth() ?
-    (startWeek.getDate() + ' - ' + [endWeek.getDate(), currentMonth, endWeek.getFullYear(), ' г.'].join(' '))
-    : (startWeek.getDate() + ' ' + convertMonth(MONTHS[startWeek.getMonth()]) + ' - ' + endWeek.getDate() + ' ' + convertMonth(MONTHS[endWeek.getMonth()]) + ' ' + endWeek.getFullYear() + ' г.')
+  const weekInterval = (startWeek, endWeek) => {
+    return [
+      [startWeek.getDate(), (startWeek.getMonth() === endWeek.getMonth() ? '' : convertMonth(MONTHS[startWeek.getMonth()])), startWeek.getFullYear() === endWeek.getFullYear() ? '' : startWeek.getFullYear() + ' г.'].join(' '),
+      [endWeek.getDate(), convertMonth(MONTHS[endWeek.getMonth()]), endWeek.getFullYear() + ' г.'].join(' ')
+    ].join(' - ')
+  }
 
-
-  return { currentWeek, datesWeek }
+  return { weekInterval: weekInterval(startWeek, endWeek), datesWeek: fillWeekDaysDate(startWeek) }
 }

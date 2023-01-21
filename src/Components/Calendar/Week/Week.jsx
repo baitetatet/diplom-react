@@ -3,8 +3,9 @@ import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
 import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
 import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
+import { converterCurrentWeek } from "../../../hooks/converterCurrentWeek"
 
-export const Week = ({ datesWeek, handlerClickOnDay }) => {
+export const Week = ({ selectedDate, handlerClickOnDay }) => {
   const { database } = useContext(Database)
   const WEEK_TITLE = [
     {
@@ -13,6 +14,9 @@ export const Week = ({ datesWeek, handlerClickOnDay }) => {
     },
     ...WEEK_DAYS
   ]
+  const { datesWeek } = converterCurrentWeek(selectedDate)
+  console.log(datesWeek)
+
   return (
     <section className="week-table">
       <div className="week-table__inner">

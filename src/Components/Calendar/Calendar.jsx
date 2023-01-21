@@ -5,7 +5,6 @@ import { converterCurrentWeek } from "../../hooks/converterCurrentWeek"
 import { Day } from "./Day/Day"
 import { Week } from "./Week/Week"
 import { Month } from "./Month/Month"
-import { MONTHS } from "../../API/monthsAPI"
 import { PopUpTasks } from "./PopUpTasks/PopUpTasks"
 import { Year } from "./Year/Year"
 
@@ -25,8 +24,8 @@ export const Calendar = () => {
       year: 'numeric'
     }),
     'Неделя': function () {
-      const { currentWeek } = converterCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS)
-      return currentWeek
+      const { weekInterval } = converterCurrentWeek(selectedDate)
+      return weekInterval
     }(),
     'Месяц': (() => {
       const monthTitle = selectedDate.toLocaleString('ru', { month: 'long', year: 'numeric' })
@@ -47,9 +46,7 @@ export const Calendar = () => {
 
   const handlerArrowClick = (event) => {
     const diff = event.target.classList.value.includes('nextArrow') ? 1 : -1
-
-    const changeMonth = currentMonth =>
-      new Date(selectedDate.getFullYear(), currentMonth + diff)
+    const changeMonth = currentMonth => new Date(selectedDate.getFullYear(), currentMonth + diff)
 
     const formatDate = {
       'День': () => new Date(selectedDate.setDate(selectedDate.getDate() + diff)),
@@ -79,7 +76,7 @@ export const Calendar = () => {
       case 'Неделя':
         return <Week
           getDayTable={getDayTable}
-          datesWeek={converterCurrentWeek(((selectedDate.getDay() + 6) % 7), selectedDate, MONTHS).datesWeek}
+          selectedDate={selectedDate}
           handlerClickOnDay={handlerClickOnDay}
         />
       case 'Месяц':

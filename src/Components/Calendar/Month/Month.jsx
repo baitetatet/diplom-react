@@ -1,4 +1,5 @@
 import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
+import { checkAndChangeDateFormat } from "../../../hooks/checkAndChangeDateFormat"
 
 export const Month = ({ selectedDate, month, getDayTable, table }) => {
 
@@ -7,10 +8,6 @@ export const Month = ({ selectedDate, month, getDayTable, table }) => {
   const dayMonth = 1 - (selectedDate.getDay() + 6) % 7
   const dateForBuldingTable = new Date(currentYear, currentMonth, dayMonth)
   const daysList = []
-
-  function checkAndChangeDateFormat(date) {
-    return date < 10 ? '0' + date : date
-  }
 
   for (let i = 0, cellTable = 7 * 6; i < cellTable; i++) {
     dateForBuldingTable.setDate(dateForBuldingTable.getDate() + 1)

@@ -328,7 +328,7 @@ $red-task: rgb(238, 67, 67);
 //  ------------------------------------ CHANGE-DATE  -----------------------------------------------------
 
 .changeDate {
-  max-width: 310px;
+  max-width: 380px;
   margin: 20px auto 25px;
   display: flex;
   justify-content: space-between;
@@ -359,6 +359,8 @@ $red-task: rgb(238, 67, 67);
 
 .prevArrow {
   transform: rotate(90deg);
+  width: 20px;
+  height: 21px;
 }
 
 //  ---------------------------------- CHANGE-DATE END ----------------------------------------------------
@@ -822,7 +824,7 @@ $red-task: rgb(238, 67, 67);
 
   }
 
-  .prev-month {
+  .another-month {
     opacity: 40%;
   }
 }

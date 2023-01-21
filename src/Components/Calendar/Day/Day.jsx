@@ -2,15 +2,12 @@ import { useContext } from "react"
 import { Database } from "../../../DatabaseContext"
 import { Task } from "../Task/Task"
 import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
+import { checkAndChangeDateFormat } from "../../../hooks/checkAndChangeDateFormat"
 
 export const Day = ({ selectedDate, handlerClickOnDay }) => {
 
   const { database } = useContext(Database)
   const currentDate = [checkAndChangeDateFormat(selectedDate.getDate()), checkAndChangeDateFormat(selectedDate.getMonth() + 1), selectedDate.getFullYear()].join('.')
-
-  function checkAndChangeDateFormat(date) {
-    return date < 10 ? '0' + date : date
-  }
 
   return (
     <section className="day-table" data-date={currentDate}>
