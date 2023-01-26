@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
-import imgLogo from '../../images/logo.png'
+import imgLogo from 'images/logo.png'
 import { useContext } from "react"
-import { Database } from "../../DatabaseContext"
+import { Database } from "DatabaseContext"
 
 export const Header = () => {
   const [time, setTime] = useState(new Date().toLocaleTimeString())

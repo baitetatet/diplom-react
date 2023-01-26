@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { SelectFormatTable } from "./SelectFormatTable/SelectFormatTable"
-import { ChangeDate } from "./ChangeDate/ChangeDate"
-import { converterCurrentWeek } from "../../hooks/converterCurrentWeek"
-import { Day } from "./Day/Day"
-import { Week } from "./Week/Week"
-import { Month } from "./Month/Month"
+import { SelectFormatTable } from "Components/Calendar/SelectFormatTable/SelectFormatTable"
+import { ChangeDate } from "Components/Calendar/ChangeDate/ChangeDate"
+import { converterCurrentWeek } from "hooks/converterCurrentWeek"
+import { Day } from "Components/Calendar/Day/Day"
+import { Week } from "Components/Calendar/Week/Week"
+import { Month } from "Components/Calendar/Month/Month"
 import { PopUpTasks } from "./PopUpTasks/PopUpTasks"
-import { Year } from "./Year/Year"
+import { Year } from "Components/Calendar/Year/Year"
 
 export const Calendar = () => {
 

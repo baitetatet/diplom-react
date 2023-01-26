@@ -1,8 +1,8 @@
-import { useContext } from "react"
-import { Database } from "../../../DatabaseContext"
+// import { useContext } from "react"
+// import { Database } from "../../../DatabaseContext"
 
 export const PopUpTasks = ({ content, setPopUpTasksActive, date }) => {
-  const { database } = useContext(Database)
+  // const { database } = useContext(Database)
   const VARIABLES = {
     title: `Задачи на ${date} г.`,
     btn: 'Выполнить'
@@ -17,6 +17,7 @@ export const PopUpTasks = ({ content, setPopUpTasksActive, date }) => {
 
     console.log('task: ', task)
   }
+
   return (
     <div
       className="calendar__popup active"
@@ -45,7 +46,7 @@ export const PopUpTasks = ({ content, setPopUpTasksActive, date }) => {
                   {task.innerHTML}
                 </div>
                 <button
-                  className="calendar__popup__list__item_btn-confirm"
+                  className="calendar__popup__list__item_btn-confirm button"
                   onClick={() => handlerTaskConfirm(task)}
                 >
                   {VARIABLES.btn}

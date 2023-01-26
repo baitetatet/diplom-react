@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { Calendar } from "./Components/Calendar/Calendar"
+import { Calendar } from "Components/Calendar/Calendar"
 import { Routes, Route } from 'react-router-dom'
-import { Database } from "./DatabaseContext"
-import { Layout } from "./Components/Layout";
-import { NewTask } from "./Components/NewTask/NewTask";
-import { ConfirmationTasks } from "./Components/ConfirmationTasks/ConfirmationTasks";
+import { Database } from "DatabaseContext"
+import { Layout } from "Components/Layout";
+import { NewTask } from "Components/NewTask/NewTask";
+import { ConfirmationTasks } from "Components/ConfirmationTasks/ConfirmationTasks";
 
 
 export const App = () => {

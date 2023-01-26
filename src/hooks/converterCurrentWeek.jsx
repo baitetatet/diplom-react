@@ -2,23 +2,25 @@ import { checkAndChangeDateFormat } from '../hooks/checkAndChangeDateFormat'
 import { MONTHS } from '../API/monthsAPI'
 
 export function converterCurrentWeek(selectedDate) {
+
   const convertMonth = (month) => {
     return month
       .toLowerCase()
       .replace(/т$/, 'та')
       .replace(/[ьй]$/, 'я')
   }
-  const dayOfWeek = (selectedDate.getDay() + 6) % 7
 
-  const daysBeforeBeginningOfWeek = dayOfWeek => {
-    let days = 0
-    for (let i = 0; i < 7; i++) {
+  const daysBeforeBeginningOfWeek = () => {
+    const dayOfWeek = (selectedDate.getDay() + 6) % 7
+
+    for (var i = 0, days = 0; i < 7; i++) {
       if (i < dayOfWeek) days++
     }
+
     return days
   }
 
-  const startWeek = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() - daysBeforeBeginningOfWeek(dayOfWeek))
+  const startWeek = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() - daysBeforeBeginningOfWeek())
   const endWeek = new Date(startWeek.getFullYear(), startWeek.getMonth(), startWeek.getDate() + 7)
 
   const fillWeekDaysDate = (startWeek) => {

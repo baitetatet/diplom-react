@@ -1,4 +1,4 @@
-import { ConfirmationTask } from "./ConfirmationTask/ConfirmationTask"
+import { ConfirmationTask } from "Components/ConfirmationTasks/ConfirmationTask/ConfirmationTask"
 
 export const ConfirmationTasks = () => {
   const VARIABLES = {

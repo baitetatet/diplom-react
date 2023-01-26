@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { Database } from "../../../DatabaseContext"
-import { Task } from "../Task/Task"
-import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
-import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
-import { converterCurrentWeek } from "../../../hooks/converterCurrentWeek"
+import { Database } from "DatabaseContext"
+import { Task } from "Components/Calendar/Task/Task"
+import { WEEK_DAYS } from "API/WEEK_DAYS_API"
+import { TIME_LAPSE } from "API/TIME_LAPSE_API"
+import { converterCurrentWeek } from "hooks/converterCurrentWeek"
 
 export const Week = ({ selectedDate, handlerClickOnDay }) => {
   const { database } = useContext(Database)

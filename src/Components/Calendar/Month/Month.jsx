@@ -1,5 +1,5 @@
-import { WEEK_DAYS } from "../../../API/WEEK_DAYS_API"
-import { checkAndChangeDateFormat } from "../../../hooks/checkAndChangeDateFormat"
+import { WEEK_DAYS } from "API/WEEK_DAYS_API"
+import { checkAndChangeDateFormat } from "hooks/checkAndChangeDateFormat"
 
 export const Month = ({ selectedDate, month, getDayTable, table }) => {
 

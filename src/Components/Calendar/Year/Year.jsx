@@ -1,5 +1,5 @@
-import { Month } from "../Month/Month"
-import { MONTHS } from "../../../API/monthsAPI"
+import { Month } from "Components/Calendar/Month/Month"
+import { MONTHS } from "API/monthsAPI"
 
 export const Year = ({ selectedDate, getDayTable, table }) => {
 

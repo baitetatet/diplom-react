@@ -1,4 +1,4 @@
-import avatarSRC from '../../../images/avatar.png'
+import avatarSRC from 'images/avatar.png'
 
 export const ConfirmationTask = () => {
   const VARIABLES = {

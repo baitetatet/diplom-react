@@ -1,8 +1,8 @@
 import { useContext } from "react"
-import { Database } from "../../../DatabaseContext"
-import { Task } from "../Task/Task"
-import { TIME_LAPSE } from "../../../API/TIME_LAPSE_API"
-import { checkAndChangeDateFormat } from "../../../hooks/checkAndChangeDateFormat"
+import { Database } from "DatabaseContext"
+import { Task } from "Components/Calendar/Task/Task"
+import { TIME_LAPSE } from "API/TIME_LAPSE_API"
+import { checkAndChangeDateFormat } from "hooks/checkAndChangeDateFormat"
 
 export const Day = ({ selectedDate, handlerClickOnDay }) => {
 

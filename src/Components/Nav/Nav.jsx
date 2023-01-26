@@ -1,6 +1,6 @@
-import imgPlus from '../../images/plus.png'
-import imgCheck from '../../images/check.png'
-import imgCalendar from '../../images/calendar-icon.png'
+import imgPlus from 'images/plus.png'
+import imgCheck from 'images/check.png'
+import imgCalendar from 'images/calendar-icon.png'
 import { Link } from 'react-router-dom'
 
 export const Nav = () => {
