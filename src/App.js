@@ -18,17 +18,17 @@ export const App = () => {
       },
       tasks: [
         {
-          date: '19.01.2023',
+          date: '31.01.2023',
           startTime: '08:00',
           taskOfThisTime: [
             {
-              content: 'Совещание Lorem ipsum dolor sit amet.Lorem ipsum dolor sit.',
+              content: 'Пример (Lorem ipsum dolor sit amet.)',
               confirm: false,
               type: 'green',
               id: 1
             },
             {
-              content: 'Проверка Lorem ipsum dolor sit.',
+              content: 'Пример (Lorem ipsum dolor sit amet.)',
               confirm: false,
               type: 'red',
               id: 2
@@ -36,7 +36,7 @@ export const App = () => {
           ]
         },
         {
-          date: '19.01.2023',
+          date: '31.01.2023',
           startTime: '11:00',
           taskOfThisTime: [
             {

@@ -23,7 +23,7 @@ export const SelectFormatTable = ({ activeTable, setActiveTable }) => {
   ]
 
   return (
-    <div className='calendar__select-format'>
+    <div className='calendar__select-format' onMouseLeave={() => { if (activeState) { setActiveState(prev => !prev) } }}>
       <button className={activeState ? 'calendar__select-format__btn_active' : 'calendar__select-format__btn'} onClick={() => { setActiveState(prev => !prev) }}>
         <span className='calendar__select-format__btn_span'>{activeTable}</span>
       </button>
@@ -34,7 +34,7 @@ export const SelectFormatTable = ({ activeTable, setActiveTable }) => {
             setActiveState(prev => !prev)
             setActiveTable(event.target.innerHTML)
           }}
-          onMouseLeave={() => { if (activeState) { setActiveState(prev => !prev) } }}
+
         >
           {OPTION_VALUES.map(value =>
             <button
