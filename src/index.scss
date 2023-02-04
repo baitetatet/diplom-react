@@ -193,7 +193,24 @@ body {
   cursor: pointer;
 }
 
+.button {
+  display: block;
+  margin: 5px 0 0 auto;
+  padding: 4px 7px;
+  border: 1px solid $bg-color;
+  border-radius: 7px;
+  background-color: rgba($bg-color, 1);
+  color: #ffff;
+  cursor: pointer;
 
+  &:hover {
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    box-shadow: 5px 25px 2px rgba(0, 0, 0, 0.4) inset;
+  }
+}
 
 //  ------------------------------------- HEADER ----------------------------------------------------------
 
@@ -415,6 +432,7 @@ body {
 
     &__inner {
       position: absolute;
+      overflow: hidden;
       width: 40%;
       height: 65%;
       top: 50%;
@@ -422,12 +440,11 @@ body {
       transform: translate(-50%, -50%);
       background-color: $section-bg;
       border-radius: 20px;
-
+      padding: 10px 20px;
     }
 
     &__header {
-      margin-top: 20px;
-      padding: 0 20px;
+      margin-top: 10px;
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
@@ -466,7 +483,6 @@ body {
 
     &__list {
       position: relative;
-      padding: 0 10px 20px 20px;
       margin-top: 30px;
       margin-right: 2px;
       max-height: 80%;
@@ -488,25 +504,6 @@ body {
         border-radius: 20px;
         padding: 10px;
         cursor: default;
-
-        &_btn-confirm {
-          display: block;
-          margin: 5px 0 0 auto;
-          padding: 4px 7px;
-          border: 1px solid $bg-color;
-          border-radius: 7px;
-          background-color: rgba($bg-color, 1);
-          color: #ffff;
-          cursor: pointer;
-        }
-
-        &_btn-confirm:hover {
-          box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
-        }
-
-        &_btn-confirm:active {
-          box-shadow: 5px 25px 2px rgba(0, 0, 0, 0.4) inset;
-        }
 
         &_task {
           font-size: 16px;
@@ -621,6 +618,78 @@ body {
 
 
   }
+
+  &__task {
+    position: relative;
+
+    &__close {
+      position: absolute;
+      top: 21px;
+      right: 21px;
+    }
+
+    &__title {
+      font-size: 20px;
+      text-align: center;
+      margin-top: 45px;
+    }
+
+    &__description {
+      margin-top: 25px;
+
+      &>div {
+        font-size: 18px;
+        margin-top: 10px;
+        display: flex;
+        gap: 5px;
+        align-items: center;
+      }
+
+
+    }
+
+  }
+}
+
+.category {
+
+  &__content {
+    &_title {
+      margin-top: 10px;
+    }
+
+    &_list {
+      max-height: 260px;
+      height: 20%;
+      overflow: auto;
+    }
+
+    &_item {
+      margin-top: 10px;
+      padding: 7px 10px;
+      border: 1px solid $bg-color;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &_time {
+      font-weight: 600;
+    }
+
+    &_text {}
+
+    &__buttons {
+      max-width: 135px;
+      text-align: center;
+    }
+
+    &_confirm-task {
+      width: 100%;
+    }
+  }
+
 }
 
 // -------------------------------------------  CALENDAR END ----------------------------------------------

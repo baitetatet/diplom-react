@@ -1,7 +1,7 @@
-import { checkAndChangeDateFormat } from '../hooks/checkAndChangeDateFormat'
+import { checkAndChangeDateFormat } from './checkAndChangeDateFormat'
 import { MONTHS } from '../API/monthsAPI'
 
-export function converterCurrentWeek(selectedDate) {
+export function converterTimeInterval(selectedDate, timeInterval) {
 
   const convertMonth = (month) => {
     return month
@@ -21,7 +21,7 @@ export function converterCurrentWeek(selectedDate) {
   }
 
   const startWeek = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate() - daysBeforeBeginningOfWeek())
-  const endWeek = new Date(startWeek.getFullYear(), startWeek.getMonth(), startWeek.getDate() + 7)
+  const endWeek = new Date(startWeek.getFullYear(), startWeek.getMonth(), startWeek.getDate() + timeInterval)
 
   const fillWeekDaysDate = (startWeek) => {
     const dateWeekDays = ['']

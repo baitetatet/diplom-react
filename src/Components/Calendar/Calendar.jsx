@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { SelectFormatTable } from "Components/Calendar/SelectFormatTable/SelectFormatTable"
 import { ChangeDate } from "Components/Calendar/ChangeDate/ChangeDate"
-import { converterCurrentWeek } from "hooks/converterCurrentWeek"
+import { converterTimeInterval } from "hooks/converterTimeInterval"
 import { Day } from "Components/Calendar/Day/Day"
 import { Week } from "Components/Calendar/Week/Week"
 import { Month } from "Components/Calendar/Month/Month"
@@ -24,7 +24,7 @@ export const Calendar = () => {
       year: 'numeric'
     }),
     'Неделя': function () {
-      const { weekInterval } = converterCurrentWeek(selectedDate)
+      const { weekInterval } = converterTimeInterval(selectedDate, 7)
       return weekInterval
     }(),
     'Месяц': (() => {
@@ -110,13 +110,11 @@ export const Calendar = () => {
         />
         {changeTable()}
         {
-          popUpTasksActive ?
-            <PopUpTasks
-              content={popUpTasksContent}
-              setPopUpTasksActive={setPopUpTasksActive}
-              date={popUpDate}
-            /> :
-            <></>
+          popUpTasksActive && <PopUpTasks
+            content={popUpTasksContent}
+            setPopUpTasksActive={setPopUpTasksActive}
+            date={popUpDate}
+          />
         }
       </div>
     </div>
