@@ -61,7 +61,7 @@ export const PopUpTasks = ({ content, setPopUpTasksActive, date }) => {
         </div>
       </div>
 
-      {PopUpTaskActive && <PopUpTask task={PopUpTask} />}
+      {PopUpTaskActive && <PopUpTask task={PopUpTask} setPopUpTaskActive={setPopUpTaskActive} />}
     </>
   )
 }

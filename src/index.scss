@@ -144,8 +144,71 @@ q {
 
 $bg-color: #474A50;
 $green-task: rgb(42, 169, 42);
+$button-green: #075F07;
 $red-task: rgb(238, 67, 67);
+$button-red: #980000;
 $section-bg: aliceblue;
+
+
+%main-section {
+  width: 95%;
+  max-width: 95%;
+}
+
+%main-inner {
+  min-height: 100%;
+  position: relative;
+  padding: 30px 10px 30px 30px;
+  background-color: $section-bg;
+  border-radius: 20px;
+}
+
+@mixin button($color) {
+  display: block;
+  padding: 4px 7px;
+  border: 1px solid $color;
+  border-radius: 7px;
+  background-color: rgba($color, 1);
+  color: #ffff;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    box-shadow: 5px 30px 2px rgba(0, 0, 0, 0.2) inset;
+  }
+}
+
+.button-grey {
+  @include button($bg-color);
+}
+
+.button-red {
+  @include button($button-red)
+}
+
+.button-green {
+  @include button($button-green)
+}
+
+.button {
+  @include button($bg-color);
+}
+
+@mixin scroll() {
+  &::-webkit-scrollbar {
+    background-color: $section-bg;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #474A50;
+    width: 10px;
+    border-radius: 20px;
+  }
+}
 
 // ---------------------------------- Глобальные стили ---------------------------------------------------------
 
@@ -182,35 +245,7 @@ body {
   justify-content: space-between;
 }
 
-.button-grey {
-  display: block;
-  margin: 5px 0 0 auto;
-  padding: 4px 7px;
-  border: 1px solid $bg-color;
-  border-radius: 7px;
-  background-color: rgba($bg-color, 1);
-  color: #ffff;
-  cursor: pointer;
-}
 
-.button {
-  display: block;
-  margin: 5px 0 0 auto;
-  padding: 4px 7px;
-  border: 1px solid $bg-color;
-  border-radius: 7px;
-  background-color: rgba($bg-color, 1);
-  color: #ffff;
-  cursor: pointer;
-
-  &:hover {
-    box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.2);
-  }
-
-  &:active {
-    box-shadow: 5px 25px 2px rgba(0, 0, 0, 0.4) inset;
-  }
-}
 
 //  ------------------------------------- HEADER ----------------------------------------------------------
 
@@ -487,17 +522,7 @@ body {
       margin-right: 2px;
       max-height: 80%;
       overflow-y: scroll;
-
-      &::-webkit-scrollbar {
-        background-color: $section-bg;
-        width: 8px;
-      }
-
-      &::-webkit-scrollbar-thumb {
-        background-color: #474A50;
-        width: 10px;
-        border-radius: 20px;
-      }
+      @include scroll();
 
       &__item {
         margin-top: 10px;
@@ -636,6 +661,10 @@ body {
 
     &__description {
       margin-top: 25px;
+      max-height: 70%;
+      overflow: auto;
+      padding-right: 5px;
+      @include scroll();
 
       &>div {
         font-size: 18px;
@@ -644,10 +673,7 @@ body {
         gap: 5px;
         align-items: center;
       }
-
-
     }
-
   }
 }
 
@@ -656,12 +682,6 @@ body {
   &__content {
     &_title {
       margin-top: 10px;
-    }
-
-    &_list {
-      max-height: 260px;
-      height: 20%;
-      overflow: auto;
     }
 
     &_item {
@@ -678,11 +698,12 @@ body {
       font-weight: 600;
     }
 
-    &_text {}
-
     &__buttons {
       max-width: 135px;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
     }
 
     &_confirm-task {
@@ -729,7 +750,6 @@ body {
           padding: 2px 6px;
           border: none;
           border-radius: 20px;
-          // flex: 1 1 auto;
           font-size: 12px;
           cursor: pointer;
           overflow: hidden;
@@ -991,13 +1011,156 @@ body {
 
 // ---------------------------------------- NEW-TASK -----------------------------------------------------------------
 
-.new-task,
-.confirmation-tasks {
-  position: relative;
-  width: 95%;
-  max-width: 95%;
-  min-height: 100%;
-  border-radius: 20px;
+.new-task {
+  @extend %main-section;
+
+  &__inner {
+    @extend %main-inner;
+  }
+
+
+  &__content {
+    margin-top: 30px;
+    padding-right: 13px;
+    height: 62vh;
+    max-height: 70vh;
+    overflow-y: scroll;
+    @include scroll();
+    flex-grow: 1;
+  }
+
+  &__content h3 {
+    font-size: 18px;
+  }
+
+  &__content>div {
+    margin-top: 15px;
+  }
+
+  &__content>div:nth-child(3),
+  &__content>div:not(:first-child)>label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  &__description textarea {
+    margin-top: 10px;
+    height: 100px;
+    max-height: 125px;
+    width: 100%;
+    max-width: 100%;
+    resize: none;
+  }
+
+  &__buttons input {
+    margin: 0;
+  }
+
+  &__buttons {
+    margin: 10px 20px 0 auto;
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    max-width: 250px;
+
+  }
+
+  &__stages__add {
+    @include button($section-bg);
+    color: black;
+    padding-left: 30px;
+    padding: 5px 7px 5px 27px;
+    position: relative;
+    border: 1px solid $bg-color;
+    border-radius: 10px;
+    font-size: 16px;
+    max-width: 147px;
+    margin: 5px auto 0 0;
+  }
+
+  &__stages__add::after,
+  &__stages__add::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 14px;
+    height: 2px;
+    width: 13px;
+    background-color: #000;
+    border-radius: 10px;
+  }
+
+  &__stages__add:before {
+    transform: rotate(90deg)
+  }
+
+  &__stages {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+
+    &_title {
+      padding-top: 10px;
+    }
+
+    &__new-stage {
+      width: 550px;
+
+      &__inner {
+        padding: 10px 20px;
+        border: 1px solid $bg-color;
+        border-radius: 15px;
+      }
+
+      &__description {
+        &_textarea {
+          margin-top: 10px;
+          height: 50px;
+          width: 100%;
+          resize: none;
+        }
+      }
+
+      &__start-date,
+      &__end-date {
+        margin-top: 10px;
+        display: flex;
+        gap: 10px;
+      }
+
+      &__buttons {
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+        max-width: 30%;
+        margin: 5px 0 0 auto;
+        font-size: 13px;
+      }
+    }
+
+
+    &__stage {
+      border: 1px solid $bg-color;
+      border-radius: 15px;
+      padding: 20px 10px;
+      margin-bottom: 10px;
+
+      &__inner {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      &_date-interval {
+        font-weight: 600;
+        font-size: 16px;
+      }
+    }
+
+  }
+
 
 }
 
@@ -1006,15 +1169,10 @@ body {
 // ----------------------------------- CONFIMATION-TASKS ---------------------------------------------------------------
 
 .confirmation-tasks {
-  width: 95%;
-  max-width: 95%;
-  min-height: 100%;
+  @extend %main-section;
 
   &__inner {
-    position: relative;
-    padding: 30px 10px 30px 30px;
-    background-color: $section-bg;
-    border-radius: 20px;
+    @extend %main-inner;
     display: flex;
     flex-direction: column;
     gap: 10px;

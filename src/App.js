@@ -23,13 +23,13 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Пример (Lorem ipsum dolor sit amet.)',
-              confirm: false,
+              status: false,
               type: 'green',
               id: 1
             },
             {
               content: 'Пример (Lorem ipsum dolor sit amet.)',
-              confirm: false,
+              status: false,
               type: 'red',
               id: 2
             }
@@ -41,7 +41,7 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Lorem Lorem, ipsum dolor.ipsum dolor sit amet consectetur adipisicing elit. A earum deleniti perspiciatis, alias voluptatum incidunt.',
-              confirm: false,
+              status: false,
               type: 'green',
               id: 3
             }
@@ -53,13 +53,13 @@ export const App = () => {
           taskOfThisTime: [
             {
               content: 'Проверка Lorem ipsum dolor sit amet Libero, labore!',
-              confirm: false,
+              status: false,
               type: 'green',
               id: 4
             },
             {
               content: 'Проверка Lorem ipsum dolor sit aet consectetur adipisicing elit. Libero, labore!',
-              confirm: false,
+              status: false,
               type: 'green',
               id: 7
             }

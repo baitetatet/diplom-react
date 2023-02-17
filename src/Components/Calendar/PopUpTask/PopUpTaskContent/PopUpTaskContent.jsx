@@ -1,6 +1,6 @@
 export const PopUpTaskContent = ({ CONTENT }) => {
   const VARIABLES = {
-    title: 'Содержание:',
+    title: 'Включает:',
     postFile: 'Прикрепить файл',
     confirmTask: 'Выполнить'
   }
