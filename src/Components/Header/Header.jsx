@@ -3,7 +3,7 @@ import imgLogo from 'images/logo.png'
 import { useContext } from "react"
 import { Database } from "DatabaseContext"
 
-export const Header = () => {
+export const Header = ({ setLogged }) => {
   const [time, setTime] = useState(new Date().toLocaleTimeString())
   const [date, setDate] = useState(new Date().toLocaleDateString())
   const { database } = useContext(Database)
@@ -37,7 +37,10 @@ export const Header = () => {
           </div>
           <div className="header__user">
             <p>{userName}</p>
-            <button className="header__logout"></button>
+            <button
+              className="header__logout"
+              onClick={() => setLogged(false)}
+            />
           </div>
         </div>
       </div>

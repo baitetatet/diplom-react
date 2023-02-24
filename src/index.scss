@@ -530,6 +530,10 @@ body {
         padding: 10px;
         cursor: default;
 
+        &_btn-confirm {
+          margin: 10px 0 0 10px;
+        }
+
         &_task {
           font-size: 16px;
           padding: 4px 10px;
@@ -708,6 +712,12 @@ body {
 
     &_confirm-task {
       width: 100%;
+    }
+
+    &__post-file_input {
+      opacity: 0;
+      visibility: hidden;
+      position: absolute;
     }
   }
 
@@ -1037,7 +1047,6 @@ body {
     margin-top: 15px;
   }
 
-  &__content>div:nth-child(3),
   &__content>div:not(:first-child)>label {
     display: flex;
     align-items: center;
@@ -1161,6 +1170,12 @@ body {
 
   }
 
+  &__time,
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
 }
 
@@ -1259,3 +1274,99 @@ body {
 }
 
 // -------------------------------- CONFIMATION-TASKS END --------------------------------------------------------------
+
+
+// ----------------------------------- AUTHORIZATION  ------------------------------------------------------------------
+
+$white: #edf1f7;
+$border: #c5c8c9;
+
+.authorization {
+  height: 100vh;
+  width: 100vw;
+  background-color: $bg-color;
+
+  &__inner {
+    position: absolute;
+    background-color: $section-bg;
+    width: 40%;
+    height: 50%;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    margin: 0 auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 15px;
+  }
+
+  &__title {
+    cursor: default;
+    margin-top: 20px;
+    text-align: center;
+    color: black;
+    font-size: 30px;
+  }
+
+  &__form {
+    margin: 0 auto;
+    margin-top: 50px;
+    width: 30%;
+  }
+
+  &__form label,
+  &__form input {
+    font-size: 22px;
+    width: 100%;
+  }
+
+  &__form input {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 1px solid #c5c8c9;
+    margin-bottom: 30px;
+    box-shadow: 0px 5px 5px -5px rgba(34, 60, 80, 0.3);
+  }
+
+  &__form input:focus,
+  &__form input:active {
+    outline: none;
+  }
+
+  &__form_submit {
+    cursor: pointer;
+    display: block;
+    color: black;
+    background-color: transparent;
+    border: 2px solid $border;
+    box-shadow: 0px 1px 10px -2px rgba(34, 60, 80, 0.2);
+    border-radius: 5px;
+    padding: 3px;
+    font-size: 22px;
+    width: 100%;
+    transition: all linear .3s;
+  }
+
+  &__form_submit:hover {
+    background-color: $white;
+    color: $bg-color;
+
+    transition: all linear .3s;
+  }
+
+  &__form_submit:active {
+    box-shadow: 0px 1px 10px 1px rgba(34, 60, 80, 0.1) inset;
+  }
+
+  &__uncorrect {
+    display: block;
+    color: #980000;
+    font-size: 14px;
+    margin-top: 20px;
+    margin-bottom: -30px;
+    text-align: center;
+  }
+
+}
+
+// ----------------------------------------- AUTHORIZATION  END -------------------------------------------------------------

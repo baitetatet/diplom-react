@@ -4,6 +4,7 @@ import { NewTaskInvolved } from "./NewTaskInvolved/NewTaskInvolved";
 import { NewTaskReporter } from "./NewTaskReporter/NewTaskReporter";
 import { NewTaskTime } from "./NewTaskTime/NewTaskTime";
 import { NewTaskStages } from "./NewTaskStages/NewTaskStages";
+import { NewTaskDate } from "./NewTaskDate/NewTaskDate";
 
 export const NewTask = () => {
   const VARIABLES = {
@@ -24,14 +25,21 @@ export const NewTask = () => {
           <div className="new-task__content">
             <NewTaskDescription />
             <NewTaskDirector />
+            <NewTaskDate />
             <NewTaskTime />
             <NewTaskInvolved />
             <NewTaskReporter />
             <NewTaskStages />
           </div>
           <div className="new-task__buttons">
-            <input className='new-task__buttons_reset button-red' type="reset" />
-            <input className='new-task__buttons_submit button-green' type="submit" />
+            <input
+              className='new-task__buttons_reset button-red'
+              type="reset"
+            />
+            <input
+              className='new-task__buttons_submit button-green'
+              type="submit"
+            />
           </div>
         </form>
 

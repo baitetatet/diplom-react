@@ -31,23 +31,21 @@ export const Day = ({ selectedDate, handlerClickOnDay }) => {
                   {
                     database.tasks.map(task => {
                       const contentDiv = []
-                      if (task.date === currentDate && task.startTime === time.timeValue) {
-                        contentDiv.push(task.taskOfThisTime.map(taskOfThisTime =>
+                      if (task.date.start === currentDate && task.time.start === time.timeValue) {
+                        contentDiv.push(
                           <Task
-                            content={taskOfThisTime.content}
+                            content={task.description}
                             table={'day-table'}
-                            type={taskOfThisTime.type}
+                            type={task.type}
                             date={currentDate}
                             time={time.timeValue}
-                            key={time.id + taskOfThisTime.id}
+                            key={task.description + task.date.start}
                           />
-                        )
                         )
                       }
                       return contentDiv
                     })
                   }
-
                 </div>
               </li>
             )
