@@ -15,7 +15,6 @@ export const Authorization = ({ setLogged, setDatabase }) => {
     event.preventDefault()
     const userData = authorization(login, password)
     if (userData) {
-      console.log(...userData)
       setDatabase(...userData)
       setLogged(true)
 
