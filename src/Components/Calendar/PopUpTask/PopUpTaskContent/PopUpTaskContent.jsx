@@ -4,8 +4,13 @@ export const PopUpTaskContent = ({ CONTENT }) => {
     postFile: 'Прикрепить файл',
     confirmTask: 'Выполнить'
   }
+  const handlerClickPostFile = (event) => {
+    const inputPostFile = event.target.previousSibling
+    inputPostFile.click()
+  }
+
   return (
-    <atticle className="calendar__task__description__category__content category__content">
+    <article className="calendar__task__description__category__content category__content">
       <h3 className="category__content_title">
         {VARIABLES.title}
       </h3>
@@ -20,9 +25,17 @@ export const PopUpTaskContent = ({ CONTENT }) => {
                 {item.text}
               </p>
               <div className="category__content__buttons">
-                <button className="category__content_post-file button">
-                  {VARIABLES.postFile}
-                </button>
+                <div className="category__content_post-file">
+                  <input
+                    className="category__content__post-file_input"
+                    type="file" />
+                  <button
+                    className="category__content__post-file_button button"
+                    onClick={(event) => handlerClickPostFile(event)}
+                  >
+                    {VARIABLES.postFile}
+                  </button>
+                </div>
                 <button className="category__content_confirm-task button">
                   {VARIABLES.confirmTask}
                 </button>
@@ -31,6 +44,6 @@ export const PopUpTaskContent = ({ CONTENT }) => {
           ))
         }
       </div>
-    </atticle>
+    </article>
   )
 }
