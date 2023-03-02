@@ -7,7 +7,7 @@ const mysql = require("mysql")
 const db = mysql.createConnection({
 	user: "root",
 	host: "localhost",
-	password: "password",
+	password: "12345678",
 	database: "mydb",
 })
 
@@ -16,22 +16,21 @@ app.use(express.json())
 
 app.get("/", (req, res) => {
 	console.log("Server!")
-	db.query('INSERT INTO user VALUES (3,"i", "I", "i", "I", "I", "I")', err => {
-		if (err) console.log("FAILED!!!!!!!!")
-		console.log("success")
-	})
-	res.json({})
+	res.sendStatus(200)
 })
 
-app.get("/db", (req, res) => {
-	db.query("SELECT * FROM user", (err, result) => {
-		if (err) console.log(err)
-		res.send(result)
-	})
-})
+app.post("/authorization", (req, res) => {
+	const login = req.body.login
+	const password = req.body.password
 
-app.get("/hello", (req, res) => {
-	res.send({ message: "Hello" })
+	db.query(
+		"SELECT * FROM user WHERE login=? AND password=? ",
+		[login, password],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
 })
 
 server.listen(8000, err => {

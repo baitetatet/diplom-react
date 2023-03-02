@@ -1,23 +1,16 @@
-import { useContext, useEffect } from "react"
-import { Database } from "DatabaseContext"
+import { useContext } from "react"
+import { UserData } from "UserDataContext"
 import { Task } from "Components/Calendar/Task/Task"
 import { TIME_LAPSE } from "API/TIME_LAPSE_API"
 import { checkAndChangeDateFormat } from "hooks/checkAndChangeDateFormat"
-import axios from "axios"
 
 export const Day = ({ selectedDate }) => {
-	const { database } = useContext(Database)
+	const { userData } = useContext(UserData)
 	const currentDate = [
 		checkAndChangeDateFormat(selectedDate.getDate()),
 		checkAndChangeDateFormat(selectedDate.getMonth() + 1),
 		selectedDate.getFullYear(),
 	].join(".")
-
-	useEffect(() => {
-		axios
-			.get("http://localhost:8000/db")
-			.then(response => console.log(response))
-	}, [])
 
 	return (
 		<section className="day-table" data-date={currentDate}>
@@ -29,7 +22,7 @@ export const Day = ({ selectedDate }) => {
 								{time.timeValue}
 							</span>
 							<div className="day-table__list-time__item__content">
-								{database.tasks.map(task => {
+								{/* {database.tasks.map(task => {
 									const contentDiv = []
 									if (
 										task.date.start === currentDate &&
@@ -44,7 +37,7 @@ export const Day = ({ selectedDate }) => {
 										)
 									}
 									return contentDiv
-								})}
+								})} */}
 							</div>
 						</li>
 					))}

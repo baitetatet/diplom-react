@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Calendar } from "Components/Calendar/Calendar"
 import { Routes, Route } from "react-router-dom"
-import { Database } from "DatabaseContext"
+import { UserData } from "UserDataContext"
 import { Layout } from "Components/Layout"
 import { NewTask } from "Components/NewTask/NewTask"
 import { ConfirmationTasks } from "Components/ConfirmationTasks/ConfirmationTasks"
@@ -12,15 +12,16 @@ import { useSelector } from "react-redux"
 
 export const App = () => {
 	const [isLogged, setLogged] = useState(false)
-	const [database, setDatabase] = useState(null)
+	const [userData, setUserData] = useState(null)
 	const popUpTaskState = state => state.popUpTaskState
 	const { popUpTaskActive, activeTask } = useSelector(popUpTaskState)
+	console.log(userData)
 
 	//Проверка событий и изменение статуса на 'overdue', если они истекли
 
 	return (
 		<div className="wrapper">
-			<Database.Provider value={{ database, setDatabase }}>
+			<UserData.Provider value={{ userData, setUserData }}>
 				{isLogged ? (
 					<Routes>
 						<Route path="/" element={<Layout setLogged={setLogged} />}>
@@ -34,9 +35,9 @@ export const App = () => {
 						</Route>
 					</Routes>
 				) : (
-					<Authorization setLogged={setLogged} setDatabase={setDatabase} />
+					<Authorization setLogged={setLogged} setUserData={setUserData} />
 				)}
-			</Database.Provider>
+			</UserData.Provider>
 			{popUpTaskActive && <PopUpTask task={activeTask} />}
 		</div>
 	)

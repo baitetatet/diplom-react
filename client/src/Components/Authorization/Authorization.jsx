@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
-import database from "../../database/database.json"
+import { useState } from "react"
+// import database from "../../database/database.json"
+import Axios from "axios"
 
-export const Authorization = ({ setLogged, setDatabase }) => {
+export const Authorization = ({ setLogged, setUserData }) => {
 	const [incorrectLogin, setIncorrectLogin] = useState(false)
 	const [login, setLogin] = useState(null)
 	const [password, setPassword] = useState(null)
@@ -11,28 +12,21 @@ export const Authorization = ({ setLogged, setDatabase }) => {
 		incorrectLoginSpan: "Неверный логин или пароль",
 	}
 
-	useEffect(() => {
-		fetch("/hello")
-			.then(res => res.json())
-			.then(data => console.log(data))
-	}, [])
-
 	const handlerAuthorizationSubmit = event => {
 		event.preventDefault()
-		const userData = authorization(login, password)
-		if (userData) {
-			setDatabase(...userData)
-			setLogged(true)
-		}
-		!userData && setIncorrectLogin(true)
-	}
-	const authorization = (login, password) => {
-		const userData = database.filter(
-			user =>
-				user["userData"]["login"] === login &&
-				user["userData"]["password"] === password
-		)
-		return userData.length === 0 ? null : userData
+		Axios.post("http://localhost:8000/authorization", {
+			login: login,
+			password: password,
+		}).then(res => {
+			const userData = res.data
+			console.log(userData)
+			if (!userData.length) {
+				setIncorrectLogin(true)
+			} else {
+				setUserData(userData[0])
+				setLogged(true)
+			}
+		})
 	}
 	return (
 		<div className="authorization">
@@ -45,7 +39,6 @@ export const Authorization = ({ setLogged, setDatabase }) => {
 				)}
 				<form
 					className="authorization__form"
-					action=""
 					onSubmit={event => handlerAuthorizationSubmit(event)}
 				>
 					<input
@@ -54,6 +47,7 @@ export const Authorization = ({ setLogged, setDatabase }) => {
 						type="login"
 						placeholder="Логин"
 						onChange={event => setLogin(event.target.value)}
+						required
 					/>
 					<input
 						id="password"
@@ -61,6 +55,7 @@ export const Authorization = ({ setLogged, setDatabase }) => {
 						type="password"
 						placeholder="Пароль"
 						onChange={event => setPassword(event.target.value)}
+						required
 					/>
 					<button className="authorization__form_submit" type="submit">
 						{VARIABLES.btnSubmit}
