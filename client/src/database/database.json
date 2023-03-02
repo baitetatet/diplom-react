@@ -1,0 +1,193 @@
+[
+  {
+    "userData": {
+      "name": "Петр",
+      "surname": "Петров",
+      "rank": "Генерал-лейтенант",
+      "post": "Начальник академии",
+      "role": "user",
+      "login": "na",
+      "password": "123"
+    },
+    "tasks": [
+      {
+        "description": "Пример (Lorem ipsum dolor sit amet.)",
+        "director": "НА",
+        "date": {
+          "start": "22.02.2023",
+          "end": "23.02.2023"
+        },
+        "time": {
+          "start": "08:00",
+          "end": "09:00"
+        },
+        "status": "inProcessing",
+        "type": "red",
+        "id": 2,
+        "stages": [
+          {
+            "timeStart": "11.04.2023",
+            "timeEnd": "15.04.2023",
+            "description": "Сбор и обобщение материалов",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "18.04.2023",
+            "timeEnd": "21.04.2023",
+            "description": "Формирование отчета",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "22.04.2023",
+            "timeEnd": "22.04.2023",
+            "description": "Доклад в ОВО РВСН",
+            "file": "undefined",
+            "status": "inProcessing"
+          }
+        ]
+      },
+      {
+        "description": "Пример 2 cбор и обобщение материалов",
+        "director": "НА",
+        "date": {
+          "start": "22.02.2023",
+          "end": "23.02.2023"
+        },
+        "time": {
+          "start": "09:00",
+          "end": "12:00"
+        },
+        "status": "inProcessing",
+        "type": "red",
+        "id": 2,
+        "stages": [
+          {
+            "timeStart": "11.04.2023",
+            "timeEnd": "15.04.2023",
+            "description": "Сбор и обобщение материалов",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "18.04.2023",
+            "timeEnd": "21.04.2023",
+            "description": "Формирование отчета",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "22.04.2023",
+            "timeEnd": "22.04.2023",
+            "description": "Доклад в ОВО РВСН",
+            "file": "undefined",
+            "status": "inProcessing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "userData": {
+      "name": "Иван",
+      "surname": "Иванов",
+      "rank": "Полковник",
+      "post": "Начальник факультета СВО",
+      "role": "user",
+      "login": "nf",
+      "password": "123"
+    },
+    "tasks": [
+      {
+        "description": "Пример (Lorem ipsum dolor sit amet.)",
+        "director": "НА",
+        "date": {
+          "start": "22.02.2023",
+          "end": "23.02.2023"
+        },
+        "time": {
+          "start": "08:00",
+          "end": "09:00"
+        },
+        "status": "inProcessing",
+        "type": "red",
+        "id": 2,
+        "stages": [
+          {
+            "timeStart": "11.04.2023",
+            "timeEnd": "15.04.2023",
+            "description": "Сбор и обобщение материалов",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "18.04.2023",
+            "timeEnd": "21.04.2023",
+            "description": "Формирование отчета",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "22.04.2023",
+            "timeEnd": "22.04.2023",
+            "description": "Доклад в ОВО РВСН",
+            "file": "undefined",
+            "status": "inProcessing"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "userData": {
+      "name": "Андрей",
+      "surname": "Андреев",
+      "rank": "Капитан",
+      "post": "Админ",
+      "role": "admin",
+      "login": "admin",
+      "password": "123"
+    },
+    "tasks": [
+      {
+        "description": "Админ Пример (Lorem ipsum dolor sit amet.)",
+        "director": "НА",
+        "date": {
+          "start": "22.02.2023",
+          "end": "23.02.2023"
+        },
+        "time": {
+          "start": "08:00",
+          "end": "09:00"
+        },
+        "status": "inProcessing",
+        "type": "red",
+        "id": 2,
+        "stages": [
+          {
+            "timeStart": "11.04.2023",
+            "timeEnd": "15.04.2023",
+            "description": "Админ Сбор и обобщение материалов Админ Сбор и обобщение материалов",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "18.04.2023",
+            "timeEnd": "21.04.2023",
+            "description": "Админ Формирование отчета",
+            "file": "undefined",
+            "status": "inProcessing"
+          },
+          {
+            "timeStart": "22.04.2023",
+            "timeEnd": "22.04.2023",
+            "description": "Админ Доклад в ОВО РВСН",
+            "file": "undefined",
+            "status": "inProcessing"
+          }
+        ]
+      }
+    ]
+  }
+]
