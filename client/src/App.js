@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Calendar } from "Components/Calendar/Calendar"
 import { Routes, Route } from "react-router-dom"
 import { UserData } from "UserDataContext"
@@ -9,19 +9,36 @@ import { Authorization } from "Components/Authorization/Authorization"
 import Tasks from "Components/Tasks/Tasks"
 import { PopUpTask } from "Components/Calendar/PopUpTask/PopUpTask"
 import { useSelector } from "react-redux"
+import Axios from "axios"
+import { Loading } from "Components/Loader/Loader"
 
 export const App = () => {
 	const [isLogged, setLogged] = useState(false)
+	const [isLoading, setLoading] = useState(true)
 	const [userData, setUserData] = useState(null)
 	const popUpTaskState = state => state.popUpTaskState
 	const { popUpTaskActive, activeTask } = useSelector(popUpTaskState)
-	console.log(userData)
+
+	useEffect(() => {
+		Axios.get("http://localhost:8000/check-logged")
+			.then(res => {
+				if (res.data === false) {
+					setLogged(false)
+				} else {
+					setUserData(...res.data)
+					setLogged(true)
+				}
+				setLoading(false)
+			})
+			.catch(err => console.log(err))
+	}, [])
 
 	//Проверка событий и изменение статуса на 'overdue', если они истекли
 
 	return (
 		<div className="wrapper">
 			<UserData.Provider value={{ userData, setUserData }}>
+				{isLoading && <Loading />}
 				{isLogged ? (
 					<Routes>
 						<Route path="/" element={<Layout setLogged={setLogged} />}>

@@ -1,5 +1,4 @@
 import { useState } from "react"
-// import database from "../../database/database.json"
 import Axios from "axios"
 
 export const Authorization = ({ setLogged, setUserData }) => {
@@ -12,6 +11,8 @@ export const Authorization = ({ setLogged, setUserData }) => {
 		incorrectLoginSpan: "Неверный логин или пароль",
 	}
 
+	Axios.defaults.withCredentials = true
+
 	const handlerAuthorizationSubmit = event => {
 		event.preventDefault()
 		Axios.post("http://localhost:8000/authorization", {
@@ -19,7 +20,7 @@ export const Authorization = ({ setLogged, setUserData }) => {
 			password: password,
 		}).then(res => {
 			const userData = res.data
-			console.log(userData)
+
 			if (!userData.length) {
 				setIncorrectLogin(true)
 			} else {
