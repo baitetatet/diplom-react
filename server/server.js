@@ -39,7 +39,11 @@ app.get("/check-logged", (req, res) => {
 	)
 })
 app.get("/log-out", (req, res) => {
+	const loggedUser = req.signedCookies.logged
 	res.clearCookie("logged")
+	db.query("UPDATE user SET cookie_password = NULL WHERE cookie_password = ?", [
+		loggedUser,
+	])
 	res.send("set cookie")
 })
 
@@ -71,6 +75,72 @@ app.post("/authorization", (req, res) => {
 					})
 					.send(result)
 			}
+		}
+	)
+})
+
+app.get("/get-tasks", (req, res) => {
+	const loggedUser = req.signedCookies.logged
+	db.query(
+		"SELECT * FROM task, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = inv_usr.task_id",
+		[loggedUser],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+
+app.post("/new-task", (req, res) => {
+	const newTask = req.body.newTask
+	const taskId = uuidv4()
+	db.query(
+		"INSERT INTO task VALUES (?,?,?,?,?,?,?)",
+		[
+			taskId,
+			newTask.description,
+			newTask.director,
+			newTask.date_start,
+			newTask.date_end,
+			newTask.time_start,
+			newTask.time_end,
+		],
+		(err, result) => {
+			if (err) res.send(err)
+			res.send(result)
+		}
+	)
+})
+
+app.get("/get_directors", (req, res) => {
+	db.query(
+		"SELECT user.id, user.post FROM user WHERE post NOT LIKE 'админ'",
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+
+app.get("/get_involved", (req, res) => {
+	const loggedUser = req.signedCookies.logged
+	db.query(
+		"SELECT * FROM user u WHERE u.id IN ( SELECT sub.id_subordinate FROM subordinated sub, user u WHERE u.cookie_password = ? AND u.id = sub.id_leader);",
+		[loggedUser],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+app.post("/insert_data", (req, res) => {
+	const { count, target } = req.body
+	db.query(
+		"INSERT INTO subordinated VALUES (?,?)",
+		[target, count],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
 		}
 	)
 })

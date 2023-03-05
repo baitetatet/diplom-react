@@ -10,7 +10,7 @@ import Tasks from "Components/Tasks/Tasks"
 import { PopUpTask } from "Components/Calendar/PopUpTask/PopUpTask"
 import { useSelector } from "react-redux"
 import Axios from "axios"
-import { Loading } from "Components/Loader/Loader"
+import { Loader } from "Components/Loader/Loader"
 
 export const App = () => {
 	const [isLogged, setLogged] = useState(false)
@@ -20,7 +20,7 @@ export const App = () => {
 	const { popUpTaskActive, activeTask } = useSelector(popUpTaskState)
 
 	useEffect(() => {
-		Axios.get("http://localhost:8000/check-logged")
+		Axios.get("/check-logged")
 			.then(res => {
 				if (res.data === false) {
 					setLogged(false)
@@ -33,12 +33,20 @@ export const App = () => {
 			.catch(err => console.log(err))
 	}, [])
 
+	// for (let count = 1, target = 40; count <= 41; count++) {
+	// 	const sub = [41]
+	// 	if (!sub.includes(count)) continue
+	// 	Axios.post("/insert_data", {
+	// 		count: count,
+	// 		target: target,
+	// 	}).then(res => console.log(res.data))
+	// }
 	//Проверка событий и изменение статуса на 'overdue', если они истекли
 
 	return (
 		<div className="wrapper">
 			<UserData.Provider value={{ userData, setUserData }}>
-				{isLoading && <Loading />}
+				{isLoading && <Loader />}
 				{isLogged ? (
 					<Routes>
 						<Route path="/" element={<Layout setLogged={setLogged} />}>

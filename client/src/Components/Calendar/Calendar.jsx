@@ -9,97 +9,101 @@ import { Month } from "Components/Calendar/Month/Month"
 import { Year } from "Components/Calendar/Year/Year"
 
 export const Calendar = () => {
+	const [selectedDate, setSelectedDate] = useState(new Date())
+	const [activeTable, setActiveTable] = useState("День")
 
-  const [selectedDate, setSelectedDate] = useState(new Date())
-  const [activeTable, setActiveTable] = useState('День')
+	const dateType = {
+		День: selectedDate.toLocaleString("ru", {
+			weekday: "short",
+			day: "numeric",
+			month: "long",
+			year: "numeric",
+		}),
+		Неделя: (function () {
+			const { weekInterval } = converterTimeInterval(selectedDate, 7)
+			return weekInterval
+		})(),
+		Месяц: (() => {
+			const monthTitle = selectedDate.toLocaleString("ru", {
+				month: "long",
+				year: "numeric",
+			})
+			return monthTitle[0].toUpperCase() + monthTitle.substring(1)
+		})(),
+		Год: selectedDate.getFullYear() + " г.",
+	}
 
-  
-  
+	const getDayTable = event => {
+		const eventElem =
+			event.target.classList.value === "month-table__body__item"
+				? event.target
+				: event.target.parentNode
+		const eventDate = eventElem.attributes["data-date"].value
+		const [eventDay, eventMonth, eventYear] = eventDate.split(".")
+		const changedDate = [eventYear, +eventMonth, eventDay].join("-")
 
-  const dateType = {
-    'День': selectedDate.toLocaleString('ru', {
-      weekday: 'short',
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric'
-    }),
-    'Неделя': function () {
-      const { weekInterval } = converterTimeInterval(selectedDate, 7)
-      return weekInterval
-    }(),
-    'Месяц': (() => {
-      const monthTitle = selectedDate.toLocaleString('ru', { month: 'long', year: 'numeric' })
-      return monthTitle[0].toUpperCase() + monthTitle.substring(1)
-    })(),
-    'Год': selectedDate.getFullYear() + ' г.'
-  }
+		setSelectedDate(new Date(changedDate))
+		setActiveTable("День")
+	}
 
-  const getDayTable = (event) => {
-    const eventElem = event.target.classList.value === 'month-table__body__item' ? event.target : event.target.parentNode
-    const eventDate = eventElem.attributes['data-date'].value
-    const [eventDay, eventMonth, eventYear] = eventDate.split('.')
-    const changedDate = [eventYear, +eventMonth, eventDay].join('-')
+	const handlerArrowClick = event => {
+		const diff = event.target.classList.value.includes("nextArrow") ? 1 : -1
+		const changeMonth = currentMonth =>
+			new Date(selectedDate.getFullYear(), currentMonth + diff)
 
-    setSelectedDate(new Date(changedDate))
-    setActiveTable('День')
-  }
+		const formatDate = {
+			День: () => new Date(selectedDate.setDate(selectedDate.getDate() + diff)),
+			Неделя: () =>
+				new Date(selectedDate.setDate(selectedDate.getDate() + diff * 7)),
+			Месяц: () => changeMonth(selectedDate.getMonth()),
+			Год: () =>
+				new Date(selectedDate.setYear(selectedDate.getFullYear() + diff)),
+		}
+		setSelectedDate(formatDate[activeTable]())
+	}
 
-  const handlerArrowClick = (event) => {
-    const diff = event.target.classList.value.includes('nextArrow') ? 1 : -1
-    const changeMonth = currentMonth => new Date(selectedDate.getFullYear(), currentMonth + diff)
+	const changeTable = () => {
+		switch (activeTable) {
+			case "День":
+				return <Day selectedDate={selectedDate} />
+			case "Неделя":
+				return <Week getDayTable={getDayTable} selectedDate={selectedDate} />
+			case "Месяц":
+				return (
+					<Month
+						selectedDate={selectedDate}
+						month={selectedDate.getMonth()}
+						getDayTable={getDayTable}
+						table={"month"}
+					/>
+				)
+			case "Год":
+				return (
+					<Year
+						selectedDate={selectedDate}
+						getDayTable={getDayTable}
+						table={"year"}
+					/>
+				)
+			default:
+				return <></>
+		}
+	}
 
-    const formatDate = {
-      'День': () => new Date(selectedDate.setDate(selectedDate.getDate() + diff)),
-      'Неделя': () => new Date(selectedDate.setDate(selectedDate.getDate() + diff * 7)),
-      'Месяц': () => changeMonth(selectedDate.getMonth()),
-      'Год': () => new Date(selectedDate.setYear(selectedDate.getFullYear() + diff))
-    }
-    setSelectedDate(formatDate[activeTable]())
-  }
-
-  const changeTable = () => {
-    switch (activeTable) {
-      case 'День':
-        return <Day
-          selectedDate={selectedDate}
-        />
-      case 'Неделя':
-        return <Week
-          getDayTable={getDayTable}
-          selectedDate={selectedDate}
-        />
-      case 'Месяц':
-        return <Month
-          selectedDate={selectedDate}
-          month={selectedDate.getMonth()}
-          getDayTable={getDayTable}
-          table={'month'}
-        />
-      case 'Год':
-        return <Year
-          selectedDate={selectedDate}
-          getDayTable={getDayTable}
-          table={'year'}
-        />
-      default: return <></>
-    }
-  }
-
-  return (
-    <div className="calendar">
-      <SelectFormatTable
-        className="calendar__select-format"
-        activeTable={activeTable}
-        setActiveTable={setActiveTable}
-      />
-      <div className="calendar__content">
-        <ChangeDate
-          title={dateType[activeTable]}
-          handlerArrowClick={handlerArrowClick}
-        />
-        {changeTable()}
-        
-      </div>
-    </div>
-  )
+	return (
+		<div className="calendar">
+			<SelectFormatTable
+				className="calendar__select-format"
+				activeTable={activeTable}
+				setActiveTable={setActiveTable}
+			/>
+			<div className="calendar__content">
+				<ChangeDate
+					title={dateType[activeTable]}
+					handlerArrowClick={handlerArrowClick}
+				/>
+				{changeTable()}
+			</div>
+		</div>
+	)
 }

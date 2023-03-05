@@ -1062,6 +1062,13 @@ body {
     max-width: 100%;
     resize: none;
   }
+  &__director,
+  &__involved,
+  &__reported{
+    &_select{
+      max-width: 100px;
+    }
+  }
 
   &__buttons input {
     margin: 0;
