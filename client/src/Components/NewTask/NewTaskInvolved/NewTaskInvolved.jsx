@@ -19,6 +19,7 @@ export const NewTaskInvolved = () => {
 					className="new-task__involved_select"
 					name="involved"
 					id="involved"
+					multiple
 				>
 					{involved.map(user => (
 						<option value={user.post} key={user.post}>

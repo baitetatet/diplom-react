@@ -8,7 +8,6 @@ export const NewTaskDirector = () => {
 	}
 	useEffect(() => {
 		Axios.get("/get_directors").then(res => {
-			console.log(res.data)
 			setDirectors(res.data)
 		})
 	}, [])

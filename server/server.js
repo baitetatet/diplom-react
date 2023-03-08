@@ -82,7 +82,7 @@ app.post("/authorization", (req, res) => {
 app.get("/get-tasks", (req, res) => {
 	const loggedUser = req.signedCookies.logged
 	db.query(
-		"SELECT * FROM task, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = inv_usr.task_id",
+		"SELECT * FROM task, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id",
 		[loggedUser],
 		(err, result) => {
 			if (err) console.log(err)
@@ -91,25 +91,54 @@ app.get("/get-tasks", (req, res) => {
 	)
 })
 
-app.post("/new-task", (req, res) => {
+app.post("/new-task", async (req, res) => {
 	const newTask = req.body.newTask
-	const taskId = uuidv4()
+	const stages = req.body.stages
 	db.query(
-		"INSERT INTO task VALUES (?,?,?,?,?,?,?)",
+		"INSERT task (description,director,date_start,date_end,time_start,time_end) VALUES (?,?,?,?,?,?)",
 		[
-			taskId,
 			newTask.description,
 			newTask.director,
-			newTask.date_start,
-			newTask.date_end,
-			newTask.time_start,
-			newTask.time_end,
+			newTask.dateStart,
+			newTask.dateEnd,
+			newTask.timeStart,
+			newTask.timeEnd,
 		],
 		(err, result) => {
-			if (err) res.send(err)
-			res.send(result)
+			if (err) console.log(err)
+			const taskId = result.insertId
+
+			newTask.involved.forEach(user => {
+				db.query(
+					"SELECT id FROM user WHERE post = ?",
+					[user],
+					(err, result) => {
+						if (err) console.log(err)
+						const userId = result[0].id
+						db.query(
+							"INSERT involved_user (task_id, user_id) VALUES (?,?)",
+							[taskId, userId],
+							(err, res) => {
+								if (err) console.log(err)
+								console.log(res)
+							}
+						)
+					}
+				)
+			})
+
+			stages.forEach(stage => {
+				db.query(
+					"INSERT stage (task_id, date_start, date_end, description) VALUES (?,?,?,?)",
+					[taskId, stage.startDate, stage.endDate, stage.description],
+					err => {
+						if (err) console.log(err)
+					}
+				)
+			})
 		}
 	)
+	res.send({ data: "OK" })
 })
 
 app.get("/get_directors", (req, res) => {

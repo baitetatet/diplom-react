@@ -33,14 +33,6 @@ export const App = () => {
 			.catch(err => console.log(err))
 	}, [])
 
-	// for (let count = 1, target = 40; count <= 41; count++) {
-	// 	const sub = [41]
-	// 	if (!sub.includes(count)) continue
-	// 	Axios.post("/insert_data", {
-	// 		count: count,
-	// 		target: target,
-	// 	}).then(res => console.log(res.data))
-	// }
 	//Проверка событий и изменение статуса на 'overdue', если они истекли
 
 	return (

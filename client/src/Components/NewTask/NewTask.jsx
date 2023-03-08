@@ -5,6 +5,9 @@ import { NewTaskReporter } from "./NewTaskReporter/NewTaskReporter"
 import { NewTaskTime } from "./NewTaskTime/NewTaskTime"
 import { NewTaskStages } from "./NewTaskStages/NewTaskStages"
 import { NewTaskDate } from "./NewTaskDate/NewTaskDate"
+import { useState } from "react"
+import { useDispatch } from "react-redux"
+import { addNewTask } from "../../store/reducers/task"
 
 export const NewTask = () => {
 	const VARIABLES = {
@@ -12,9 +15,46 @@ export const NewTask = () => {
 		placeTitle: "Место:",
 		timeTitle: "Время:",
 	}
+	const dispatch = useDispatch()
+	const [stages, setStages] = useState([])
+
+	const filterInvolved = involved => {
+		const involvedUsers = []
+		for (let i = 0; i < involved.options.length; i++) {
+			involved.options[i].selected &&
+				involvedUsers.push(involved.options[i].value)
+		}
+		return involvedUsers
+	}
 
 	const submitNewTask = event => {
-		console.log(event)
+		event.preventDefault()
+		const {
+			description,
+			director,
+			dateStart,
+			dateEnd,
+			timeStart,
+			timeEnd,
+			involved,
+			reporter,
+		} = event.target
+
+		dispatch(
+			addNewTask({
+				newTask: {
+					description: description.value,
+					director: director.value,
+					dateStart: dateStart.value,
+					dateEnd: dateEnd.value ? dateEnd.value : dateStart.value,
+					timeStart: timeStart.value,
+					timeEnd: timeEnd.value ? timeEnd.value : timeEnd.value,
+					involved: filterInvolved(involved),
+					reported: reporter.value,
+				},
+				stages: stages,
+			})
+		)
 	}
 
 	return (
@@ -34,7 +74,7 @@ export const NewTask = () => {
 						<NewTaskTime />
 						<NewTaskInvolved />
 						<NewTaskReporter />
-						<NewTaskStages />
+						<NewTaskStages stages={stages} setStages={setStages} />
 					</div>
 					<div className="new-task__buttons">
 						<input
