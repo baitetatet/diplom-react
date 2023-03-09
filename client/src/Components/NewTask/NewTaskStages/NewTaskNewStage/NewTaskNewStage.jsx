@@ -1,10 +1,11 @@
 import { useState } from "react"
 import { v4 as uuidv4 } from "uuid"
 import { dateInterval } from "hooks/converterTimeInterval"
+import { dateFormat } from "hooks/date"
 
 export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
-	const [startDate, setStartDate] = useState(null)
-	const [endDate, setEndDate] = useState(null)
+	const [startDate, setStartDate] = useState(new Date())
+	const [endDate, setEndDate] = useState(new Date())
 	const [newTaskDescription, setNewTaskDescription] = useState("")
 
 	const VARIABLES = {
@@ -23,22 +24,17 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 	}
 	const handlerChangeInputs = (event, setDate) => {
 		const inputDate = event.target.value
-		setDate(inputDate)
+		setDate(new Date(inputDate))
 	}
 
 	const converterDateForDataBase = date => {
-		const newDate = new Date(date)
-		return [
-			newDate.getDate(),
-			newDate.getMonth() + 1,
-			newDate.getFullYear(),
-		].join(".")
+		return dateFormat(date)
 	}
 
 	const handlerAddButton = () => {
 		const stageDateInterval = dateInterval(
-			new Date(startDate),
-			new Date(endDate ? endDate : startDate)
+			startDate,
+			endDate ? endDate : startDate
 		)
 
 		setStages([
@@ -53,7 +49,6 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 		])
 		setCreatingStage(false)
 	}
-
 	return (
 		<div className="new-task__stages__new-stage">
 			<div className="new-task__stages__new-stage__inner">
@@ -76,6 +71,8 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 						type="date"
 						onChange={event => handlerChangeInputs(event, setStartDate)}
 						required
+						value={converterDateForDataBase(new Date())}
+						min={converterDateForDataBase(new Date())}
 					/>
 				</div>
 				<div className="new-task__stages__new-stage__end-date">
@@ -86,6 +83,8 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 						className="new-task__stages__new-stage__end-date_input"
 						type="date"
 						onChange={event => handlerChangeInputs(event, setEndDate)}
+						value={converterDateForDataBase(new Date())}
+						min={converterDateForDataBase(new Date())}
 					/>
 				</div>
 			</div>

@@ -1,1 +1,0 @@
-export const checkAndChangeDateFormat = date => date < 10 ? '0' + date : date

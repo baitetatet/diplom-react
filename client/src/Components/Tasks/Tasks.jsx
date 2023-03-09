@@ -1,5 +1,3 @@
-import { UserData } from "UserDataContext"
-import { useContext } from "react"
 import TaskVariant from "./TaskVariant/TaskVariant"
 
 const Tasks = () => {
@@ -21,8 +19,6 @@ const Tasks = () => {
 		],
 	}
 
-	const { userData } = useContext(UserData)
-
 	return (
 		<section className="tasks">
 			<div className="tasks__inner">
@@ -31,13 +27,13 @@ const Tasks = () => {
 				</div>
 				<div className="tasks__content">
 					<ul className="tasks__variants">
-						{VARIABLES.taskVariants.map(tasksType => (
+						{/* {VARIABLES.taskVariants.map(tasksType => (
 							<TaskVariant
 								tasksType={tasksType}
 								key={tasksType.type}
 								tasks={userData.tasks}
 							/>
-						))}
+						))} */}
 					</ul>
 				</div>
 			</div>

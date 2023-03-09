@@ -79,11 +79,28 @@ app.post("/authorization", (req, res) => {
 	)
 })
 
-app.get("/get-tasks", (req, res) => {
+app.post("/day-tasks", (req, res) => {
 	const loggedUser = req.signedCookies.logged
+	const currentDate = req.body.currentDate
+
 	db.query(
-		"SELECT * FROM task, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id",
-		[loggedUser],
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start = ?',
+		[loggedUser, currentDate],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+
+app.post("/week-tasks", (req, res) => {
+	const loggedUser = req.signedCookies.logged
+	const startWeek = req.body.startWeek
+	const endWeek = req.body.endWeek
+
+	db.query(
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start >= ? AND date_start <= ?',
+		[loggedUser, startWeek, endWeek],
 		(err, result) => {
 			if (err) console.log(err)
 			res.send(result)
@@ -95,7 +112,7 @@ app.post("/new-task", async (req, res) => {
 	const newTask = req.body.newTask
 	const stages = req.body.stages
 	db.query(
-		"INSERT task (description,director,date_start,date_end,time_start,time_end) VALUES (?,?,?,?,?,?)",
+		"INSERT task (description,director,date_start,date_end,time_start,time_end, place, reporter) VALUES (?,?,?,?,?,?,?,?)",
 		[
 			newTask.description,
 			newTask.director,
@@ -103,6 +120,8 @@ app.post("/new-task", async (req, res) => {
 			newTask.dateEnd,
 			newTask.timeStart,
 			newTask.timeEnd,
+			newTask.place,
+			newTask.reporter,
 		],
 		(err, result) => {
 			if (err) console.log(err)
@@ -129,8 +148,14 @@ app.post("/new-task", async (req, res) => {
 
 			stages.forEach(stage => {
 				db.query(
-					"INSERT stage (task_id, date_start, date_end, description) VALUES (?,?,?,?)",
-					[taskId, stage.startDate, stage.endDate, stage.description],
+					"INSERT stage (task_id, date_start, date_end, description, status) VALUES (?,?,?,?,?)",
+					[
+						taskId,
+						stage.startDate,
+						stage.endDate,
+						stage.description,
+						"isProcessing",
+					],
 					err => {
 						if (err) console.log(err)
 					}
@@ -139,6 +164,18 @@ app.post("/new-task", async (req, res) => {
 		}
 	)
 	res.send({ data: "OK" })
+})
+
+app.post("/get-stages", (req, res) => {
+	const taskId = req.body.taskId
+	db.query(
+		'SELECT id, task_id, DATE_FORMAT(date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(date_end, "%Y-%m-%d") AS date_end, description, status FROM stage WHERE task_id = ?',
+		[taskId],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
 })
 
 app.get("/get_directors", (req, res) => {

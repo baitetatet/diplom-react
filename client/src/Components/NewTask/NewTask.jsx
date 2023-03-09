@@ -8,6 +8,7 @@ import { NewTaskDate } from "./NewTaskDate/NewTaskDate"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { addNewTask } from "../../store/reducers/task"
+import { NewTaskPlace } from "./NewTaskPlace/NewTaskPlace"
 
 export const NewTask = () => {
 	const VARIABLES = {
@@ -29,6 +30,7 @@ export const NewTask = () => {
 
 	const submitNewTask = event => {
 		event.preventDefault()
+		console.log(event.target)
 		const {
 			description,
 			director,
@@ -38,19 +40,21 @@ export const NewTask = () => {
 			timeEnd,
 			involved,
 			reporter,
+			place,
 		} = event.target
-
+		console.log(reporter.value)
 		dispatch(
 			addNewTask({
 				newTask: {
 					description: description.value,
 					director: director.value,
+					place: place.value,
 					dateStart: dateStart.value,
 					dateEnd: dateEnd.value ? dateEnd.value : dateStart.value,
 					timeStart: timeStart.value,
 					timeEnd: timeEnd.value ? timeEnd.value : timeEnd.value,
 					involved: filterInvolved(involved),
-					reported: reporter.value,
+					reporter: reporter.value,
 				},
 				stages: stages,
 			})
@@ -70,6 +74,7 @@ export const NewTask = () => {
 					<div className="new-task__content">
 						<NewTaskDescription />
 						<NewTaskDirector />
+						<NewTaskPlace />
 						<NewTaskDate />
 						<NewTaskTime />
 						<NewTaskInvolved />

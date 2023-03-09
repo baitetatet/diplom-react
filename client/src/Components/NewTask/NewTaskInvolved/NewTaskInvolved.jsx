@@ -1,14 +1,18 @@
 import Axios from "axios"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { UserData } from "UserDataContext"
 
 export const NewTaskInvolved = () => {
-	const [involved, setInvolved] = useState([])
+	const { userData } = useContext(UserData)
+	const [involved, setInvolved] = useState([userData])
 	const VARIABLES = {
 		title: "Кто привлекается: ",
 	}
 
 	useEffect(() => {
-		Axios.get("/get_involved").then(res => setInvolved(res.data))
+		Axios.get("/get_involved").then(res =>
+			setInvolved(state => [...state, ...res.data])
+		)
 	}, [])
 
 	return (

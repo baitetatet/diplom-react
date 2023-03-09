@@ -1,25 +1,25 @@
-import { checkAndChangeDateFormat } from "./checkAndChangeDateFormat"
+import { checkAndChangeDateFormat } from "./date"
 import { MONTHS } from "../API/monthsAPI"
 
-export const dateInterval = (startWeek, endWeek) => {
+export const dateInterval = (startInterval, endInterval) => {
 	const convertMonth = month => {
 		return month.toLowerCase().replace(/т$/, "та").replace(/[ьй]$/, "я")
 	}
 
 	return [
 		[
-			startWeek.getDate(),
-			startWeek.getMonth() === endWeek.getMonth()
+			startInterval.getDate(),
+			startInterval.getMonth() === endInterval.getMonth()
 				? ""
-				: convertMonth(MONTHS[startWeek.getMonth()]),
-			startWeek.getFullYear() === endWeek.getFullYear()
+				: convertMonth(MONTHS[startInterval.getMonth()]),
+			startInterval.getFullYear() === endInterval.getFullYear()
 				? ""
-				: startWeek.getFullYear() + " г.",
+				: startInterval.getFullYear() + " г.",
 		].join(" "),
 		[
-			endWeek.getDate(),
-			convertMonth(MONTHS[endWeek.getMonth()]),
-			endWeek.getFullYear() + " г.",
+			endInterval.getDate(),
+			convertMonth(MONTHS[endInterval.getMonth()]),
+			endInterval.getFullYear() + " г.",
 		].join(" "),
 	].join(" - ")
 }
@@ -35,28 +35,28 @@ export function converterTimeInterval(selectedDate, timeInterval) {
 		return days
 	}
 
-	const startWeek = new Date(
+	const startInterval = new Date(
 		selectedDate.getFullYear(),
 		selectedDate.getMonth(),
 		selectedDate.getDate() - daysBeforeBeginningOfWeek()
 	)
-	const endWeek = new Date(
-		startWeek.getFullYear(),
-		startWeek.getMonth(),
-		startWeek.getDate() + timeInterval
+	const endInterval = new Date(
+		startInterval.getFullYear(),
+		startInterval.getMonth(),
+		startInterval.getDate() + timeInterval
 	)
 
-	const fillWeekDaysDate = startWeek => {
+	const fillWeekDaysDate = startInterval => {
 		const dateWeekDays = [""]
-		const dateForPush = new Date(startWeek.getTime())
+		const dateForPush = new Date(startInterval.getTime())
 
 		for (let i = 0; i < 8; i++) {
 			dateWeekDays.push(
 				[
-					checkAndChangeDateFormat(dateForPush.getDate()),
-					checkAndChangeDateFormat(dateForPush.getMonth() + 1),
 					dateForPush.getFullYear(),
-				].join(".")
+					checkAndChangeDateFormat(dateForPush.getMonth() + 1),
+					checkAndChangeDateFormat(dateForPush.getDate()),
+				].join("-")
 			)
 			dateForPush.setDate(dateForPush.getDate() + 1)
 		}
@@ -64,7 +64,7 @@ export function converterTimeInterval(selectedDate, timeInterval) {
 	}
 
 	return {
-		dateInterval: dateInterval(startWeek, endWeek),
-		datesWeek: fillWeekDaysDate(startWeek),
+		dateInterval: dateInterval(startInterval, endInterval),
+		datesWeek: fillWeekDaysDate(startInterval),
 	}
 }

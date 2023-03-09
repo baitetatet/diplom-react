@@ -20,8 +20,8 @@ export const Calendar = () => {
 			year: "numeric",
 		}),
 		Неделя: (function () {
-			const { weekInterval } = converterTimeInterval(selectedDate, 7)
-			return weekInterval
+			const { dateInterval } = converterTimeInterval(selectedDate, 7)
+			return dateInterval
 		})(),
 		Месяц: (() => {
 			const monthTitle = selectedDate.toLocaleString("ru", {
@@ -39,10 +39,8 @@ export const Calendar = () => {
 				? event.target
 				: event.target.parentNode
 		const eventDate = eventElem.attributes["data-date"].value
-		const [eventDay, eventMonth, eventYear] = eventDate.split(".")
-		const changedDate = [eventYear, +eventMonth, eventDay].join("-")
 
-		setSelectedDate(new Date(changedDate))
+		setSelectedDate(new Date(eventDate))
 		setActiveTable("День")
 	}
 
@@ -67,7 +65,7 @@ export const Calendar = () => {
 			case "День":
 				return <Day selectedDate={selectedDate} />
 			case "Неделя":
-				return <Week getDayTable={getDayTable} selectedDate={selectedDate} />
+				return <Week selectedDate={selectedDate} />
 			case "Месяц":
 				return (
 					<Month

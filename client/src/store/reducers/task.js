@@ -7,7 +7,6 @@ export const task = createSlice({
 	reducers: {
 		addNewTask: (state, action) => {
 			state.push({ ...action.payload.newTask, stages: action.payload.stages })
-			console.log(action.payload.newTask, action.payload.stages)
 			Axios.post("/new-task", {
 				newTask: action.payload.newTask,
 				stages: action.payload.stages,
