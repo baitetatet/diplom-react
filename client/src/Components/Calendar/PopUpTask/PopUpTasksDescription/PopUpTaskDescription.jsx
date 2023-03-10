@@ -8,6 +8,7 @@ export const PopUpTaskDescription = ({ task }) => {
 		"time_start",
 		"place",
 		"reporter",
+		"date_interval",
 		"content",
 	]
 

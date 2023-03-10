@@ -108,6 +108,18 @@ app.post("/week-tasks", (req, res) => {
 	)
 })
 
+app.get("/get-tasks", (req, res) => {
+	const loggedUser = req.signedCookies.logged
+	db.query(
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id',
+		[loggedUser],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+
 app.post("/new-task", async (req, res) => {
 	const newTask = req.body.newTask
 	const stages = req.body.stages

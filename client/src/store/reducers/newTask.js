@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit"
 import Axios from "axios"
 
-export const task = createSlice({
-	name: "task",
+export const newTask = createSlice({
+	name: "newTask",
 	initialState: [],
 	reducers: {
 		addNewTask: (state, action) => {
@@ -17,5 +17,5 @@ export const task = createSlice({
 	},
 })
 
-export const { addNewTask } = task.actions
-export default task.reducer
+export const { addNewTask } = newTask.actions
+export default newTask.reducer

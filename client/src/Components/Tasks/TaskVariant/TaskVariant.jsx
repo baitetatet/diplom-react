@@ -1,7 +1,8 @@
 import { useState } from "react"
 import { Task } from "Components/Calendar/Task/Task"
+import { useSelector } from "react-redux"
 
-const TaskVariant = ({ tasksType, tasks }) => {
+const TaskVariant = ({ tasksType }) => {
 	const [active, setActive] = useState(false)
 	const handlerClickTaskVariant = event => {
 		if (
@@ -10,7 +11,7 @@ const TaskVariant = ({ tasksType, tasks }) => {
 		)
 			setActive(prev => !prev)
 	}
-
+	const tasks = useSelector(state => state.taskByType[tasksType.type])
 	return (
 		<article
 			className={`tasks__task-variant${active ? " active" : ""}`}
@@ -27,15 +28,9 @@ const TaskVariant = ({ tasksType, tasks }) => {
 					</span>
 				</div>
 				<div className="tasks__task-variant__content">
-					{/* {
-            tasks.map(task => 
-              <Task 
-              table={'tasks'} 
-              task={task}
-              key={task.id}
-              />
-            )
-          } */}
+					{tasks.map(task => (
+						<Task table={"tasks"} task={task} key={task.id} />
+					))}
 				</div>
 			</div>
 		</article>

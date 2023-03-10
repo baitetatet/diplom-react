@@ -1389,6 +1389,15 @@ $border: #c5c8c9;
   &__content{
     margin-top: 30px;
   }
+  &__list-time{
+    &__item{
+      &__content{
+        &_task{
+          margin-top: 5px;
+        }
+      }
+    }
+  }
   &__task-variant{
     margin-top: 20px;
     display: block;

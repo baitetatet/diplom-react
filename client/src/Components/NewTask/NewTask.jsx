@@ -7,7 +7,7 @@ import { NewTaskStages } from "./NewTaskStages/NewTaskStages"
 import { NewTaskDate } from "./NewTaskDate/NewTaskDate"
 import { useState } from "react"
 import { useDispatch } from "react-redux"
-import { addNewTask } from "../../store/reducers/task"
+import { addNewTask } from "../../store/reducers/newTask"
 import { NewTaskPlace } from "./NewTaskPlace/NewTaskPlace"
 
 export const NewTask = () => {

@@ -1,8 +1,9 @@
+import { dateInterval } from "hooks/converterTimeInterval"
 export const PopUpTaskDescriptionCategory = ({ category, task }) => {
 	const CATEGORY_PATTERN = {
 		director: {
 			title: "Руководитель:",
-			content: "ЗНА по УНР",
+			content: task[category],
 		},
 		// involved: {
 		// 	title: "Кто привлекается:",
@@ -10,15 +11,19 @@ export const PopUpTaskDescriptionCategory = ({ category, task }) => {
 		// },
 		time_start: {
 			title: "Время:",
-			content: "10.00-17.00",
+			content: task[category],
 		},
 		place: {
 			title: "Место:",
-			content: "Комн. А-320",
+			content: task[category],
+		},
+		date_interval: {
+			title: "Период проведения:",
+			content: dateInterval(new Date(task.date_start), new Date(task.date_end)),
 		},
 		reporter: {
 			title: "Кто готов.:",
-			content: "НУМО",
+			content: task[category],
 		},
 	}
 
@@ -28,7 +33,7 @@ export const PopUpTaskDescriptionCategory = ({ category, task }) => {
 				{CATEGORY_PATTERN[category].title}
 			</h3>
 			<p className={`calendar__task__description__${category}_content`}>
-				{task[category]}
+				{CATEGORY_PATTERN[category].content}
 			</p>
 		</div>
 	)
