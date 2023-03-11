@@ -148,6 +148,7 @@ $button-green: #075F07;
 $red-task: rgb(238, 67, 67);
 $button-red: #980000;
 $section-bg: aliceblue;
+$confirm-button-color: #6c6e71;
 
 
 %main-section {
@@ -186,6 +187,17 @@ $section-bg: aliceblue;
 .task.green {
   background-color: $green-task;
 }
+@mixin confirm-button{
+    font-size: 14px;
+    min-width: 127px;
+    text-align: center;
+    cursor: not-allowed;
+    background-color: $confirm-button-color;
+    border: none;
+    &:hover {
+      box-shadow: none;
+    }
+  }
 
 @mixin button($color) {
   display: block;
@@ -740,7 +752,9 @@ body {
       flex-direction: column;
       gap: 5px;
     }
-
+    &_confirm{
+      @include confirm-button;
+    }
     &_confirm-task {
       width: 100%;
     }
@@ -856,6 +870,7 @@ body {
             background-color: inherit;
           }
           &_task{
+            text-align: center;
             @extend %task;
           }
         }

@@ -21,6 +21,7 @@ const TaskVariant = ({ tasksType }) => {
 				<div className="tasks__task-variant__header">
 					<h3 className="tasks__task-variant__header_title">
 						{tasksType.title}
+						<span> ({tasks.length})</span>
 					</h3>
 					<span className="tasks__header_arrow arrow">
 						<span />

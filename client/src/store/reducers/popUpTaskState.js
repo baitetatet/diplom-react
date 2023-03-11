@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+import Axios from "axios"
 
 export const popUpTaskState = createSlice({
 	name: "popUpTaskState",
@@ -9,19 +10,17 @@ export const popUpTaskState = createSlice({
 	reducers: {
 		changePopUpTaskState: (state, action) => {
 			state.popUpTaskActive = action.payload.popUpTaskActive
-			state.activeTask = action.payload.popUpTaskActive
-				? action.payload.activeTask
-				: {}
+			if (action.payload.popUpTaskActive)
+				state.activeTask = action.payload.activeTask
 		},
 		confirmStageTask: (state, action) => {
-			state.activeTask.stages.forEach(stage => {
-				if (
-					stage.timeStart === action.payload.stage.timeStart &&
-					stage.description === action.payload.stage.description
-				) {
-					stage.status = "Confirmed"
-				}
+			const stage = action.payload.stage
+			Axios.post("/change-status", {
+				stageId: stage.id,
+				status: "onConfirmation",
 			})
+				.then(res => console.log(res))
+				.catch(err => console.log(err))
 		},
 	},
 })

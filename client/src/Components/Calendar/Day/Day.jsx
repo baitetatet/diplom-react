@@ -1,5 +1,3 @@
-// import { useContext } from "react"
-// import { UserData } from "UserDataContext"
 import { Task } from "Components/Calendar/Task/Task"
 import { TIME_LAPSE } from "API/TIME_LAPSE_API"
 import { dateFormat } from "hooks/date"
@@ -7,7 +5,6 @@ import { useEffect, useState } from "react"
 import Axios from "axios"
 
 export const Day = ({ selectedDate }) => {
-	// const { userData } = useContext(UserData)
 	const currentDate = dateFormat(selectedDate)
 	const [tasks, setTasks] = useState([])
 
@@ -16,7 +13,6 @@ export const Day = ({ selectedDate }) => {
 			.then(res => setTasks(res.data))
 			.catch(err => console.log(err))
 	}, [currentDate])
-	console.log(tasks)
 	return (
 		<section className="day-table" data-date={currentDate}>
 			<div className="day-table__inner">

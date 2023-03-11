@@ -1,21 +1,17 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
-import { useDispatch } from "react-redux"
-import { confirmStageTask } from "store/reducers/popUpTaskState"
 import { dateInterval } from "hooks/converterTimeInterval"
+import { PopUpTaskContentButtons } from "./PopUpTaskContentButtons/PopUpTaskContentButtons"
 
 export const PopUpTaskContent = ({ task }) => {
-	const dispatch = useDispatch()
 	const [stages, setStages] = useState([])
 	const VARIABLES = {
 		title: "Включает:",
 		postFile: "Прикрепить файл",
 		confirmTask: "Выполнить",
+		onConfirmationTask: "Выполнено",
 	}
-	const handlerClickPostFile = event => {
-		const inputPostFile = event.target.previousSibling
-		inputPostFile.click()
-	}
+
 	useEffect(() => {
 		Axios.post("/get-stages", { taskId: task.id })
 			.then(res => setStages(res.data))
@@ -35,26 +31,7 @@ export const PopUpTaskContent = ({ task }) => {
 							)}
 						</div>
 						<p className="category__content_description">{stage.description}</p>
-						<div className="category__content__buttons">
-							<div className="category__content_post-file">
-								<input
-									className="category__content__post-file_input"
-									type="file"
-								/>
-								<button
-									className="category__content__post-file_button button"
-									onClick={event => handlerClickPostFile(event)}
-								>
-									{VARIABLES.postFile}
-								</button>
-							</div>
-							<button
-								className="category__content_confirm-task button"
-								onClick={event => dispatch(confirmStageTask({ stage: stage }))}
-							>
-								{VARIABLES.confirmTask}
-							</button>
-						</div>
+						<PopUpTaskContentButtons stage={stage} VARIABLES={VARIABLES} />
 					</div>
 				))}
 			</div>

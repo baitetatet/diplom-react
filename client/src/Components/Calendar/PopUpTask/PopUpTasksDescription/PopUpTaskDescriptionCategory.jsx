@@ -3,19 +3,19 @@ export const PopUpTaskDescriptionCategory = ({ category, task }) => {
 	const CATEGORY_PATTERN = {
 		director: {
 			title: "Руководитель:",
-			content: task[category],
+			content: task.director,
 		},
-		// involved: {
-		// 	title: "Кто привлекается:",
-		// 	content: "НФ, НК, СПНУМО",
-		// },
+		involved: {
+			title: "Кто привлекается:",
+			content: task.involved.map(user => user.post).join(", "),
+		},
 		time_start: {
 			title: "Время:",
-			content: task[category],
+			content: task.time_start,
 		},
 		place: {
 			title: "Место:",
-			content: task[category],
+			content: task.place,
 		},
 		date_interval: {
 			title: "Период проведения:",
@@ -23,7 +23,7 @@ export const PopUpTaskDescriptionCategory = ({ category, task }) => {
 		},
 		reporter: {
 			title: "Кто готов.:",
-			content: task[category],
+			content: task.reporter,
 		},
 	}
 

@@ -211,6 +211,31 @@ app.get("/get_involved", (req, res) => {
 		}
 	)
 })
+
+app.post("/involved-in-task", (req, res) => {
+	const taskId = req.body.taskId
+	db.query(
+		"SELECT u.name,u.surname,u.post, u.rank FROM user u, involved_user inv_usr WHERE u.id = inv_usr.user_id AND inv_usr.task_id = ?",
+		[taskId],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+
+app.post("/change-status", (req, res) => {
+	const stageId = req.body.stageId
+	const stageStatus = req.body.status
+	db.query(
+		"UPDATE stage SET status = ? WHERE id = ?",
+		[stageStatus, stageId],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
 app.post("/insert_data", (req, res) => {
 	const { count, target } = req.body
 	db.query(

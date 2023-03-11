@@ -4,7 +4,7 @@ import { PopUpTaskDescriptionCategory } from "./PopUpTaskDescriptionCategory"
 export const PopUpTaskDescription = ({ task }) => {
 	const CATEGORY = [
 		"director",
-		// "involved",
+		"involved",
 		"time_start",
 		"place",
 		"reporter",
