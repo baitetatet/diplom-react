@@ -34,7 +34,7 @@ app.get("/check-logged", (req, res) => {
 		[req.signedCookies.logged],
 		(err, result) => {
 			if (err) console.log(err)
-			result.length ? res.send(result) : res.send("false")
+			res.send(result.length !== 0 ? result : "false")
 		}
 	)
 })
@@ -84,7 +84,7 @@ app.post("/day-tasks", (req, res) => {
 	const currentDate = req.body.currentDate
 
 	db.query(
-		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start = ?',
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start = ?',
 		[loggedUser, currentDate],
 		(err, result) => {
 			if (err) console.log(err)
@@ -236,6 +236,36 @@ app.post("/change-status", (req, res) => {
 		}
 	)
 })
+app.post("/check-status-all-stages", (req, res) => {
+	const taskId = req.body.taskId
+	db.query(
+		"SELECT status FROM stage WHERE task_id = ?",
+		[taskId],
+		(err, result) => {
+			if (err) console.log(err)
+			const response = result.every(
+				stageStatus => stageStatus.status === "onConfirmation"
+			)
+				? "readyForConfirmation"
+				: "inProcessing"
+			res.send(response)
+		}
+	)
+})
+app.post("/status-all-stages", (req, res) => {
+	const taskId = req.body.taskId
+
+	db.query(
+		"SELECT id FROM stage WHERE task_id = ?",
+		[taskId],
+		(err, result) => {
+			if (err) console.log(err)
+			console.log(result)
+			res.send(result)
+		}
+	)
+})
+
 app.post("/insert_data", (req, res) => {
 	const { count, target } = req.body
 	db.query(

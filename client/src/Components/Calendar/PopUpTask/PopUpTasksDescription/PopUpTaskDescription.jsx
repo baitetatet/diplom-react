@@ -1,7 +1,7 @@
 import { PopUpTaskContent } from "../PopUpTaskContent/PopUpTaskContent"
 import { PopUpTaskDescriptionCategory } from "./PopUpTaskDescriptionCategory"
 
-export const PopUpTaskDescription = ({ task }) => {
+export const PopUpTaskDescription = () => {
 	const CATEGORY = [
 		"director",
 		"involved",
@@ -9,22 +9,14 @@ export const PopUpTaskDescription = ({ task }) => {
 		"place",
 		"reporter",
 		"date_interval",
-		"content",
 	]
 
 	return (
 		<div className="calendar__task__description">
-			{CATEGORY.map(category =>
-				category === "content" ? (
-					<PopUpTaskContent task={task} key={category} />
-				) : (
-					<PopUpTaskDescriptionCategory
-						category={category}
-						task={task}
-						key={category}
-					/>
-				)
-			)}
+			{CATEGORY.map(category => (
+				<PopUpTaskDescriptionCategory category={category} key={category} />
+			))}
+			<PopUpTaskContent />
 		</div>
 	)
 }

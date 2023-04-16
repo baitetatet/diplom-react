@@ -170,7 +170,7 @@ $confirm-button-color: #6c6e71;
   border-radius: 20px;
   font-size: 12px;
   cursor: pointer;
-  overflow: hidden;
+  // overflow: hidden;
   &:hover {
       box-shadow: 1px 2px 5px 2px rgba(34, 60, 80, 0.2);
     }
@@ -187,6 +187,7 @@ $confirm-button-color: #6c6e71;
 .task.green {
   background-color: $green-task;
 }
+
 @mixin confirm-button{
     font-size: 14px;
     min-width: 127px;
@@ -198,6 +199,12 @@ $confirm-button-color: #6c6e71;
       box-shadow: none;
     }
   }
+@mixin inactive-button{
+  cursor: not-allowed;
+    background-color: $confirm-button-color;
+    border: none;
+}
+
 
 @mixin button($color) {
   display: block;
@@ -231,6 +238,9 @@ $confirm-button-color: #6c6e71;
 
 .button {
   @include button($bg-color);
+}
+.button-confirm{
+  @include inactive-button;
 }
 
 @mixin scroll() {
@@ -512,16 +522,17 @@ body {
       background-color: $section-bg;
       border-radius: 20px;
       padding: 10px 20px;
+      display: flex;
+      flex-direction: column;
     }
 
     &__header {
       margin-top: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
 
       &__title {
         cursor: default;
+        margin-top: 35px;
+        text-align: center;
       }
 
       &__close {
@@ -689,8 +700,8 @@ body {
 
     &__close {
       position: absolute;
-      top: 21px;
-      right: 21px;
+      top: 20px;
+      right: 20px;
     }
 
     &__title {
@@ -701,6 +712,7 @@ body {
 
     &__description {
       margin-top: 25px;
+      margin-bottom: 15px;
       max-height: 75%;
       overflow: auto;
       padding-right: 5px;
@@ -714,6 +726,9 @@ body {
         align-items: center;
       }
     }
+    // &_confirm{
+     // margin: auto 0 0 0;
+    // }
   }
 }
 
@@ -1432,6 +1447,7 @@ $border: #c5c8c9;
     }
     &__content {
       margin-top: 15px;
+      
       & .task{
         @extend %task;
         font-size: 18px;
@@ -1447,9 +1463,15 @@ $border: #c5c8c9;
   
   &__task-variant.active{
     .tasks__task-variant__inner{
-      max-height: 500px;
+      max-height: 400px;
       transition: max-height 1s ease-in-out;
     }
+    .tasks__task-variant__content{
+      max-height: 400px;
+      overflow: scroll;
+      transition: max-height 1s ease-in-out;
+    }
+    
     .arrow span {
       &:first-of-type {
         transform: rotate(-45deg);

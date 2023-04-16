@@ -6,6 +6,7 @@ import TaskVariant from "./TaskVariant/TaskVariant"
 
 const Tasks = () => {
 	const [tasks, setTasks] = useState([])
+	const [activeTaskVariant, setActiveTaskVariant] = useState()
 	const VARIABLES = {
 		title: "Задачи",
 		taskVariants: [
@@ -65,7 +66,12 @@ const Tasks = () => {
 				<div className="tasks__content">
 					<ul className="tasks__variants">
 						{VARIABLES.taskVariants.map(tasksType => (
-							<TaskVariant tasksType={tasksType} key={tasksType.type} />
+							<TaskVariant
+								tasksType={tasksType}
+								key={tasksType.type}
+								activeTaskVariant={activeTaskVariant}
+								setActiveTaskVariant={setActiveTaskVariant}
+							/>
 						))}
 					</ul>
 				</div>

@@ -1,15 +1,21 @@
+import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { confirmStageTask } from "store/reducers/popUpTaskState"
 
 export const PopUpTaskContentButtons = ({ stage, VARIABLES }) => {
+	const [stageStatus, setStageStatus] = useState(stage.status)
 	const dispatch = useDispatch()
 	const handlerClickPostFile = event => {
 		const inputPostFile = event.target.previousSibling
 		inputPostFile.click()
 	}
+	const handlerClickConfirmStage = () => {
+		dispatch(confirmStageTask({ stage: stage }))
+		setStageStatus("onConfirmation")
+	}
 	return (
 		<>
-			{stage.status === "isProcessing" && (
+			{stageStatus === "isProcessing" ? (
 				<div className="category__content__buttons">
 					<div className="category__content_post-file">
 						<input className="category__content__post-file_input" type="file" />
@@ -21,14 +27,13 @@ export const PopUpTaskContentButtons = ({ stage, VARIABLES }) => {
 						</button>
 					</div>
 					<button
-						className="category__content_confirm-task button"
-						onClick={() => dispatch(confirmStageTask({ stage: stage }))}
+						className="category__content_confirm-stage button"
+						onClick={handlerClickConfirmStage}
 					>
 						{VARIABLES.confirmTask}
 					</button>
 				</div>
-			)}
-			{stage.status === "onConfirmation" && (
+			) : (
 				<div className="category__content_confirm button">
 					{VARIABLES.onConfirmationTask}
 				</div>

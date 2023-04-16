@@ -2,8 +2,10 @@ import Axios from "axios"
 import { useEffect, useState } from "react"
 import { dateInterval } from "hooks/converterTimeInterval"
 import { PopUpTaskContentButtons } from "./PopUpTaskContentButtons/PopUpTaskContentButtons"
+import { useSelector } from "react-redux"
 
-export const PopUpTaskContent = ({ task }) => {
+export const PopUpTaskContent = () => {
+	const taskId = useSelector(state => state.popUpTaskState.activeTask.id)
 	const [stages, setStages] = useState([])
 	const VARIABLES = {
 		title: "Включает:",
@@ -13,10 +15,10 @@ export const PopUpTaskContent = ({ task }) => {
 	}
 
 	useEffect(() => {
-		Axios.post("/get-stages", { taskId: task.id })
+		Axios.post("/get-stages", { taskId: taskId })
 			.then(res => setStages(res.data))
 			.catch(err => console.log(err))
-	}, [task.id])
+	}, [taskId])
 
 	return (
 		<article className="calendar__task__description__category__content category__content">

@@ -71,7 +71,6 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 						type="date"
 						onChange={event => handlerChangeInputs(event, setStartDate)}
 						required
-						value={converterDateForDataBase(new Date())}
 						min={converterDateForDataBase(new Date())}
 					/>
 				</div>
@@ -84,7 +83,6 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 						type="date"
 						onChange={event => handlerChangeInputs(event, setEndDate)}
 						value={converterDateForDataBase(new Date())}
-						min={converterDateForDataBase(new Date())}
 					/>
 				</div>
 			</div>

@@ -29,8 +29,6 @@ export const NewTask = () => {
 	}
 
 	const submitNewTask = event => {
-		event.preventDefault()
-		console.log(event.target)
 		const {
 			description,
 			director,
@@ -42,7 +40,7 @@ export const NewTask = () => {
 			reporter,
 			place,
 		} = event.target
-		console.log(reporter.value)
+
 		dispatch(
 			addNewTask({
 				newTask: {
@@ -59,6 +57,7 @@ export const NewTask = () => {
 				stages: stages,
 			})
 		)
+		event.target.reset()
 	}
 
 	return (

@@ -1,20 +1,29 @@
-import { useState } from "react"
 import { Task } from "Components/Calendar/Task/Task"
 import { useSelector } from "react-redux"
 
-const TaskVariant = ({ tasksType }) => {
-	const [active, setActive] = useState(false)
+const TaskVariant = ({
+	tasksType,
+	activeTaskVariant,
+	setActiveTaskVariant,
+}) => {
 	const handlerClickTaskVariant = event => {
 		if (
 			event.target.classList.value.includes("task-variant__header") ||
 			event.target.nodeName === "SPAN"
-		)
-			setActive(prev => !prev)
+		) {
+			console.log("taskType: ", tasksType)
+			console.log("activeTaskVariant: ", activeTaskVariant)
+			setActiveTaskVariant(
+				activeTaskVariant === tasksType.type ? "" : tasksType.type
+			)
+		}
 	}
 	const tasks = useSelector(state => state.taskByType[tasksType.type])
 	return (
 		<article
-			className={`tasks__task-variant${active ? " active" : ""}`}
+			className={`tasks__task-variant${
+				activeTaskVariant === tasksType.type ? " active" : ""
+			}`}
 			onClick={event => handlerClickTaskVariant(event)}
 		>
 			<div className="tasks__task-variant__inner">

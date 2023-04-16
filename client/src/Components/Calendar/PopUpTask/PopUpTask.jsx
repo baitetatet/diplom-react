@@ -1,9 +1,14 @@
 import { PopUpTaskDescription } from "./PopUpTasksDescription/PopUpTaskDescription"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { changePopUpTaskState } from "store/reducers/popUpTaskState"
+import { PopUpTaskConfirm } from "./PopUpTaskConfirm/PopUpTaskConfirm"
+import { PopUpTaskHeader } from "./PopUpTaskHeader/PopUpTaskHeader"
 
-export const PopUpTask = ({ task }) => {
+export const PopUpTask = () => {
 	const dispatch = useDispatch()
+	const description = useSelector(
+		state => state.popUpTaskState.activeTask.description
+	)
 
 	const closePopUp = e => {
 		if (
@@ -20,9 +25,9 @@ export const PopUpTask = ({ task }) => {
 			onClick={e => closePopUp(e)}
 		>
 			<div className="calendar__task__inner calendar__popup__inner">
-				<div className="calendar__task__close calendar__popup__header__close" />
-				<h3 className="calendar__task__title">{task.description}</h3>
-				<PopUpTaskDescription task={task} />
+				<PopUpTaskHeader description={description} />
+				<PopUpTaskDescription />
+				<PopUpTaskConfirm />
 			</div>
 		</section>
 	)

@@ -17,12 +17,13 @@ export const App = () => {
 	const [isLoading, setLoading] = useState(true)
 	const [userData, setUserData] = useState(null)
 	const popUpTaskState = state => state.popUpTaskState
-	const { popUpTaskActive, activeTask } = useSelector(popUpTaskState)
+	const { popUpTaskActive } = useSelector(popUpTaskState)
 
 	useEffect(() => {
 		Axios.get("/check-logged")
 			.then(res => {
 				if (res.data === false) {
+					setLoading(false)
 					setLogged(false)
 				} else {
 					setUserData(...res.data)
@@ -32,8 +33,6 @@ export const App = () => {
 			})
 			.catch(err => console.log(err))
 	}, [])
-
-	//Проверка событий и изменение статуса на 'overdue', если они истекли
 
 	return (
 		<div className="wrapper">
@@ -55,7 +54,7 @@ export const App = () => {
 					<Authorization setLogged={setLogged} setUserData={setUserData} />
 				)}
 			</UserData.Provider>
-			{popUpTaskActive && <PopUpTask task={activeTask} />}
+			{popUpTaskActive && <PopUpTask />}
 		</div>
 	)
 }

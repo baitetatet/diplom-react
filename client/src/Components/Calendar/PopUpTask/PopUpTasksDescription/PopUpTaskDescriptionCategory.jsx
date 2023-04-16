@@ -1,29 +1,34 @@
 import { dateInterval } from "hooks/converterTimeInterval"
-export const PopUpTaskDescriptionCategory = ({ category, task }) => {
+import { useSelector } from "react-redux"
+export const PopUpTaskDescriptionCategory = ({ category }) => {
+	const { activeTask } = useSelector(state => state.popUpTaskState)
 	const CATEGORY_PATTERN = {
 		director: {
 			title: "Руководитель:",
-			content: task.director,
+			content: activeTask.director,
 		},
 		involved: {
 			title: "Кто привлекается:",
-			content: task.involved.map(user => user.post).join(", "),
+			content: activeTask.involved.map(user => user.post).join(", "),
 		},
 		time_start: {
 			title: "Время:",
-			content: task.time_start,
+			content: activeTask.time_start,
 		},
 		place: {
 			title: "Место:",
-			content: task.place,
+			content: activeTask.place,
 		},
 		date_interval: {
 			title: "Период проведения:",
-			content: dateInterval(new Date(task.date_start), new Date(task.date_end)),
+			content: dateInterval(
+				new Date(activeTask.date_start),
+				new Date(activeTask.date_end)
+			),
 		},
 		reporter: {
 			title: "Кто готов.:",
-			content: task.reporter,
+			content: activeTask.reporter,
 		},
 	}
 

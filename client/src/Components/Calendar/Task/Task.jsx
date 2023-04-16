@@ -9,14 +9,14 @@ export const Task = props => {
 			Axios.post("/involved-in-task", {
 				taskId: props.task.id,
 			})
-				.then(res =>
+				.then(res => {
 					dispatch(
 						changePopUpTaskState({
 							popUpTaskActive: true,
 							activeTask: { ...props.task, involved: res.data },
 						})
 					)
-				)
+				})
 				.catch(err => console.log(err))
 		}
 	}
