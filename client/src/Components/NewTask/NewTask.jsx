@@ -29,6 +29,7 @@ export const NewTask = () => {
 	}
 
 	const submitNewTask = event => {
+		event.preventDefault()
 		const {
 			description,
 			director,
@@ -57,7 +58,12 @@ export const NewTask = () => {
 				stages: stages,
 			})
 		)
+		resetForm(event)
+	}
+
+	const resetForm = (event) => {
 		event.target.reset()
+		setStages([])
 	}
 
 	return (
@@ -81,13 +87,16 @@ export const NewTask = () => {
 						<NewTaskStages stages={stages} setStages={setStages} />
 					</div>
 					<div className="new-task__buttons">
-						<input
+						<div
 							className="new-task__buttons_reset button-red"
-							type="reset"
-						/>
+							onClick={(event) => resetForm(event)}
+						>
+							Сброс
+						</div>
 						<input
 							className="new-task__buttons_submit button-green"
 							type="submit"
+							value={'Отправить'}
 						/>
 					</div>
 				</form>

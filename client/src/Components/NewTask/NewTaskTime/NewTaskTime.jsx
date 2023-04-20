@@ -1,8 +1,22 @@
+import { useState } from "react"
+
 export const NewTaskTime = () => {
+	const [startTime, setStartTime] = useState("06:00")
+	const [endTime, setEndTime] = useState("06:00")
 	const VARIABLES = {
 		title: "Время: ",
 		labelTimeStart: "с",
 		labelTimeEnd: "до",
+	}
+
+	const handlerInputEndTime = event => {
+		const valueInput = event.target.value
+		setEndTime(valueInput < startTime ? startTime : valueInput)
+	}
+	const handlerInputStartTime = event => {
+		const valueInput = event.target.value
+		valueInput > endTime && setEndTime(valueInput)
+		setStartTime(valueInput)
 	}
 
 	return (
@@ -15,9 +29,10 @@ export const NewTaskTime = () => {
 					id="timeStart"
 					type="time"
 					required
-					defaultValue={"06:00"}
+					value={startTime}
 					min={"06:00"}
 					max={"23:59"}
+					onChange={event => handlerInputStartTime(event)}
 				/>
 			</label>
 			<label htmlFor="timeEnd">
@@ -26,9 +41,10 @@ export const NewTaskTime = () => {
 					name="timeEnd"
 					id="timeEnd"
 					type="time"
-					defaultValue={"06:00"}
+					value={endTime}
 					min={"06:00"}
 					max={"23:59"}
+					onChange={event => handlerInputEndTime(event)}
 				/>
 			</label>
 		</div>

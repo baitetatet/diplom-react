@@ -22,13 +22,14 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 	const handlerCancelButton = () => {
 		setCreatingStage(false)
 	}
-	const handlerChangeInputs = (event, setDate) => {
-		const inputDate = event.target.value
-		setDate(new Date(inputDate))
+	const handlerChangeStartInput = event => {
+		const valueInput = new Date(event.target.value)
+		valueInput > endDate && setEndDate(valueInput)
+		setStartDate(valueInput)
 	}
-
-	const converterDateForDataBase = date => {
-		return dateFormat(date)
+	const handlerChangeEndInput = event => {
+		const valueInput = new Date(event.target.value)
+		setEndDate(valueInput < startDate ? startDate : valueInput)
 	}
 
 	const handlerAddButton = () => {
@@ -42,13 +43,14 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 			{
 				id: uuidv4(),
 				description: newTaskDescription,
-				startDate: converterDateForDataBase(startDate),
-				endDate: converterDateForDataBase(endDate ? endDate : startDate),
+				startDate: dateFormat(startDate),
+				endDate: dateFormat(endDate ? endDate : startDate),
 				stageDateInterval: stageDateInterval,
 			},
 		])
 		setCreatingStage(false)
 	}
+	const currentDate = dateFormat(new Date())
 	return (
 		<div className="new-task__stages__new-stage">
 			<div className="new-task__stages__new-stage__inner">
@@ -69,9 +71,10 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 					<input
 						className="new-task__stages__new-stage__start-date_input"
 						type="date"
-						onChange={event => handlerChangeInputs(event, setStartDate)}
+						onChange={event => handlerChangeStartInput(event)}
 						required
-						min={converterDateForDataBase(new Date())}
+						min={currentDate}
+						value={dateFormat(startDate)}
 					/>
 				</div>
 				<div className="new-task__stages__new-stage__end-date">
@@ -81,8 +84,9 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 					<input
 						className="new-task__stages__new-stage__end-date_input"
 						type="date"
-						onChange={event => handlerChangeInputs(event, setEndDate)}
-						value={converterDateForDataBase(new Date())}
+						onChange={event => handlerChangeEndInput(event)}
+						min={currentDate}
+						value={dateFormat(endDate)}
 					/>
 				</div>
 			</div>
