@@ -14,7 +14,9 @@ export const PopUpTaskConfirm = () => {
 		readyForConfirmation: "Отправить на проверку",
 		onConfirmation: "На проверке",
 	}
-	const sendOnConfirmation = taskId => {}
+	const sendOnConfirmation = taskId => {
+		dispatch(changeTaskStatus({ taskId: taskId, taskStatus: "onConfirmation" }))
+	}
 
 	const dispatch = useDispatch()
 	useEffect(() => {

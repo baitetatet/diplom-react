@@ -224,12 +224,35 @@ app.post("/involved-in-task", (req, res) => {
 	)
 })
 
-app.post("/change-status", (req, res) => {
+app.post("/change-stage-status", (req, res) => {
 	const stageId = req.body.stageId
 	const stageStatus = req.body.status
 	db.query(
 		"UPDATE stage SET status = ? WHERE id = ?",
 		[stageStatus, stageId],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+app.post("/change-task-status", (req, res) => {
+	const taskId = req.body.taskId
+	const taskStatus = req.body.taskStatus
+	db.query(
+		"UPDATE task SET status = ? WHERE id = ?",
+		[taskStatus, taskId],
+		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+app.post("/confirmation-tasks", (req, res) => {
+	const userId = req.body.userId
+	db.query(
+		"SELECT * FROM task WHERE status = 'onConfirmation' AND director = (SELECT post FROM user WHERE id = ?)",
+		[userId],
 		(err, result) => {
 			if (err) console.log(err)
 			res.send(result)
@@ -264,6 +287,14 @@ app.post("/status-all-stages", (req, res) => {
 			res.send(result)
 		}
 	)
+})
+app.post("/get-name", (req, res) => {
+	const userPost = req.body.userPost
+	db.query("SELECT * FROM user WHERE post = ?", [userPost], (err, result) => {
+		if (err) console.log(err)
+		console.log(result)
+		res.send(result)
+	})
 })
 
 app.post("/insert_data", (req, res) => {

@@ -33,7 +33,7 @@ export const popUpTaskState = createSlice({
 		confirmStageTask: (state, action) => {
 			const stage = action.payload.stage
 			state.stages.push(stage)
-			Axios.post("/change-status", {
+			Axios.post("/change-stage-status", {
 				stageId: stage.id,
 				status: "onConfirmation",
 			})
@@ -42,6 +42,13 @@ export const popUpTaskState = createSlice({
 		},
 		changeTaskStatus: (state, action) => {
 			state.taskStatus = action.payload.taskStatus
+			const taskId = action.payload.taskId
+			Axios.post("/change-task-status", {
+				taskId: taskId,
+				taskStatus: state.taskStatus,
+			})
+				.then(res => console.log(res))
+				.catch(err => console.log(err))
 		},
 	},
 })
