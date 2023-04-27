@@ -6,9 +6,12 @@ import { PopUpTaskHeader } from "./PopUpTaskHeader/PopUpTaskHeader"
 
 export const PopUpTask = () => {
 	const dispatch = useDispatch()
-	const description = useSelector(
-		state => state.popUpTaskState.activeTask.description
-	)
+	const { description, typePopUp } = useSelector(state => {
+		return {
+			description: state.popUpTaskState.activeTask.description,
+			typePopUp: state.popUpTaskState.typePopUp,
+		}
+	})
 
 	const closePopUp = e => {
 		if (
@@ -26,8 +29,8 @@ export const PopUpTask = () => {
 		>
 			<div className="calendar__task__inner calendar__popup__inner">
 				<PopUpTaskHeader description={description} />
-				<PopUpTaskDescription />
-				<PopUpTaskConfirm />
+				<PopUpTaskDescription typePopUp={typePopUp} />
+				<PopUpTaskConfirm typePopUp={typePopUp} />
 			</div>
 		</section>
 	)

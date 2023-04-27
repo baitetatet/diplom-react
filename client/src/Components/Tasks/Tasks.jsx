@@ -2,6 +2,7 @@ import Axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { addTask } from "store/reducers/taskByType"
+import { dateFormat } from "hooks/date"
 import TaskVariant from "./TaskVariant/TaskVariant"
 
 const Tasks = () => {
@@ -21,6 +22,10 @@ const Tasks = () => {
 			{
 				type: "onConfirmationTask",
 				title: "На проверке",
+			},
+			{
+				type: "confirmedTask",
+				title: "Завершенные",
 			},
 		],
 	}
@@ -43,13 +48,21 @@ const Tasks = () => {
 						onConfirmationTask: task,
 					})
 				)
+			} else if (task.status === "confirmed") {
+				console.log(task)
+				dispatch(
+					addTask({
+						type: "confirmedTask",
+						confirmedTask: task,
+					})
+				)
 			} else if (
-				new Date(task.date_end) >= new Date() &&
+				task.date_end >= dateFormat(new Date()) &&
 				task.status === "inProcessing"
 			) {
 				dispatch(addTask({ type: "actualTask", actualTask: task }))
 			} else if (
-				new Date(task.date_end) < new Date() &&
+				task.date_end < dateFormat(new Date()) &&
 				task.status === "inProcessing"
 			) {
 				dispatch(addTask({ type: "overdueTask", overdueTask: task }))

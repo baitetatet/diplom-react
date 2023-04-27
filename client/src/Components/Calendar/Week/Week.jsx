@@ -4,7 +4,6 @@ import { TIME_LAPSE } from "API/TIME_LAPSE_API"
 import { converterTimeInterval } from "hooks/converterTimeInterval"
 import { useEffect, useState } from "react"
 import Axios from "axios"
-import { dateFormat } from "hooks/date"
 
 export const Week = ({ selectedDate }) => {
 	const [weekTasks, setWeekTasks] = useState([])
@@ -16,15 +15,18 @@ export const Week = ({ selectedDate }) => {
 		...WEEK_DAYS,
 	]
 	const { datesWeek } = converterTimeInterval(selectedDate, 7)
+	const startWeek = datesWeek[1]
+	const endWeek = datesWeek[datesWeek.length - 1]
+
 	useEffect(() => {
 		Axios.post("/week-tasks", {
-			startWeek: datesWeek[1],
-			endWeek: datesWeek[datesWeek.length - 1],
+			startWeek: startWeek,
+			endWeek: endWeek,
 		})
 			.then(res => setWeekTasks(res.data))
 			.catch(err => console.log(err))
-	}, [])
-	console.log(datesWeek[1], datesWeek[datesWeek.length - 1])
+	}, [startWeek, endWeek])
+
 	return (
 		<section className="week-table">
 			<div className="week-table__inner">
@@ -62,6 +64,7 @@ export const Week = ({ selectedDate }) => {
 															task={task}
 															table={"week-table__day"}
 															key={time.id + task.id}
+															typePopUp="request"
 														/>
 													)
 												}

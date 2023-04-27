@@ -1,3 +1,4 @@
+import { Task } from "Components/Calendar/Task/Task"
 import Axios from "axios"
 import avatarSRC from "images/avatar.png"
 import { useEffect, useState } from "react"
@@ -6,8 +7,6 @@ export const ConfirmationTask = ({ taskData }) => {
 	const VARIABLES = {
 		avatarSRC: avatarSRC,
 		timeComplete: "Сегодня в 11:38",
-		downLoadButton: "Скачать файл",
-		confirmButton: "Подтвердить",
 	}
 	const [reporterData, setReporterData] = useState({
 		rank: "звание",
@@ -19,7 +18,7 @@ export const ConfirmationTask = ({ taskData }) => {
 		Axios.post("/get-name", { userPost: taskData.reporter })
 			.then(res => setReporterData(...res.data))
 			.catch(err => console.log(err))
-	}, [taskData.reporter, reporterData])
+	}, [taskData.reporter])
 	const prepareUserName = () => {
 		return (
 			[
@@ -49,15 +48,12 @@ export const ConfirmationTask = ({ taskData }) => {
 						{VARIABLES.timeComplete}
 					</div> */}
 				</div>
-				<div className="confirmation-task__content">{taskData.description}</div>
-				<div className="confirmation-task__buttons">
-					<button className="confirmation-task__buttons_download-file button-grey">
-						{VARIABLES.downLoadButton}
-					</button>
-					<button className="confirmation-task__buttons_confirm button-grey">
-						{VARIABLES.confirmButton}
-					</button>
-				</div>
+				<Task
+					className="confirmation-task__content"
+					task={taskData}
+					typePopUp="response"
+				/>
+				{/* <div className="confirmation-task__content">{taskData.description}</div> */}
 			</div>
 		</article>
 	)

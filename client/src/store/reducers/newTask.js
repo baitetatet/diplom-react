@@ -7,12 +7,15 @@ export const newTask = createSlice({
 	reducers: {
 		addNewTask: (state, action) => {
 			state.push({ ...action.payload.newTask, stages: action.payload.stages })
-			Axios.post("/new-task", {
-				newTask: action.payload.newTask,
-				stages: action.payload.stages,
-			})
-				.then(res => console.log(res))
-				.catch(err => console.log(err))
+			const involved = action.payload.newTask.involved
+			involved.forEach(confirmer =>
+				Axios.post("/new-task", {
+					newTask: { ...action.payload.newTask, confirmer: confirmer },
+					stages: action.payload.stages,
+				})
+					.then(res => console.log(res))
+					.catch(err => console.log(err))
+			)
 		},
 	},
 })

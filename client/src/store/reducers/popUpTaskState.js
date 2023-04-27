@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import Axios from "axios"
-// Добавить stages в activeTask
 
 export const statusTask = createAsyncThunk(
 	"popUpTaskState/statusTask",
@@ -23,12 +22,16 @@ export const popUpTaskState = createSlice({
 		activeTask: {},
 		taskStatus: "inProcessing",
 		stages: [],
+		typePopUp: "",
 	},
 	reducers: {
 		changePopUpTaskState: (state, action) => {
 			state.popUpTaskActive = action.payload.popUpTaskActive
-			if (action.payload.popUpTaskActive)
+			if (action.payload.popUpTaskActive) {
 				state.activeTask = action.payload.activeTask
+				state.taskStatus = action.payload.activeTask.status
+				state.typePopUp = action.payload.typePopUp
+			}
 		},
 		confirmStageTask: (state, action) => {
 			const stage = action.payload.stage

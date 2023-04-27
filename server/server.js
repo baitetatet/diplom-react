@@ -84,7 +84,7 @@ app.post("/day-tasks", (req, res) => {
 	const currentDate = req.body.currentDate
 
 	db.query(
-		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start = ?',
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND t.confirmer = user.post AND date_start = ? AND t.status != "confirmed"',
 		[loggedUser, currentDate],
 		(err, result) => {
 			if (err) console.log(err)
@@ -99,7 +99,7 @@ app.post("/week-tasks", (req, res) => {
 	const endWeek = req.body.endWeek
 
 	db.query(
-		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id AND date_start >= ? AND date_start <= ?',
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND t.confirmer = user.post AND date_start >= ? AND date_start <= ?',
 		[loggedUser, startWeek, endWeek],
 		(err, result) => {
 			if (err) console.log(err)
@@ -111,7 +111,7 @@ app.post("/week-tasks", (req, res) => {
 app.get("/get-tasks", (req, res) => {
 	const loggedUser = req.signedCookies.logged
 	db.query(
-		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND inv_usr.user_id = user.id',
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND t.confirmer = user.post',
 		[loggedUser],
 		(err, result) => {
 			if (err) console.log(err)
@@ -124,7 +124,7 @@ app.post("/new-task", async (req, res) => {
 	const newTask = req.body.newTask
 	const stages = req.body.stages
 	db.query(
-		"INSERT task (description,director,date_start,date_end,time_start,time_end, place, reporter) VALUES (?,?,?,?,?,?,?,?)",
+		"INSERT task (description,director,date_start,date_end,time_start,time_end, place, reporter, confirmer) VALUES (?,?,?,?,?,?,?,?,?)",
 		[
 			newTask.description,
 			newTask.director,
@@ -134,6 +134,7 @@ app.post("/new-task", async (req, res) => {
 			newTask.timeEnd,
 			newTask.place,
 			newTask.reporter,
+			newTask.confirmer,
 		],
 		(err, result) => {
 			if (err) console.log(err)
@@ -303,6 +304,18 @@ app.post("/insert_data", (req, res) => {
 		"INSERT INTO subordinated VALUES (?,?)",
 		[target, count],
 		(err, result) => {
+			if (err) console.log(err)
+			res.send(result)
+		}
+	)
+})
+app.post("/post-file", (req, res) => {
+	const { file, taskId, stageId } = req.body
+	console.log("file: ", file.get("file"))
+	db.query(
+		"UPDATE stage SET file = ? WHERE id = ? AND task_id = ?",
+		[file, stageId, taskId],
+		(result, err) => {
 			if (err) console.log(err)
 			res.send(result)
 		}

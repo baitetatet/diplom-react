@@ -11,14 +11,13 @@ const TaskVariant = ({
 			event.target.classList.value.includes("task-variant__header") ||
 			event.target.nodeName === "SPAN"
 		) {
-			console.log("taskType: ", tasksType)
-			console.log("activeTaskVariant: ", activeTaskVariant)
 			setActiveTaskVariant(
 				activeTaskVariant === tasksType.type ? "" : tasksType.type
 			)
 		}
 	}
 	const tasks = useSelector(state => state.taskByType[tasksType.type])
+
 	return (
 		<article
 			className={`tasks__task-variant${
@@ -39,7 +38,12 @@ const TaskVariant = ({
 				</div>
 				<div className="tasks__task-variant__content">
 					{tasks.map(task => (
-						<Task table={"tasks"} task={task} key={task.id} />
+						<Task
+							table={"tasks"}
+							task={task}
+							key={task.id}
+							typePopUp="request"
+						/>
 					))}
 				</div>
 			</div>

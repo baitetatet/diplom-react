@@ -3,8 +3,9 @@ import { useEffect, useState } from "react"
 import { dateInterval } from "hooks/converterTimeInterval"
 import { PopUpTaskContentButtons } from "./PopUpTaskContentButtons/PopUpTaskContentButtons"
 import { useSelector } from "react-redux"
+import { PopUpTaskContentButtonsResponse } from "./PopUpTaskContentButtonsResponse/PopUpTaskContentButtonsResponse"
 
-export const PopUpTaskContent = () => {
+export const PopUpTaskContent = ({ typePopUp }) => {
 	const taskId = useSelector(state => state.popUpTaskState.activeTask.id)
 	const [stages, setStages] = useState([])
 	const VARIABLES = {
@@ -12,6 +13,8 @@ export const PopUpTaskContent = () => {
 		postFile: "Прикрепить файл",
 		confirmTask: "Выполнить",
 		onConfirmationTask: "Выполнено",
+		downloadFile: "Скачать файл",
+		confirm: "Подтвердить",
 	}
 
 	useEffect(() => {
@@ -33,7 +36,11 @@ export const PopUpTaskContent = () => {
 							)}
 						</div>
 						<p className="category__content_description">{stage.description}</p>
-						<PopUpTaskContentButtons stage={stage} VARIABLES={VARIABLES} />
+						{typePopUp === "request" ? (
+							<PopUpTaskContentButtons stage={stage} VARIABLES={VARIABLES} />
+						) : (
+							<PopUpTaskContentButtonsResponse />
+						)}
 					</div>
 				))}
 			</div>

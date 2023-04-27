@@ -1,7 +1,7 @@
 import { PopUpTaskContent } from "../PopUpTaskContent/PopUpTaskContent"
 import { PopUpTaskDescriptionCategory } from "./PopUpTaskDescriptionCategory"
 
-export const PopUpTaskDescription = () => {
+export const PopUpTaskDescription = ({ typePopUp }) => {
 	const CATEGORY = [
 		"director",
 		"involved",
@@ -16,7 +16,7 @@ export const PopUpTaskDescription = () => {
 			{CATEGORY.map(category => (
 				<PopUpTaskDescriptionCategory category={category} key={category} />
 			))}
-			<PopUpTaskContent />
+			<PopUpTaskContent typePopUp={typePopUp} />
 		</div>
 	)
 }

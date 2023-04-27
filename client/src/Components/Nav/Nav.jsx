@@ -22,7 +22,7 @@ export const Nav = () => {
 			path: "/new-task",
 		},
 		{
-			text: "Задачи на подтверждение",
+			text: "Задачи для подтверждения",
 			img: imgCheck,
 			path: "/confirmation-tasks",
 		},

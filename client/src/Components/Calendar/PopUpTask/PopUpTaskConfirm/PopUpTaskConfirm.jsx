@@ -3,9 +3,10 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { changeTaskStatus } from "store/reducers/popUpTaskState"
 
-export const PopUpTaskConfirm = () => {
+export const PopUpTaskConfirm = ({ typePopUp }) => {
 	const { taskStatus, taskId, stages } = useSelector(state => ({
-		taskStatus: state.popUpTaskState.taskStatus,
+		taskStatus:
+			typePopUp === "response" ? "confirmed" : state.popUpTaskState.taskStatus,
 		taskId: state.popUpTaskState.activeTask.id,
 		stages: state.popUpTaskState.stages,
 	}))
@@ -13,9 +14,7 @@ export const PopUpTaskConfirm = () => {
 		inProcessing: "Выполните все этапы",
 		readyForConfirmation: "Отправить на проверку",
 		onConfirmation: "На проверке",
-	}
-	const sendOnConfirmation = taskId => {
-		dispatch(changeTaskStatus({ taskId: taskId, taskStatus: "onConfirmation" }))
+		confirmed: "Подтвердить",
 	}
 
 	const dispatch = useDispatch()
@@ -28,16 +27,22 @@ export const PopUpTaskConfirm = () => {
 				.catch(err => console.log(err))
 	}, [taskId, taskStatus, dispatch, stages])
 
-	const handlerClickTaskConfirm = () => {
-		taskStatus === "readyForConfirmation" && sendOnConfirmation(taskId)
-	}
 	return (
 		<div
 			className={`calendar__task_confirm button-green ${
-				taskStatus === "inProcessing" && "button-confirm"
+				["onConfirmation", "inProcessing"].includes(taskStatus) &&
+				"button-confirm"
 			}`}
 			style={{ textAlign: "center", marginBottom: "0px", marginTop: "auto" }}
-			onClick={handlerClickTaskConfirm}
+			onClick={() =>
+				dispatch(
+					changeTaskStatus({
+						taskId: taskId,
+						taskStatus:
+							taskStatus === "confirmed" ? taskStatus : "onConfirmation",
+					})
+				)
+			}
 		>
 			{VARIABLES[taskStatus]}
 		</div>

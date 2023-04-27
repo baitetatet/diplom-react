@@ -5,7 +5,8 @@ import Axios from "axios"
 
 export const ConfirmationTasks = () => {
 	const VARIABLES = {
-		componentTitle: "Задачи на подтверждение",
+		componentTitle: "Задачи для подтверждения",
+		confirmationTasksEmpty: "На данный момент задач для подтверждения нет.",
 	}
 	const { userData } = useContext(UserData)
 	const [confirmationTasks, setConfirmationTasks] = useState([])
@@ -15,6 +16,7 @@ export const ConfirmationTasks = () => {
 			.then(res => setConfirmationTasks(res.data))
 			.catch(err => console.log(err))
 	}, [userData.id])
+
 	return (
 		<section className="confirmation-tasks">
 			<div className="confirmation-tasks__inner">
@@ -24,9 +26,15 @@ export const ConfirmationTasks = () => {
 					</h2>
 				</div>
 				<div className="confirmation-tasks__content">
-					{confirmationTasks.map(task => (
-						<ConfirmationTask taskData={task} key={task.id} />
-					))}
+					{confirmationTasks.length ? (
+						confirmationTasks.map(task => (
+							<ConfirmationTask taskData={task} key={task.id} />
+						))
+					) : (
+						<div className="confirmation-tasks__content_empty">
+							{VARIABLES.confirmationTasksEmpty}
+						</div>
+					)}
 				</div>
 			</div>
 		</section>

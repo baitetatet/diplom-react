@@ -6,6 +6,7 @@ export const taskByType = createSlice({
 		actualTask: [],
 		overdueTask: [],
 		onConfirmationTask: [],
+		confirmedTask: [],
 	},
 	reducers: {
 		addTask: (state, action) => {

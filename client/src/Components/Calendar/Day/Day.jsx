@@ -34,6 +34,7 @@ export const Day = ({ selectedDate }) => {
 												task={task}
 												table={"day-table"}
 												key={task.description + task.date_start}
+												typePopUp="request"
 											/>
 										)
 									}
