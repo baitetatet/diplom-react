@@ -7,7 +7,7 @@ export const dateFormat = date => {
 	].join("-")
 }
 export const timeFormat = date => {
-	return [date.getHours(), date.getMinutes(), date.getSeconds()].join(":")
+	return [date.getHours(), date.getMinutes()].join(":")
 }
 
 export const dateFormatForConfirmationTask = data => {

@@ -16,10 +16,10 @@ export const ConfirmationTask = ({ taskData }) => {
 		post: "Должность",
 	})
 	useEffect(() => {
-		Axios.post("/get-name", { userPost: taskData.reporter })
+		Axios.post("/get-name", { userPost: taskData.confirmer })
 			.then(res => setReporterData(...res.data))
 			.catch(err => console.log(err))
-	}, [taskData.reporter])
+	}, [taskData.confirmer])
 	const prepareUserName = () => {
 		return (
 			[
