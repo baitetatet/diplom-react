@@ -249,6 +249,16 @@ app.post("/change-task-status", (req, res) => {
 		}
 	)
 })
+app.post("/send-on-confirmation", (req, res) => {
+	const taskId = req.body.taskId
+	const taskStatus = req.body.taskStatus
+	const timeComplete = req.body.timeComplete
+	db.query("UPDATE task SET time_complete = ?, status = ? WHERE id = ?", [
+		timeComplete,
+		taskStatus,
+		taskId,
+	])
+})
 app.post("/confirmation-tasks", (req, res) => {
 	const userId = req.body.userId
 	db.query(

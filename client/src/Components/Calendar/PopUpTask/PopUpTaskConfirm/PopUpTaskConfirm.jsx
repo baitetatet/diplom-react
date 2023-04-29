@@ -1,7 +1,11 @@
 import Axios from "axios"
+import { dateFormat, timeFormat } from "hooks/date"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { changeTaskStatus } from "store/reducers/popUpTaskState"
+import {
+	changeTaskStatus,
+	sendOnConfirmation,
+} from "store/reducers/popUpTaskState"
 
 export const PopUpTaskConfirm = ({ typePopUp }) => {
 	const { taskStatus, taskId, stages } = useSelector(state => ({
@@ -27,6 +31,27 @@ export const PopUpTaskConfirm = ({ typePopUp }) => {
 				.catch(err => console.log(err))
 	}, [taskId, taskStatus, dispatch, stages])
 
+	const handlerClickButton = event => {
+		if (taskStatus === "confirmed") {
+			dispatch(
+				changeTaskStatus({
+					taskId: taskId,
+					taskStatus: taskStatus,
+				})
+			)
+		} else {
+			dispatch(
+				sendOnConfirmation({
+					taskId: taskId,
+					taskStatus: "onConfirmation",
+					timeComplete: [dateFormat(new Date()), timeFormat(new Date())].join(
+						" "
+					),
+				})
+			)
+		}
+	}
+
 	return (
 		<div
 			className={`calendar__task_confirm button-green ${
@@ -34,15 +59,7 @@ export const PopUpTaskConfirm = ({ typePopUp }) => {
 				"button-confirm"
 			}`}
 			style={{ textAlign: "center", marginBottom: "0px", marginTop: "auto" }}
-			onClick={() =>
-				dispatch(
-					changeTaskStatus({
-						taskId: taskId,
-						taskStatus:
-							taskStatus === "confirmed" ? taskStatus : "onConfirmation",
-					})
-				)
-			}
+			onClick={handlerClickButton}
 		>
 			{VARIABLES[taskStatus]}
 		</div>

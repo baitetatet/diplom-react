@@ -2,6 +2,7 @@ import { Task } from "Components/Calendar/Task/Task"
 import Axios from "axios"
 import avatarSRC from "images/avatar.png"
 import { useEffect, useState } from "react"
+import { dateFormatForConfirmationTask } from "hooks/date"
 
 export const ConfirmationTask = ({ taskData }) => {
 	const VARIABLES = {
@@ -44,9 +45,9 @@ export const ConfirmationTask = ({ taskData }) => {
 							{prepareUserName()}
 						</div>
 					</div>
-					{/* <div className="confirmation-task__time-complete">
-						{VARIABLES.timeComplete}
-					</div> */}
+					<div className="confirmation-task__time-complete">
+						{dateFormatForConfirmationTask(taskData.time_complete)}
+					</div>
 				</div>
 				<Task
 					className="confirmation-task__content"

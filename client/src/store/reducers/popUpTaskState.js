@@ -53,10 +53,23 @@ export const popUpTaskState = createSlice({
 				.then(res => console.log(res))
 				.catch(err => console.log(err))
 		},
+		sendOnConfirmation: (state, action) => {
+			state.taskStatus = action.payload.taskStatus
+			const taskId = action.payload.taskId
+			Axios.post("/send-on-confirmation", {
+				taskId: taskId,
+				taskStatus: state.taskStatus,
+				timeComplete: action.payload.timeComplete,
+			})
+		},
 	},
 })
 
-export const { changePopUpTaskState, confirmStageTask, changeTaskStatus } =
-	popUpTaskState.actions
+export const {
+	changePopUpTaskState,
+	confirmStageTask,
+	changeTaskStatus,
+	sendOnConfirmation,
+} = popUpTaskState.actions
 
 export default popUpTaskState.reducer
