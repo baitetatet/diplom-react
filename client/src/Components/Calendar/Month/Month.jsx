@@ -12,7 +12,6 @@ export const Month = ({ selectedDate, month, getDayTable, table }) => {
 		dateForBuildingTable.setDate(dateForBuildingTable.getDate() + 1)
 		const dataDateDay = dateForBuildingTable.getDate()
 		const dataDateMonth = dateForBuildingTable.getMonth() + 1
-		const dataDateYear = dateForBuildingTable.getFullYear()
 
 		daysList.push(
 			<div

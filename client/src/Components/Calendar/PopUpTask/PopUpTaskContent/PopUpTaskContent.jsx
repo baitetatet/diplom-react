@@ -39,7 +39,7 @@ export const PopUpTaskContent = ({ typePopUp }) => {
 						{typePopUp === "request" ? (
 							<PopUpTaskContentButtons stage={stage} VARIABLES={VARIABLES} />
 						) : (
-							<PopUpTaskContentButtonsResponse />
+							<PopUpTaskContentButtonsResponse stage={stage} />
 						)}
 					</div>
 				))}

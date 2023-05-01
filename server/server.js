@@ -5,6 +5,9 @@ const server = require("http").createServer(app)
 const mysql = require("mysql")
 const cookieParser = require("cookie-parser")
 const uuidv4 = require("uuid").v4
+const fileUpload = require("express-fileupload")
+const multer = require("multer")
+const upload = multer({ dest: "uploads/" })
 
 const db = mysql.createConnection({
 	user: "root",
@@ -22,6 +25,7 @@ app.use(
 )
 app.use(express.json())
 app.use(cookieParser("82e4e438a0705fabf61f9854e3b575af"))
+app.use(fileUpload())
 
 app.get("/", (req, res) => {
 	console.log("Server!")
@@ -303,7 +307,6 @@ app.post("/get-name", (req, res) => {
 	const userPost = req.body.userPost
 	db.query("SELECT * FROM user WHERE post = ?", [userPost], (err, result) => {
 		if (err) console.log(err)
-		console.log(result)
 		res.send(result)
 	})
 })
@@ -319,17 +322,48 @@ app.post("/insert_data", (req, res) => {
 		}
 	)
 })
+
 app.post("/post-file", (req, res) => {
-	const { file, taskId, stageId } = req.body
-	console.log("file: ", file.get("file"))
+	const { taskId, stageId } = req.body
+	const uploadedFile = req.files.file
+	console.log("POST_FILE!@!!!")
+	const uploadPath = __dirname + "/uploads/" + uploadedFile.name
+
+	uploadedFile.mv(uploadPath, err => {
+		if (err) {
+			console.log(err)
+			console.log("Failed!")
+		} else console.log("Successfully upload!")
+	})
+	console.log(typeof uploadPath)
+
 	db.query(
 		"UPDATE stage SET file = ? WHERE id = ? AND task_id = ?",
-		[file, stageId, taskId],
-		(result, err) => {
+		[uploadedFile.name, stageId, taskId],
+		(err, result) => {
 			if (err) console.log(err)
 			res.send(result)
 		}
 	)
+})
+app.post("/set-active-stage-for-download", (req, res) => {
+	const stageId = req.body.stageId
+	res
+		.cookie("stageId", stageId, {
+			httpOnly: true,
+			signed: true,
+		})
+		.send("STAGE SET!")
+})
+
+app.get("/stage-file", (req, res) => {
+	const stageId = req.signedCookies.stageId
+	const filePath = __dirname + "/uploads/"
+	db.query("SELECT file FROM stage WHERE id = ?", [stageId], (err, result) => {
+		if (err) console.log(err)
+		res.clearCookie("stageId")
+		res.download(filePath + result[0].file, result[0].file)
+	})
 })
 
 server.listen(8000, err => {

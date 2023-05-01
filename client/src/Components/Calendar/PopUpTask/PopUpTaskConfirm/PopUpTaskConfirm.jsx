@@ -50,6 +50,7 @@ export const PopUpTaskConfirm = ({ typePopUp }) => {
 				})
 			)
 		}
+		window.location.reload()
 	}
 
 	return (
