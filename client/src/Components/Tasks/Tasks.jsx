@@ -16,16 +16,16 @@ const Tasks = () => {
 				title: "Актуальные",
 			},
 			{
-				type: "overdueTask",
-				title: "Просроченные",
-			},
-			{
 				type: "onConfirmationTask",
 				title: "На проверке",
 			},
 			{
 				type: "confirmedTask",
 				title: "Завершенные",
+			},
+			{
+				type: "overdueTask",
+				title: "Просроченные",
 			},
 		],
 	}

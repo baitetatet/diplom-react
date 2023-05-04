@@ -6,12 +6,10 @@ const mysql = require("mysql")
 const cookieParser = require("cookie-parser")
 const uuidv4 = require("uuid").v4
 const fileUpload = require("express-fileupload")
-const multer = require("multer")
-const upload = multer({ dest: "uploads/" })
 
 const db = mysql.createConnection({
 	user: "root",
-	host: "localhost",
+	host: "127.0.0.1",
 	password: "12345678",
 	database: "mydb",
 })
@@ -38,7 +36,7 @@ app.get("/check-logged", (req, res) => {
 		[req.signedCookies.logged],
 		(err, result) => {
 			if (err) console.log(err)
-			res.send(result.length !== 0 ? result : "false")
+			res.send(result ? result : "false")
 		}
 	)
 })
@@ -128,7 +126,7 @@ app.post("/new-task", async (req, res) => {
 	const newTask = req.body.newTask
 	const stages = req.body.stages
 	db.query(
-		"INSERT task (description,director,date_start,date_end,time_start,time_end, place, reporter, confirmer) VALUES (?,?,?,?,?,?,?,?,?)",
+		"INSERT task (description,director,date_start,date_end,time_start,time_end, place, reporter, confirmer, commander) VALUES (?,?,?,?,?,?,?,?,?,?)",
 		[
 			newTask.description,
 			newTask.director,
@@ -139,6 +137,7 @@ app.post("/new-task", async (req, res) => {
 			newTask.place,
 			newTask.reporter,
 			newTask.confirmer,
+			newTask.commander,
 		],
 		(err, result) => {
 			if (err) console.log(err)
@@ -266,7 +265,7 @@ app.post("/send-on-confirmation", (req, res) => {
 app.post("/confirmation-tasks", (req, res) => {
 	const userId = req.body.userId
 	db.query(
-		"SELECT * FROM task WHERE status = 'onConfirmation' AND director = (SELECT post FROM user WHERE id = ?)",
+		"SELECT * FROM task WHERE status = 'onConfirmation' AND commander = ?",
 		[userId],
 		(err, result) => {
 			if (err) console.log(err)

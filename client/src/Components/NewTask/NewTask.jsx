@@ -5,10 +5,11 @@ import { NewTaskReporter } from "./NewTaskReporter/NewTaskReporter"
 import { NewTaskTime } from "./NewTaskTime/NewTaskTime"
 import { NewTaskStages } from "./NewTaskStages/NewTaskStages"
 import { NewTaskDate } from "./NewTaskDate/NewTaskDate"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { useDispatch } from "react-redux"
 import { addNewTask } from "../../store/reducers/newTask"
 import { NewTaskPlace } from "./NewTaskPlace/NewTaskPlace"
+import { UserData } from "UserDataContext"
 
 export const NewTask = () => {
 	const VARIABLES = {
@@ -16,6 +17,7 @@ export const NewTask = () => {
 		placeTitle: "Место:",
 		timeTitle: "Время:",
 	}
+	const { userData } = useContext(UserData)
 	const dispatch = useDispatch()
 	const [stages, setStages] = useState([])
 
@@ -54,6 +56,7 @@ export const NewTask = () => {
 					timeEnd: timeEnd.value ? timeEnd.value : timeEnd.value,
 					involved: filterInvolved(involved),
 					reporter: reporter.value,
+					commander: userData.id,
 				},
 				stages: stages,
 			})
@@ -61,7 +64,7 @@ export const NewTask = () => {
 		resetForm(event)
 	}
 
-	const resetForm = (event) => {
+	const resetForm = event => {
 		event.target.reset()
 		setStages([])
 	}
@@ -89,14 +92,14 @@ export const NewTask = () => {
 					<div className="new-task__buttons">
 						<div
 							className="new-task__buttons_reset button-red"
-							onClick={(event) => resetForm(event)}
+							onClick={event => resetForm(event)}
 						>
 							Сброс
 						</div>
 						<input
 							className="new-task__buttons_submit button-green"
 							type="submit"
-							value={'Отправить'}
+							value={"Отправить"}
 						/>
 					</div>
 				</form>
