@@ -25,7 +25,7 @@ export const ConfirmationTask = ({ taskData }) => {
 			[
 				reporterData.rank.toLowerCase(),
 				reporterData.surname,
-				reporterData.name[0] + ".",
+				reporterData.name[0] + ". ",
 			].join(" ") +
 			"(" +
 			reporterData.post +
@@ -54,7 +54,6 @@ export const ConfirmationTask = ({ taskData }) => {
 					task={taskData}
 					typePopUp="response"
 				/>
-				{/* <div className="confirmation-task__content">{taskData.description}</div> */}
 			</div>
 		</article>
 	)

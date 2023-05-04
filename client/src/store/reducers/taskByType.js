@@ -16,8 +16,13 @@ export const taskByType = createSlice({
 			)
 			!uniqueTask && state[typeTask].push(action.payload[typeTask])
 		},
+		clearTypes: state => {
+			for (let type in state) {
+				state[type] = []
+			}
+		},
 	},
 })
 
-export const { addTask } = taskByType.actions
+export const { addTask, clearTypes } = taskByType.actions
 export default taskByType.reducer

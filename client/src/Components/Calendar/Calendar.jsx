@@ -11,7 +11,24 @@ import { Year } from "Components/Calendar/Year/Year"
 export const Calendar = () => {
 	const [selectedDate, setSelectedDate] = useState(new Date())
 	const [activeTable, setActiveTable] = useState("День")
-
+	const OPTION_VALUES = [
+		{
+			id: "day",
+			post: "День",
+		},
+		{
+			id: "week",
+			post: "Неделя",
+		},
+		{
+			id: "month",
+			post: "Месяц",
+		},
+		{
+			id: "year",
+			post: "Год",
+		},
+	]
 	const dateType = {
 		День: selectedDate.toLocaleString("ru", {
 			weekday: "short",
@@ -91,9 +108,10 @@ export const Calendar = () => {
 	return (
 		<div className="calendar">
 			<SelectFormatTable
-				className="calendar__select-format"
+				classN={"calendar__select-format"}
 				activeTable={activeTable}
 				setActiveTable={setActiveTable}
+				optionValues={OPTION_VALUES}
 			/>
 			<div className="calendar__content">
 				<ChangeDate

@@ -1,13 +1,19 @@
 import Axios from "axios"
 import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
-import { addTask } from "store/reducers/taskByType"
+import { addTask, clearTypes } from "store/reducers/taskByType"
 import { dateFormat } from "hooks/date"
 import TaskVariant from "./TaskVariant/TaskVariant"
+import { SelectFormatTable } from "Components/Calendar/SelectFormatTable/SelectFormatTable"
+import { useContext } from "react"
+import { UserData } from "UserDataContext"
 
 const Tasks = () => {
+	const { userData } = useContext(UserData)
 	const [tasks, setTasks] = useState([])
+	const [optionValues, setOptionValues] = useState([])
 	const [activeTaskVariant, setActiveTaskVariant] = useState()
+	const [activeUser, setActiveUser] = useState(userData.post)
 	const VARIABLES = {
 		title: "Задачи",
 		taskVariants: [
@@ -31,15 +37,21 @@ const Tasks = () => {
 	}
 
 	useEffect(() => {
-		Axios.get("/get-tasks")
+		Axios.get("/get_involved")
+			.then(res =>
+				setOptionValues([{ id: userData.id, post: userData.post }, ...res.data])
+			)
+			.catch(err => console.log(err))
+		Axios.post("/get-tasks", { userPost: activeUser })
 			.then(res => {
-				setTasks(res.data)
+				setTasks([...res.data])
 			})
 			.catch(err => console.log(err))
-	}, [])
+	}, [activeUser, userData.id, userData.post])
 
 	const dispatch = useDispatch()
 	useEffect(() => {
+		dispatch(clearTypes())
 		tasks.forEach(task => {
 			if (task.status === "onConfirmation") {
 				dispatch(
@@ -49,7 +61,6 @@ const Tasks = () => {
 					})
 				)
 			} else if (task.status === "confirmed") {
-				console.log(task)
 				dispatch(
 					addTask({
 						type: "confirmedTask",
@@ -72,6 +83,12 @@ const Tasks = () => {
 
 	return (
 		<section className="tasks">
+			<SelectFormatTable
+				activeTable={activeUser}
+				setActiveTable={setActiveUser}
+				classN={"tasks__select-format"}
+				optionValues={optionValues}
+			/>
 			<div className="tasks__inner">
 				<div className="tasks__header">
 					<h2 className="tasks__header_title">{VARIABLES.title}</h2>

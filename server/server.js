@@ -110,11 +110,11 @@ app.post("/week-tasks", (req, res) => {
 	)
 })
 
-app.get("/get-tasks", (req, res) => {
-	const loggedUser = req.signedCookies.logged
+app.post("/get-tasks", (req, res) => {
+	const userPost = req.body.userPost
 	db.query(
-		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.cookie_password = ? AND t.confirmer = user.post',
-		[loggedUser],
+		'SELECT DISTINCT t.id, t.description, t.director, t.place, DATE_FORMAT(t.date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(t.date_end, "%Y-%m-%d") AS date_end, TIME_FORMAT(t.time_start, "%H:%i") AS time_start, TIME_FORMAT(t.time_end, "%H:%i") AS time_end, t.place, t.reporter, t.status FROM task t, user, involved_user inv_usr WHERE user.post = ? AND t.confirmer = user.post',
+		[userPost],
 		(err, result) => {
 			if (err) console.log(err)
 			res.send(result)

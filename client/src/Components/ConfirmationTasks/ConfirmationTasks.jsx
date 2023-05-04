@@ -12,12 +12,11 @@ export const ConfirmationTasks = () => {
 	const [confirmationTasks, setConfirmationTasks] = useState([])
 
 	useEffect(() => {
-		console.log(userData.id)
 		Axios.post("/confirmation-tasks", { userId: userData.id })
 			.then(res => setConfirmationTasks(res.data))
 			.catch(err => console.log(err))
 	}, [userData.id])
-	console.log(confirmationTasks)
+
 	return (
 		<section className="confirmation-tasks">
 			<div className="confirmation-tasks__inner">
