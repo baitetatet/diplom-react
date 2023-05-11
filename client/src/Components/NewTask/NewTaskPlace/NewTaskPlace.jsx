@@ -11,6 +11,7 @@ export const NewTaskPlace = () => {
 					type="text"
 					name="place"
 					id="place"
+					placeholder="Введите место проведения"
 					required
 				/>
 			</label>

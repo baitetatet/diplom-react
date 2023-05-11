@@ -7,7 +7,12 @@ export const NewTaskDescription = () => {
 		<div className="new-task__description">
 			<label htmlFor="description">
 				<h3 className="new-task__description_title">{VARIABLES.title}</h3>
-				<textarea name="description" id="description" required />
+				<textarea
+					name="description"
+					id="description"
+					placeholder="Введите описание задачи"
+					required
+				/>
 			</label>
 		</div>
 	)

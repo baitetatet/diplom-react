@@ -18,7 +18,7 @@ export const App = () => {
 	const [userData, setUserData] = useState(null)
 	const popUpTaskState = state => state.popUpTaskState
 	const { popUpTaskActive } = useSelector(popUpTaskState)
-
+	console.log(isLogged)
 	useEffect(() => {
 		Axios.get("/check-logged")
 			.then(res => {

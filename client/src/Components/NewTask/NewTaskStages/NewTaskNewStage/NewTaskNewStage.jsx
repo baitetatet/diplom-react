@@ -61,6 +61,7 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 					<textarea
 						className="new-task__stages__new-stage__description_textarea"
 						onChange={event => handlerChangeDescription(event)}
+						placeholder="Введите описание этапа"
 						required
 					/>
 				</div>

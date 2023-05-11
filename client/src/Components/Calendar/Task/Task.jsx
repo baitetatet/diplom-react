@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux"
 import { changePopUpTaskState } from "store/reducers/popUpTaskState"
 import Axios from "axios"
+import { dateFormat } from "hooks/date"
 
 export const Task = props => {
 	const taskType = {
@@ -29,7 +30,7 @@ export const Task = props => {
 	}
 	const selectStatusTask = task => {
 		if (
-			new Date(task.date_end) < new Date() &&
+			task.date_end < dateFormat(new Date()) &&
 			task.status === "inProcessing"
 		) {
 			return "overdueTask"
@@ -41,7 +42,7 @@ export const Task = props => {
 		<div
 			className={
 				props.typePopUp === "response"
-					? "confirmation-task__content"
+					? "confirmation-task__content task yellow"
 					: props.table +
 					  "__list-time__item__content_task task " +
 					  taskType[selectStatusTask(props.task)]

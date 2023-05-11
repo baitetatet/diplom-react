@@ -9,7 +9,7 @@ const fileUpload = require("express-fileupload")
 
 const db = mysql.createConnection({
 	user: "root",
-	host: "127.0.0.1",
+	host: "localhost",
 	password: "12345678",
 	database: "mydb",
 })
@@ -36,7 +36,7 @@ app.get("/check-logged", (req, res) => {
 		[req.signedCookies.logged],
 		(err, result) => {
 			if (err) console.log(err)
-			res.send(result ? result : "false")
+			res.send(result.length ? result : "false")
 		}
 	)
 })
@@ -60,7 +60,6 @@ app.post("/authorization", (req, res) => {
 			if (err) console.log(err)
 			if (result) {
 				const id = uuidv4()
-
 				db.query(
 					"UPDATE user SET cookie_password = ? WHERE login = ?",
 					[id, login],
@@ -297,7 +296,6 @@ app.post("/status-all-stages", (req, res) => {
 		[taskId],
 		(err, result) => {
 			if (err) console.log(err)
-			console.log(result)
 			res.send(result)
 		}
 	)
@@ -325,16 +323,13 @@ app.post("/insert_data", (req, res) => {
 app.post("/post-file", (req, res) => {
 	const { taskId, stageId } = req.body
 	const uploadedFile = req.files.file
-	console.log("POST_FILE!@!!!")
 	const uploadPath = __dirname + "/uploads/" + uploadedFile.name
 
 	uploadedFile.mv(uploadPath, err => {
 		if (err) {
 			console.log(err)
-			console.log("Failed!")
 		} else console.log("Successfully upload!")
 	})
-	console.log(typeof uploadPath)
 
 	db.query(
 		"UPDATE stage SET file = ? WHERE id = ? AND task_id = ?",

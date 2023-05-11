@@ -1504,7 +1504,7 @@ $border: #c5c8c9;
     }
     .tasks__task-variant__content{
       max-height: 400px;
-      overflow: scroll;
+      overflow: auto;
       transition: max-height 1s ease-in-out;
     }
     
