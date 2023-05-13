@@ -208,6 +208,7 @@ $confirm-button-color: #6c6e71;
     }
   }
 @mixin inactive-button{
+  pointer-events: none;
   cursor: not-allowed;
     background-color: $confirm-button-color;
     border: none;
@@ -787,6 +788,9 @@ body {
     }
     &_confirm-task {
       width: 100%;
+    }
+    &_download-file .inactive{
+      @include inactive-button;
     }
 
     &__post-file{

@@ -184,7 +184,7 @@ app.post("/new-task", async (req, res) => {
 app.post("/get-stages", (req, res) => {
 	const taskId = req.body.taskId
 	db.query(
-		'SELECT id, task_id, DATE_FORMAT(date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(date_end, "%Y-%m-%d") AS date_end, description, status FROM stage WHERE task_id = ?',
+		'SELECT id, task_id, DATE_FORMAT(date_start, "%Y-%m-%d") AS date_start, DATE_FORMAT(date_end, "%Y-%m-%d") AS date_end, description, status, file FROM stage WHERE task_id = ?',
 		[taskId],
 		(err, result) => {
 			if (err) console.log(err)
