@@ -27,7 +27,8 @@ export const Day = ({ selectedDate }) => {
 									const contentDiv = []
 									if (
 										task.date_start === currentDate &&
-										task.time_start === time.timeValue
+										task.time_start.split(":")[0] ===
+											time.timeValue.split(":")[0]
 									) {
 										contentDiv.push(
 											<Task

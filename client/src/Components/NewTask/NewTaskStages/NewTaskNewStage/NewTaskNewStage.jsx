@@ -7,6 +7,7 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 	const [startDate, setStartDate] = useState(new Date())
 	const [endDate, setEndDate] = useState(new Date())
 	const [newTaskDescription, setNewTaskDescription] = useState("")
+	const currentDate = dateFormat(new Date())
 
 	const VARIABLES = {
 		descriptionTitle: "Описание:",
@@ -50,7 +51,6 @@ export const NewTaskNewStage = ({ setCreatingStage, stages, setStages }) => {
 		])
 		setCreatingStage(false)
 	}
-	const currentDate = dateFormat(new Date())
 	return (
 		<div className="new-task__stages__new-stage">
 			<div className="new-task__stages__new-stage__inner">

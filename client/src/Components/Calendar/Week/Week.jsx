@@ -57,7 +57,8 @@ export const Week = ({ selectedDate }) => {
 												const contentDiv = []
 												if (
 													task.date_start === datesWeek[title.id] &&
-													task.time_start === time.timeValue
+													task.time_start.split(":")[0] ===
+														time.timeValue.split(":")[0]
 												) {
 													contentDiv.push(
 														<Task

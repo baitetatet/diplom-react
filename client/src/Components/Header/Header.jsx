@@ -5,8 +5,8 @@ import { UserData } from "UserDataContext"
 import Axios from "axios"
 
 export const Header = ({ setLogged }) => {
-	const [time, setTime] = useState(new Date().toLocaleTimeString())
-	const [date, setDate] = useState(new Date().toLocaleDateString())
+	const [time, setTime] = useState()
+	const [date, setDate] = useState()
 	const { userData } = useContext(UserData)
 	const userName = [
 		userData.rank.toLowerCase(),

@@ -8,7 +8,7 @@ export const Loader = () => {
 				<div className="shadow"></div>
 				<div className="shadow"></div>
 				<div className="shadow"></div>
-				<span>Loading</span>
+				<span>Загрузка</span>
 			</div>
 		</div>
 	)
