@@ -101,6 +101,7 @@ const Tasks = () => {
 								key={tasksType.type}
 								activeTaskVariant={activeTaskVariant}
 								setActiveTaskVariant={setActiveTaskVariant}
+								typePopUp={userData.post === activeUser ? "request" : "control"}
 							/>
 						))}
 					</ul>

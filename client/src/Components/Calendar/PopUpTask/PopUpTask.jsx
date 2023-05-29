@@ -30,7 +30,11 @@ export const PopUpTask = () => {
 			<div className="calendar__task__inner calendar__popup__inner">
 				<PopUpTaskHeader description={description} />
 				<PopUpTaskDescription typePopUp={typePopUp} />
-				<PopUpTaskConfirm typePopUp={typePopUp} />
+				{typePopUp === "control" ? (
+					<></>
+				) : (
+					<PopUpTaskConfirm typePopUp={typePopUp} />
+				)}
 			</div>
 		</section>
 	)

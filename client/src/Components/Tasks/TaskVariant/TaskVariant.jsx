@@ -5,6 +5,7 @@ const TaskVariant = ({
 	tasksType,
 	activeTaskVariant,
 	setActiveTaskVariant,
+	typePopUp,
 }) => {
 	const handlerClickTaskVariant = event => {
 		if (
@@ -42,7 +43,7 @@ const TaskVariant = ({
 							table={"tasks"}
 							task={task}
 							key={task.id}
-							typePopUp="request"
+							typePopUp={typePopUp}
 						/>
 					))}
 				</div>
